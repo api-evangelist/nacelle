@@ -1,0 +1,67 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Nacelle
+providerId: nacelle
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Commerce
+- Headless Commerce
+- Composable Commerce
+- GraphQL
+- Plans
+description: >-
+  Nacelle does not publish public, self-serve API pricing. The headless commerce
+  platform (Spaces, Storefront GraphQL API, and Admin indexing pipeline) is sold
+  as an enterprise / sales-quoted contract, historically tied to catalog size,
+  request volume, connected data sources, and the number of Spaces. Pricing is
+  negotiated per-account through Nacelle sales; there is no published free tier
+  or usage-based rate card for the Storefront API.
+notes: >-
+  Nacelle was not acquired; it remained independent and has repositioned around
+  an AI personalization engine. The headless-commerce Storefront/Admin API is a
+  legacy / maintenance-mode product. Any pricing here is directional; confirm
+  current commercial terms and product availability directly with Nacelle.
+sources:
+- https://nacelle.com/
+- https://docs.nacelle.com/
+plans:
+- id: nacelle-enterprise
+  name: Enterprise (Sales-Quoted)
+  type: enterprise
+  description: >-
+    Custom contract covering the Nacelle headless commerce platform - Spaces,
+    the Storefront GraphQL API, the Admin indexing / ingestion API, connected
+    data sources (Shopify, CMS), and support. Priced by negotiation.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  - label: Additional Spaces
+    name: additional_spaces
+    type: flat
+    metric: spaces
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Spaces
+  - name: Storefront GraphQL API
+  - name: Admin Indexing / Ingestion API
+  - name: Data Source Connectors (Shopify, CMS)
+  - name: Support and SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

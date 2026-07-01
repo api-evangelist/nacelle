@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nacelle GraphQL API",
+    "version": "1.0",
+    "description": "GraphQL POST examples for Nacelle's Storefront API and Admin (indexing / ingestion) API. Nacelle is GraphQL-first; no public REST surface exists. Replace SPACE_ID and tokens with your own."
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Storefront",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "allProducts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-space-token", "value": "<PUBLIC_STOREFRONT_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query { allProducts(filter: { first: 5 }) { edges { node { nacelleEntryId handle content { title } variants { sku availableForSale price } } } totalCount } }\"}"
+            }
+          },
+          "docs": "Fetch a page of normalized products."
+        },
+        {
+          "info": {
+            "name": "allProductCollections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-space-token", "value": "<PUBLIC_STOREFRONT_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query { allProductCollections(filter: { first: 10, handles: [\\\"new-arrivals\\\"] }) { edges { node { nacelleEntryId handle content { title } productHandles } } totalCount } }\"}"
+            }
+          },
+          "docs": "Fetch merchandised product collections."
+        },
+        {
+          "info": {
+            "name": "allContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-space-token", "value": "<PUBLIC_STOREFRONT_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query { allContent(filter: { first: 10, type: \\\"page\\\", entryDepth: 4 }) { edges { node { nacelleEntryId handle type title } } totalCount } }\"}"
+            }
+          },
+          "docs": "Fetch ingested CMS content entries."
+        },
+        {
+          "info": {
+            "name": "navigation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-space-token", "value": "<PUBLIC_STOREFRONT_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query { navigation { groupId title items { title url items { title url } } } }\"}"
+            }
+          },
+          "docs": "Fetch navigation groups (menus) for the space."
+        },
+        {
+          "info": {
+            "name": "spaceProperties",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-space-token", "value": "<PUBLIC_STOREFRONT_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query { spaceProperties { id name domain locales defaultLocale currencyCode } }\"}"
+            }
+          },
+          "docs": "Fetch space-level configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Admin (Indexing / Ingestion)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "startIndex",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.api.nacelle.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-admin-token", "value": "<ADMIN_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"mutation { startIndex(input: { dataSourceId: \\\"shopify:my-store\\\" }) { jobId status startedAt } }\"}"
+            }
+          },
+          "docs": "Start (or re-run) an index job. Beta / limited availability."
+        },
+        {
+          "info": {
+            "name": "indexStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.api.nacelle.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "x-nacelle-space-id", "value": "<SPACE_ID>" },
+              { "name": "x-nacelle-admin-token", "value": "<ADMIN_TOKEN>" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query { indexStatus(dataSourceId: \\\"shopify:my-store\\\") { dataSourceId entryType status indexedCount pendingCount lastIndexedAt } }\"}"
+            }
+          },
+          "docs": "Query current indexing status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

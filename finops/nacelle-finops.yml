@@ -1,0 +1,102 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Nacelle
+providerId: nacelle
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Commerce
+- Headless Commerce
+- GraphQL
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Nacelle spend. Nacelle is sold as an enterprise, sales-quoted
+  SaaS subscription rather than a usage-metered API. Cost is a committed platform
+  contract, historically scaled by catalog size, request/traffic volume, number
+  of connected data sources, and number of Spaces. There is no public per-request
+  or per-token rate card for the Storefront GraphQL API, so cost management is
+  about right-sizing the contract and controlling indexing / traffic drivers.
+notes: >-
+  Nacelle was not acquired; it remained independent and pivoted toward an AI
+  personalization engine. The headless-commerce Storefront/Admin API is a legacy
+  / maintenance-mode product. Meters below are modeling constructs for internal
+  showback, not Nacelle-published billing dimensions.
+sources:
+- https://nacelle.com/
+- https://docs.nacelle.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Nacelle
+serviceCategory: Commerce and Content Infrastructure
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+focusColumns:
+  ServiceName: Nacelle Headless Commerce Platform
+  ServiceCategory: Commerce and Content Infrastructure
+  ProviderName: Nacelle
+  PublisherName: Nacelle
+  InvoiceIssuerName: Nacelle
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: platform_subscription
+  description: Committed annual platform subscription for the Nacelle contract.
+  unit: contract
+  aggregation: flat
+  dimensions:
+  - account
+- name: spaces
+  description: Number of Nacelle Spaces provisioned under the account.
+  unit: spaces
+  aggregation: sum
+  dimensions:
+  - account
+- name: storefront_requests
+  description: Storefront GraphQL API request volume (a cost/traffic driver in contract sizing).
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - space
+- name: indexed_entries
+  description: Count of indexed product / collection / content entries per space.
+  unit: entries
+  aggregation: sum
+  dimensions:
+  - account
+  - space
+  - entryType
+- name: data_sources
+  description: Number of connected data sources (Shopify, CMS) feeding the index.
+  unit: sources
+  aggregation: sum
+  dimensions:
+  - account
+  - space
+principles:
+- name: Visibility
+  description: Track Storefront request volume and indexed-entry counts per space against contract assumptions.
+- name: Allocation
+  description: Map Spaces and data sources to internal brands / teams / cost centers.
+- name: Optimization
+  description: Lean on APQ / CDN edge caching to cut origin traffic; prune stale indexed entries and unused data sources; consolidate Spaces where possible.
+- name: Accountability
+  description: Assign an owner per Space; review request and index growth before contract renewal to right-size the commitment.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

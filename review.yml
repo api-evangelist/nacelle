@@ -1,0 +1,102 @@
+aid: nacelle
+name: Nacelle
+review:
+  question: What is Nacelle's current status, and what is the real state of its public commerce API?
+  answer: >-
+    Nacelle is an independent company (NOT acquired) that has pivoted from a
+    headless / composable commerce platform to an AI personalization engine; its
+    headless-commerce Storefront GraphQL API is now a legacy / maintenance-mode
+    product served as GraphQL-first with no public REST surface.
+  date: '2026-07-01'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    Nacelle (nacelle.com) launched as a headless / composable commerce data
+    platform: it ingests, normalizes, and indexes commerce data (Shopify) and
+    content (Contentful and other CMS sources) per Space, and serves it back to
+    headless storefronts through a fast GraphQL Storefront API.
+
+    Corporate status: Nacelle was NOT acquired. Founded in 2019, it raised an
+    $18M Series A (Jan 2021) and a $50M Series B (Aug 2021, led by Tiger Global),
+    ~$72.8M total. Contrary to the acquisition premise, public records show the
+    company remained independent and has repositioned around an AI personalization
+    engine for e-commerce customer acquisition. The original headless-commerce
+    Storefront API is therefore best treated as a legacy / maintenance-mode
+    product rather than a freshly-live, actively-expanding API.
+
+    API surface: Nacelle is GraphQL-first. The Storefront GraphQL API
+    (POST https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>)
+    exposes allProducts, allProductCollections, allContent, navigation, and
+    spaceProperties. A separate Admin GraphQL API
+    (POST https://admin.api.nacelle.com/graphql) drives the indexing / ingestion
+    pipeline and is documented as a beta / limited-availability feature. The docs
+    publish both a "stable" and a "legacy" version of the Storefront API. No
+    genuine public REST API is documented, so no OpenAPI artifact was produced;
+    the primary spec is a GraphQL schema.
+  transports:
+    - protocol: GraphQL
+      scheme: https
+      baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces/<SPACE_ID>
+      documented: true
+      note: Storefront GraphQL API (products, collections, content, navigation, space properties).
+    - protocol: GraphQL
+      scheme: https
+      baseURL: https://admin.api.nacelle.com/graphql
+      documented: true
+      note: Admin API for indexing / ingestion. Beta / limited availability.
+    - protocol: REST
+      scheme: https
+      documented: false
+      note: No public REST API is documented; Nacelle's data APIs are GraphQL-first.
+  authentication:
+    storefront:
+      - x-nacelle-space-id
+      - x-nacelle-space-token (public storefront token)
+    admin:
+      - x-nacelle-space-id
+      - x-nacelle-admin-token
+  constraints:
+    payloadMaxBytes: 10485760
+    requestTimeoutSeconds: 20
+    caching: Automatic Persisted Queries (APQ), ~60s CDN TTL
+    note: Cannot request both edges and nodes in the same connection.
+  statusFlags:
+    acquired: false
+    independent: true
+    productPivot: Pivoted toward an AI personalization engine.
+    apiLifecycle: Legacy / maintenance-mode Storefront API; both stable and legacy versions documented.
+    adminApiMaturity: Beta / limited availability.
+sources:
+  - url: https://nacelle.com/
+    type: Website
+    note: Current positioning emphasizes an AI personalization engine.
+  - url: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+    type: Documentation
+    note: Storefront GraphQL API (stable) - endpoint, queries, constraints.
+  - url: https://docs.nacelle.com/docs/storefront-graphql-api-legacy
+    type: Documentation
+    note: Legacy version of the Storefront GraphQL API still documented.
+  - url: https://docs.nacelle.com/docs/admin-api
+    type: Documentation
+    note: Admin GraphQL API for indexing / ingestion; beta / limited availability.
+  - url: https://docs.nacelle.com/docs/auth-storefront
+    type: Documentation
+    note: Storefront auth headers (space id + space/public token).
+  - url: https://docs.nacelle.com/docs/spaces
+    type: Documentation
+    note: Spaces concept and space-level configuration.
+  - url: https://techcrunch.com/2021/01/12/e-commerce-infrastructure-startup-nacelle-closes-18m-series-a/
+    type: Article
+    note: $18M Series A (2021); confirms independent funding history, not an acquisition.
+  - url: https://www.crunchbase.com/organization/nacelle
+    type: Reference
+    note: Company profile; no acquisition recorded; ~$72.8M raised across rounds.
+actions:
+  openapiOmitted: true
+  reason: >-
+    Nacelle exposes no documented public REST API; its data APIs are GraphQL-first.
+    The primary specification is graphql/nacelle-schema.graphql, so no OpenAPI
+    artifact was produced (omitted honestly rather than fabricating a REST surface).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,366 @@
+"""
+Nacelle GraphQL Schema
+Representative schema derived from the public Nacelle documentation
+(https://docs.nacelle.com/). Covers the Storefront GraphQL API (products,
+product collections, content, navigation, space properties) and the Admin
+GraphQL API (indexing / ingestion). This captures the real query names,
+arguments, and the shape of the core types, but is not a byte-for-byte
+introspection dump of Nacelle's production schema.
+
+Status note: Nacelle was not acquired; it pivoted toward an AI personalization
+engine, and this headless-commerce Storefront/Admin surface is now a legacy /
+maintenance-mode product.
+"""
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar JSON
+scalar DateTime
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum IndexStatus {
+  QUEUED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  RESET
+}
+
+enum EntryType {
+  PRODUCT
+  PRODUCT_COLLECTION
+  CONTENT
+  NAVIGATION
+  SPACE
+}
+
+# ─────────────────────────────────────────────
+# Shared page / connection types (Relay-style)
+# ─────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ─────────────────────────────────────────────
+# Media & pricing helpers
+# ─────────────────────────────────────────────
+
+type Media {
+  nacelleEntryId: ID
+  type: String
+  src: String!
+  altText: String
+  thumbnailSrc: String
+  width: Int
+  height: Int
+}
+
+type Price {
+  amount: String!
+  currencyCode: String!
+}
+
+type Metafield {
+  namespace: String
+  key: String!
+  value: String
+  type: String
+}
+
+# ─────────────────────────────────────────────
+# Product
+# ─────────────────────────────────────────────
+
+type ProductContent {
+  handle: String
+  title: String
+  subtitle: String
+  description: String
+  descriptionHtml: String
+  options: [ProductOption!]
+  featuredMedia: Media
+  media: [Media!]
+  seo: SEO
+  fields: JSON
+}
+
+type ProductOption {
+  name: String!
+  values: [String!]!
+}
+
+type ProductVariant {
+  nacelleEntryId: ID
+  sourceEntryId: String
+  sku: String
+  availableForSale: Boolean
+  price: String
+  compareAtPrice: String
+  priceCurrency: String
+  weight: Float
+  weightUnit: String
+  selectedOptions: [SelectedOption!]
+  featuredMedia: Media
+  metafields: [Metafield!]
+}
+
+type SelectedOption {
+  name: String!
+  value: String!
+}
+
+type Product {
+  nacelleEntryId: ID!
+  sourceEntryId: String
+  handle: String
+  locale: String
+  indexedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  availableForSale: Boolean
+  tags: [String!]
+  productType: String
+  vendor: String
+  content: ProductContent
+  variants: [ProductVariant!]
+  metafields: [Metafield!]
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]
+  nodes: [Product!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Product Collection
+# ─────────────────────────────────────────────
+
+type ProductCollectionContent {
+  handle: String
+  title: String
+  description: String
+  descriptionHtml: String
+  featuredMedia: Media
+  seo: SEO
+  fields: JSON
+}
+
+type ProductCollection {
+  nacelleEntryId: ID!
+  sourceEntryId: String
+  handle: String
+  locale: String
+  indexedAt: DateTime
+  updatedAt: DateTime
+  content: ProductCollectionContent
+  productHandles: [String!]
+  products: [Product!]
+  metafields: [Metafield!]
+}
+
+type ProductCollectionEdge {
+  cursor: String!
+  node: ProductCollection!
+}
+
+type ProductCollectionConnection {
+  edges: [ProductCollectionEdge!]
+  nodes: [ProductCollection!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Content (CMS)
+# ─────────────────────────────────────────────
+
+type SEO {
+  title: String
+  description: String
+  keywords: [String!]
+}
+
+type Content {
+  nacelleEntryId: ID!
+  sourceEntryId: String
+  handle: String
+  type: String
+  locale: String
+  indexedAt: DateTime
+  updatedAt: DateTime
+  title: String
+  description: String
+  featuredMedia: Media
+  sections: JSON
+  seo: SEO
+  fields: JSON
+}
+
+type ContentEdge {
+  cursor: String!
+  node: Content!
+}
+
+type ContentConnection {
+  edges: [ContentEdge!]
+  nodes: [Content!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Navigation & Space
+# ─────────────────────────────────────────────
+
+type NavigationItem {
+  title: String!
+  url: String
+  type: String
+  media: Media
+  items: [NavigationItem!]
+}
+
+type Navigation {
+  nacelleEntryId: ID
+  groupId: String!
+  title: String
+  locale: String
+  items: [NavigationItem!]
+}
+
+type SpaceProperties {
+  id: ID!
+  name: String
+  domain: String
+  locales: [String!]
+  defaultLocale: String
+  currencyCode: String
+  metadata: JSON
+}
+
+# ─────────────────────────────────────────────
+# Storefront filter input types
+# ─────────────────────────────────────────────
+
+input ProductFilterInput {
+  first: Int
+  after: String
+  handles: [String!]
+  nacelleEntryIds: [ID!]
+  locale: String
+  productType: String
+  tags: [String!]
+}
+
+input ProductCollectionFilterInput {
+  first: Int
+  after: String
+  handles: [String!]
+  nacelleEntryIds: [ID!]
+  locale: String
+}
+
+input ContentFilterInput {
+  first: Int
+  after: String
+  handles: [String!]
+  nacelleEntryIds: [ID!]
+  type: String
+  locale: String
+  entryDepth: Int
+}
+
+input NavigationFilterInput {
+  groupIds: [String!]
+  locale: String
+}
+
+# ─────────────────────────────────────────────
+# Admin (indexing / ingestion) types
+# ─────────────────────────────────────────────
+
+type IndexJob {
+  jobId: ID!
+  dataSourceId: String
+  entryType: EntryType
+  status: IndexStatus!
+  startedAt: DateTime
+  completedAt: DateTime
+  message: String
+}
+
+type IndexStatusResult {
+  dataSourceId: String
+  entryType: EntryType
+  status: IndexStatus!
+  indexedCount: Int
+  pendingCount: Int
+  lastIndexedAt: DateTime
+}
+
+input StartIndexInput {
+  dataSourceId: String
+  nacelleEntryId: ID
+  entryType: EntryType
+  handle: String
+}
+
+input ResetIndexInput {
+  dataSourceId: String
+  entryType: EntryType
+}
+
+# ─────────────────────────────────────────────
+# Storefront Query Root
+# ─────────────────────────────────────────────
+
+type Query {
+  "List normalized product entries with Relay-style pagination."
+  allProducts(filter: ProductFilterInput): ProductConnection!
+
+  "List merchandised product collections with Relay-style pagination."
+  allProductCollections(filter: ProductCollectionFilterInput): ProductCollectionConnection!
+
+  "List CMS content entries with Relay-style pagination."
+  allContent(filter: ContentFilterInput): ContentConnection!
+
+  "Get navigation groups (menus) for a space."
+  navigation(filter: NavigationFilterInput): [Navigation!]!
+
+  "Get space-level configuration (locales, currency, metadata)."
+  spaceProperties: SpaceProperties!
+
+  # ── Admin API (separate endpoint: https://admin.api.nacelle.com/graphql) ──
+
+  "Query current indexing status for a data source or entry type."
+  indexStatus(dataSourceId: String, entryType: EntryType): [IndexStatusResult!]!
+}
+
+# ─────────────────────────────────────────────
+# Admin Mutation Root
+# (served by the Admin API endpoint; beta / limited availability)
+# ─────────────────────────────────────────────
+
+type Mutation {
+  "Start (or re-run) an index job for a data source, entry, or entry type."
+  startIndex(input: StartIndexInput!): IndexJob!
+
+  "Reset the index for a data source or entry type before re-indexing."
+  resetIndex(input: ResetIndexInput!): IndexJob!
+}

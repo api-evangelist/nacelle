@@ -1,0 +1,166 @@
+aid: nacelle
+url: https://raw.githubusercontent.com/api-evangelist/nacelle/refs/heads/main/apis.yml
+name: Nacelle
+kind: company
+description: Nacelle is a headless / composable commerce data platform that ingests,
+  normalizes, and indexes commerce and content data (Shopify, Contentful and other
+  CMS sources) and serves it back to headless storefronts through a single, fast
+  GraphQL Storefront API. The company has since pivoted toward an AI personalization
+  engine, and the headless commerce Storefront API is now a legacy / maintenance-mode
+  product rather than an actively expanding platform.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Commerce
+- Headless Commerce
+- Composable Commerce
+- GraphQL
+- Content
+- Data Indexing
+created: '2026-07-01'
+modified: '2026-07-01'
+specificationVersion: '0.19'
+apis:
+- aid: nacelle:nacelle-storefront-products-api
+  name: Nacelle Storefront Products API
+  tags:
+  - Products
+  - Catalog
+  - GraphQL
+  - Commerce
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  properties:
+  - url: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+    type: Documentation
+  - url: https://docs.nacelle.com/reference/api-reference
+    type: APIReference
+  - url: graphql/nacelle-graphql.md
+    type: GraphQL
+  - url: graphql/nacelle-schema.graphql
+    type: GraphQL
+  - url: collections/nacelle.postman_collection.json
+    type: PostmanCollection
+  - url: collections/nacelle.opencollection.json
+    type: OpenCollection
+  description: The `allProducts` query on Nacelle's Storefront GraphQL API returns
+    normalized product entries (variants, pricing, media, metafields) drawn from
+    ingested Shopify or other commerce sources, with Relay-style pagination by
+    handle or nacelleEntryId.
+- aid: nacelle:nacelle-storefront-product-collections-api
+  name: Nacelle Storefront Product Collections API
+  tags:
+  - Product Collections
+  - Merchandising
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  properties:
+  - url: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+    type: Documentation
+  - url: graphql/nacelle-graphql.md
+    type: GraphQL
+  - url: graphql/nacelle-schema.graphql
+    type: GraphQL
+  - url: collections/nacelle.postman_collection.json
+    type: PostmanCollection
+  - url: collections/nacelle.opencollection.json
+    type: OpenCollection
+  description: The `allProductCollections` query returns merchandised collections
+    of products (the normalized equivalent of Shopify collections) with their
+    member product references, for building category and listing pages on a
+    headless storefront.
+- aid: nacelle:nacelle-storefront-content-api
+  name: Nacelle Storefront Content API
+  tags:
+  - Content
+  - CMS
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  properties:
+  - url: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+    type: Documentation
+  - url: graphql/nacelle-graphql.md
+    type: GraphQL
+  - url: graphql/nacelle-schema.graphql
+    type: GraphQL
+  - url: collections/nacelle.postman_collection.json
+    type: PostmanCollection
+  - url: collections/nacelle.opencollection.json
+    type: OpenCollection
+  description: The `allContent` query returns CMS content entries (pages, articles,
+    marketing blocks, media) ingested from sources such as Contentful, with a
+    configurable entryDepth for resolving nested content references.
+- aid: nacelle:nacelle-storefront-navigation-spaces-api
+  name: Nacelle Storefront Navigation and Spaces API
+  tags:
+  - Navigation
+  - Spaces
+  - Settings
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.nacelle.com/docs/spaces
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  properties:
+  - url: https://docs.nacelle.com/docs/spaces
+    type: Documentation
+  - url: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+    type: APIReference
+  - url: graphql/nacelle-graphql.md
+    type: GraphQL
+  - url: graphql/nacelle-schema.graphql
+    type: GraphQL
+  - url: collections/nacelle.postman_collection.json
+    type: PostmanCollection
+  - url: collections/nacelle.opencollection.json
+    type: OpenCollection
+  description: The `navigation` and `spaceProperties` queries return a space's
+    navigation groups (menus) and space-level configuration (locales, currency,
+    metadata) used to render a headless storefront's chrome and localization.
+- aid: nacelle:nacelle-admin-indexing-api
+  name: Nacelle Admin Indexing and Ingestion API
+  tags:
+  - Indexing
+  - Ingestion
+  - Admin
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.nacelle.com/docs/admin-api
+  baseURL: https://admin.api.nacelle.com/graphql
+  properties:
+  - url: https://docs.nacelle.com/docs/admin-api
+    type: Documentation
+  - url: graphql/nacelle-graphql.md
+    type: GraphQL
+  - url: graphql/nacelle-schema.graphql
+    type: GraphQL
+  - url: collections/nacelle.postman_collection.json
+    type: PostmanCollection
+  - url: collections/nacelle.opencollection.json
+    type: OpenCollection
+  description: The Admin GraphQL API triggers and monitors the indexing / ingestion
+    pipeline that pulls data from connected sources (Shopify, CMS) into a space -
+    starting or resetting index jobs for a data source, entry, or entry type, and
+    querying indexing status. Documented as a beta / limited-availability feature
+    and authenticated with an admin token.
+common:
+- type: GitHubOrganization
+  url: https://github.com/getnacelle
+- type: LinkedIn
+  url: https://www.linkedin.com/company/nacelle
+- type: Website
+  url: https://nacelle.com/
+- type: Documentation
+  url: https://docs.nacelle.com/
+- type: Plans
+  url: plans/nacelle-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/nacelle-rate-limits.yml
+- type: FinOps
+  url: finops/nacelle-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

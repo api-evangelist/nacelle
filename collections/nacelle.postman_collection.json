@@ -1,0 +1,216 @@
+{
+  "info": {
+    "name": "Nacelle GraphQL API",
+    "description": "GraphQL POST examples for Nacelle's Storefront API (products, product collections, content, navigation, space properties) and Admin API (indexing / ingestion). Nacelle is GraphQL-first; there is no public REST surface. Set spaceId, spaceToken, and adminToken variables before running.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "storefrontUrl",
+      "value": "https://storefront.api.nacelle.com/graphql/v1/spaces/{{spaceId}}"
+    },
+    {
+      "key": "adminUrl",
+      "value": "https://admin.api.nacelle.com/graphql"
+    },
+    {
+      "key": "spaceId",
+      "value": "<YOUR_SPACE_ID>"
+    },
+    {
+      "key": "spaceToken",
+      "value": "<YOUR_PUBLIC_STOREFRONT_TOKEN>"
+    },
+    {
+      "key": "adminToken",
+      "value": "<YOUR_ADMIN_TOKEN>"
+    }
+  ],
+  "item": [
+    {
+      "name": "Storefront",
+      "item": [
+        {
+          "name": "allProducts",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-space-token", "value": "{{spaceToken}}" }
+            ],
+            "url": {
+              "raw": "{{storefrontUrl}}",
+              "protocol": "https",
+              "host": ["storefront", "api", "nacelle", "com"],
+              "path": ["graphql", "v1", "spaces", "{{spaceId}}"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Products($first: Int!) {\n  allProducts(filter: { first: $first }) {\n    edges {\n      cursor\n      node {\n        nacelleEntryId\n        handle\n        content { title description featuredMedia { src altText } }\n        variants { nacelleEntryId sku availableForSale price compareAtPrice }\n      }\n    }\n    pageInfo { hasNextPage endCursor }\n    totalCount\n  }\n}",
+                "variables": "{\n  \"first\": 5\n}"
+              }
+            },
+            "description": "Fetch a page of normalized products."
+          }
+        },
+        {
+          "name": "allProductCollections",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-space-token", "value": "{{spaceToken}}" }
+            ],
+            "url": {
+              "raw": "{{storefrontUrl}}",
+              "protocol": "https",
+              "host": ["storefront", "api", "nacelle", "com"],
+              "path": ["graphql", "v1", "spaces", "{{spaceId}}"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Collections($handles: [String!]) {\n  allProductCollections(filter: { first: 10, handles: $handles }) {\n    edges {\n      node {\n        nacelleEntryId\n        handle\n        content { title description }\n        productHandles\n      }\n    }\n    totalCount\n  }\n}",
+                "variables": "{\n  \"handles\": [\"new-arrivals\"]\n}"
+              }
+            },
+            "description": "Fetch merchandised product collections."
+          }
+        },
+        {
+          "name": "allContent",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-space-token", "value": "{{spaceToken}}" }
+            ],
+            "url": {
+              "raw": "{{storefrontUrl}}",
+              "protocol": "https",
+              "host": ["storefront", "api", "nacelle", "com"],
+              "path": ["graphql", "v1", "spaces", "{{spaceId}}"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Content {\n  allContent(filter: { first: 10, type: \"page\", entryDepth: 4 }) {\n    edges {\n      node {\n        nacelleEntryId\n        handle\n        type\n        title\n        seo { title description }\n      }\n    }\n    totalCount\n  }\n}",
+                "variables": "{}"
+              }
+            },
+            "description": "Fetch ingested CMS content entries."
+          }
+        },
+        {
+          "name": "navigation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-space-token", "value": "{{spaceToken}}" }
+            ],
+            "url": {
+              "raw": "{{storefrontUrl}}",
+              "protocol": "https",
+              "host": ["storefront", "api", "nacelle", "com"],
+              "path": ["graphql", "v1", "spaces", "{{spaceId}}"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Navigation {\n  navigation {\n    groupId\n    title\n    items { title url items { title url } }\n  }\n}",
+                "variables": "{}"
+              }
+            },
+            "description": "Fetch navigation groups (menus) for the space."
+          }
+        },
+        {
+          "name": "spaceProperties",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-space-token", "value": "{{spaceToken}}" }
+            ],
+            "url": {
+              "raw": "{{storefrontUrl}}",
+              "protocol": "https",
+              "host": ["storefront", "api", "nacelle", "com"],
+              "path": ["graphql", "v1", "spaces", "{{spaceId}}"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query SpaceProperties {\n  spaceProperties {\n    id\n    name\n    domain\n    locales\n    defaultLocale\n    currencyCode\n  }\n}",
+                "variables": "{}"
+              }
+            },
+            "description": "Fetch space-level configuration."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin (Indexing / Ingestion)",
+      "item": [
+        {
+          "name": "startIndex",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-admin-token", "value": "{{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{adminUrl}}",
+              "protocol": "https",
+              "host": ["admin", "api", "nacelle", "com"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation StartIndex($input: StartIndexInput!) {\n  startIndex(input: $input) {\n    jobId\n    status\n    startedAt\n  }\n}",
+                "variables": "{\n  \"input\": {\n    \"dataSourceId\": \"shopify:my-store\"\n  }\n}"
+              }
+            },
+            "description": "Start (or re-run) an index job. Beta / limited availability."
+          }
+        },
+        {
+          "name": "indexStatus",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-nacelle-space-id", "value": "{{spaceId}}" },
+              { "key": "x-nacelle-admin-token", "value": "{{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{adminUrl}}",
+              "protocol": "https",
+              "host": ["admin", "api", "nacelle", "com"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query IndexStatus($dataSourceId: String) {\n  indexStatus(dataSourceId: $dataSourceId) {\n    dataSourceId\n    entryType\n    status\n    indexedCount\n    pendingCount\n    lastIndexedAt\n  }\n}",
+                "variables": "{\n  \"dataSourceId\": \"shopify:my-store\"\n}"
+              }
+            },
+            "description": "Query current indexing status."
+          }
+        }
+      ]
+    }
+  ]
+}

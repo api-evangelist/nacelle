@@ -1,0 +1,64 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Nacelle
+providerId: nacelle
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Commerce
+- Headless Commerce
+- GraphQL
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Nacelle does not publish explicit numeric request-per-minute quotas for its
+  Storefront GraphQL API. Instead, the documentation defines hard per-request
+  constraints: a 10 MB maximum response payload and a 20-second request timeout.
+  Automatic Persisted Queries (APQ) are supported so repeated queries can be
+  cached at the CDN edge with roughly a 60-second TTL, reducing origin load.
+  Any account-level throttling is governed by enterprise contract terms rather
+  than a public rate card.
+notes: >-
+  The Admin (indexing / ingestion) API is a beta / limited-availability feature;
+  its concurrency and job limits are not publicly documented. Confirm current
+  limits with Nacelle before building high-volume integrations.
+sources:
+- https://docs.nacelle.com/docs/storefront-graphql-api-stable
+- https://docs.nacelle.com/reference/api-reference
+responseCodes:
+  throttled: 429
+limits:
+- name: Response Payload Size
+  scope: request
+  metric: bytes
+  limit: 10 MB
+  notes: Maximum size of a single Storefront GraphQL response payload.
+- name: Request Timeout
+  scope: request
+  metric: seconds
+  limit: 20
+  notes: Storefront GraphQL requests time out after ~20 seconds.
+- name: Per-Account Throttling
+  scope: account
+  metric: requests
+  limit: see enterprise contract
+  notes: No public per-minute quota; governed by contract terms.
+policies:
+- name: Automatic Persisted Queries (APQ)
+  description: >-
+    Persisted queries let repeated Storefront requests be served from the CDN
+    edge cache (~60s TTL), lowering origin request pressure.
+- name: Pagination
+  description: >-
+    Use Relay-style cursor pagination (first / after) to bound response size and
+    stay within the 10 MB payload and 20s timeout limits.
+- name: Backoff Strategy
+  description: >-
+    Clients should implement exponential backoff with jitter and honor any
+    Retry-After header on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
