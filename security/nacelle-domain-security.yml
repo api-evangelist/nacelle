@@ -1,0 +1,30 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: nacelle.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 13 19:15:48 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: docs.nacelle.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 29 14:01:32 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: storefront.api.nacelle.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 18 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: nacelle.com
+  dnssec: false
+  caa:
+  - 0 issue "letsencrypt.org"
+  - 0 issue "amazon.com"
+  - 0 issue "digicert.com"
+  spf: true
+  dmarc: false

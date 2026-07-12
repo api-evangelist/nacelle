@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://nacelle.com/terms-and-conditions
+url: https://nacelle.com/terms-and-conditions
+certifications:
+- SOC 2
+- GDPR
+evidence:
+- source: https://nacelle.com/terms-and-conditions
+  keywords:
+  - soc 2
+  - gdpr

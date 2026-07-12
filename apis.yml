@@ -147,6 +147,12 @@ apis:
     querying indexing status. Documented as a beta / limited-availability feature
     and authenticated with an admin token.
 common:
+- type: TrustCenter
+  url: security/nacelle-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/nacelle-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/nacelle-domain-security.yml
 - type: GitHubOrganization
   url: https://github.com/getnacelle
 - type: LinkedIn
@@ -161,6 +167,8 @@ common:
   url: rate-limits/nacelle-rate-limits.yml
 - type: FinOps
   url: finops/nacelle-finops.yml
+- type: Blog
+  url: https://nacelle.com/blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
