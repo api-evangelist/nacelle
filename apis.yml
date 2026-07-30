@@ -8,7 +8,19 @@ description: Nacelle is a headless / composable commerce data platform that inge
   GraphQL Storefront API. The company has since pivoted toward an AI personalization
   engine, and the headless commerce Storefront API is now a legacy / maintenance-mode
   product rather than an actively expanding platform.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nacelle.png
 tags:
 - Commerce
 - Headless Commerce
