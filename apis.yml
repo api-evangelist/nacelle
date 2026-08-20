@@ -35,6 +35,11 @@ apis:
 - aid: nacelle:nacelle-storefront-products-api
   name: Nacelle Storefront Products API
   tags:
+  - Product
+  - Catalog
+  - GraphQL
+  - Commerce
+  tags_raw:
   - Products
   - Catalog
   - GraphQL
