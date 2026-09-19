@@ -126,6 +126,11 @@ apis:
   name: Nacelle Storefront Navigation and Spaces API
   tags:
   - Navigation
+  - Space
+  - Settings
+  - GraphQL
+  tags_raw:
+  - Navigation
   - Spaces
   - Settings
   - GraphQL
