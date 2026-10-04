@@ -126,14 +126,16 @@ apis:
   name: Nacelle Storefront Navigation and Spaces API
   tags:
   - Navigation
-  - Space
+  - Spaces
   - Settings
   - GraphQL
+  - Space
   tags_raw:
   - Navigation
   - Spaces
   - Settings
   - GraphQL
+  - Space
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.nacelle.com/docs/spaces
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces

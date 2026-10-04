@@ -6,12 +6,12 @@
       "feed_url": "https://nacelle.com/blog",
       "title": "Nacelle Blog",
       "saved": 0,
-      "error": "parse_failed",
+      "error": "fetch_failed: HTTPError",
       "nature": "vendor-blog",
       "nature_basis": "path_blog"
     }
   ],
-  "fetched": "2026-09-19T19:51:11Z",
+  "fetched": "2026-10-03T12:15:37Z",
   "post_count": 5,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
