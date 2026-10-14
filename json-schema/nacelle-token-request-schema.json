@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nacelle/main/json-schema/nacelle-token-request-schema.json",
+  "title": "TokenRequest represents the request to create a new token.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/nacelle-auth-api-openapi.yml#/components/schemas/TokenRequest",
+  "properties": {
+    "audience": {
+      "description": "The audience for the token.",
+      "type": "string",
+      "x-go-name": "Audience"
+    },
+    "client_id": {
+      "description": "The client ID.",
+      "type": "string",
+      "x-go-name": "ClientID"
+    },
+    "client_secret": {
+      "description": "The client secret.",
+      "type": "string",
+      "x-go-name": "ClientSecret"
+    },
+    "grant_type": {
+      "description": "The type of grant being used.",
+      "type": "string",
+      "x-go-name": "GrantType"
+    }
+  },
+  "type": "object",
+  "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+}

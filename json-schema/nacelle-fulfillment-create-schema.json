@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nacelle/main/json-schema/nacelle-fulfillment-create-schema.json",
+  "title": "FulfillmentCreate represents the details of a fulfillment.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/FulfillmentCreate",
+  "properties": {
+    "assigned_location_id": {
+      "description": "Identifier for the assigned location.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "AssignedLocationID"
+    },
+    "delivery_date": {
+      "description": "Date of delivery.",
+      "format": "int64",
+      "minimum": 1,
+      "type": "integer",
+      "x-go-name": "DeliveryDate"
+    },
+    "delivery_estimation": {
+      "description": "Estimated delivery details.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "DeliveryEstimation"
+    },
+    "delivery_method": {
+      "description": "Method of delivery.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "DeliveryMethod"
+    },
+    "delivery_type": {
+      "description": "Type of delivery.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "DeliveryType"
+    },
+    "destination_address": {
+      "$ref": "#/$defs/AddressCreate"
+    },
+    "external_id": {
+      "description": "External identifier for the fulfillment.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "ExternalID"
+    },
+    "fulfillment_order_items": {
+      "description": "Items associated with the fulfillment order.",
+      "items": {
+        "$ref": "#/$defs/FulfillmentOrderItemCreate"
+      },
+      "minimum": 1,
+      "type": "array",
+      "x-go-name": "FulfillmentOrderItems"
+    },
+    "id": {
+      "description": "Unique identifier for the fulfillment.",
+      "format": "uuid",
+      "type": "string",
+      "x-go-name": "ID"
+    },
+    "nacelle_status": {
+      "description": "Status as per Nacelle's specifications.",
+      "enum": [
+        "open",
+        "partially_fulfilled",
+        "in_progress",
+        "scheduled",
+        "cancelled",
+        "on_hold",
+        "incomplete",
+        "succeeded"
+      ],
+      "type": "string",
+      "x-go-name": "NacelleStatus"
+    },
+    "shipment_status": {
+      "description": "Status of the shipment.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "ShipmentStatus"
+    },
+    "status": {
+      "description": "General status of the fulfillment.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Status"
+    },
+    "tracking_company": {
+      "description": "Company handling the tracking.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "TrackingCompany"
+    },
+    "tracking_numbers": {
+      "description": "Tracking numbers associated with the fulfillment.",
+      "items": {
+        "type": "string"
+      },
+      "maximum": 100,
+      "minimum": 1,
+      "type": "array",
+      "x-go-name": "TrackingNumbers"
+    },
+    "tracking_urls": {
+      "description": "URLs for tracking the fulfillment.",
+      "items": {
+        "type": "string"
+      },
+      "maximum": 500,
+      "minimum": 1,
+      "type": "array",
+      "x-go-name": "TrackingUrls"
+    }
+  },
+  "required": [
+    "external_id",
+    "destination_address",
+    "delivery_type",
+    "delivery_method",
+    "nacelle_status",
+    "fulfillment_order_items"
+  ],
+  "type": "object",
+  "x-go-package": "github.com/getnacelle/noms/docs",
+  "$defs": {
+    "AddressCreate": {
+      "properties": {
+        "address1": {
+          "description": "The first line of the address.",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Address1"
+        },
+        "address2": {
+          "description": "The second line of the address.",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Address2"
+        },
+        "city": {
+          "description": "The city of the address.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "City"
+        },
+        "comment": {
+          "description": "Additional comments about the address.",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "country_iso2": {
+          "description": "The ISO 2-letter country code.",
+          "type": "string",
+          "x-go-name": "CountryIso2"
+        },
+        "first_name": {
+          "description": "First name",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "description": "Unique identifier for the address.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "last_name": {
+          "description": "Last name",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "merchant_created_at": {
+          "description": "Merchant Specified Timestamp of when the Address was created.\nDiffers from CreatedAt which is autogenerated.",
+          "format": "date-time",
+          "type": "string",
+          "x-go-name": "MerchantCreatedAt"
+        },
+        "merchant_modified_at": {
+          "description": "Merchant Specified Timestamp of the last modification to the Address.\nDiffers from ModifiedAt which is autogenerated.",
+          "format": "date-time",
+          "type": "string",
+          "x-go-name": "MerchantModifiedAt"
+        },
+        "postal_code": {
+          "description": "The postal code.",
+          "maximum": 20,
+          "minimum": 4,
+          "type": "string",
+          "x-go-name": "PostalCode"
+        },
+        "province": {
+          "description": "The province of the address.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Province"
+        },
+        "state": {
+          "description": "The state of the address.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "State"
+        }
+      },
+      "required": [
+        "state",
+        "address1",
+        "country_iso2",
+        "postal_code",
+        "city"
+      ],
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "FulfillmentOrderItemCreate": {
+      "properties": {
+        "order_id": {
+          "description": "Unique identifier for the order.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "OrderID"
+        },
+        "order_item_id": {
+          "description": "Unique identifier for the order item.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "OrderItemID"
+        },
+        "quantity": {
+          "description": "Quantity of the order item.",
+          "format": "uint64",
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer",
+          "x-go-name": "Quantity"
+        }
+      },
+      "required": [
+        "order_id",
+        "order_item_id",
+        "quantity"
+      ],
+      "title": "FulfillmentOrderItemCreate represents the details of an order item in a fulfillment.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    }
+  }
+}

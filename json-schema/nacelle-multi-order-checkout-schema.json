@@ -1,0 +1,1233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nacelle/main/json-schema/nacelle-multi-order-checkout-schema.json",
+  "title": "MultiOrderCheckout represents the details of a multi-order/multi-cart.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/MultiOrderCheckout",
+  "properties": {
+    "applied_discounts": {
+      "description": "Applied discounts.",
+      "items": {
+        "$ref": "#/$defs/DiscountCheckout"
+      },
+      "type": "array",
+      "x-go-name": "AppliedDiscounts"
+    },
+    "billing_address": {
+      "$ref": "#/$defs/AddressCheckout"
+    },
+    "client_data": {
+      "$ref": "#/$defs/ClientData"
+    },
+    "comment": {
+      "description": "Any additional comments about the multi-order/multi-cart.",
+      "maximum": 1000,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Comment"
+    },
+    "currency": {
+      "description": "Currency code.",
+      "type": "string",
+      "x-go-name": "Currency"
+    },
+    "customer": {
+      "$ref": "#/$defs/CustomerCheckout"
+    },
+    "discounts": {
+      "description": "Discounts amount.",
+      "type": "string",
+      "x-go-name": "Discounts"
+    },
+    "email": {
+      "description": "Email of the multi-order.",
+      "format": "email",
+      "type": "string",
+      "x-go-name": "Email"
+    },
+    "error": {
+      "$ref": "#/$defs/ErrorResponse"
+    },
+    "id": {
+      "description": "Unique identifier for the multi-order / multi-cart.",
+      "format": "uuid",
+      "type": "string",
+      "x-go-name": "ID"
+    },
+    "metadata": {
+      "additionalProperties": {},
+      "description": "Additional map-like data for any custom extra data.",
+      "type": "object",
+      "x-go-name": "Metadata"
+    },
+    "orchestration_steps": {
+      "description": "(Only for MultiCart Validate) Orchestration Steps to run in Orchestration Validate flow.\nUseful for optimizing and reducing number of API calls based on changed MultiCart state.\nIf not specified - Orchestration Validate will call all enabled steps.",
+      "items": {
+        "type": "string"
+      },
+      "maximum": 100,
+      "minimum": 1,
+      "type": "array",
+      "x-go-name": "OrchestrationSteps"
+    },
+    "orders": {
+      "description": "Orders",
+      "items": {
+        "$ref": "#/$defs/OrderCheckout"
+      },
+      "maximum": 100,
+      "minimum": 0,
+      "type": "array",
+      "x-go-name": "Orders"
+    },
+    "payments": {
+      "description": "Payments.",
+      "items": {
+        "$ref": "#/$defs/PaymentCheckout"
+      },
+      "minimum": 0,
+      "type": "array",
+      "x-go-name": "Payments"
+    },
+    "phone": {
+      "description": "Phone number of the multi-order.",
+      "maximum": 30,
+      "type": "string",
+      "x-go-name": "Phone"
+    },
+    "price": {
+      "description": "Price.",
+      "type": "string",
+      "x-go-name": "Price"
+    },
+    "promotion": {
+      "$ref": "#/$defs/PromotionCheckout"
+    },
+    "status": {
+      "description": "Optional merchant status of the multi-order.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Status"
+    },
+    "subtotal_price": {
+      "description": "Subtotal price.",
+      "type": "string",
+      "x-go-name": "SubtotalPrice"
+    },
+    "tax": {
+      "description": "Tax amount.",
+      "type": "string",
+      "x-go-name": "Tax"
+    }
+  },
+  "type": "object",
+  "x-go-package": "github.com/getnacelle/noms/docs",
+  "$defs": {
+    "AddressCheckout": {
+      "properties": {
+        "address1": {
+          "description": "The first line of the address.",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Address1"
+        },
+        "address2": {
+          "description": "The second line of the address.",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Address2"
+        },
+        "city": {
+          "description": "The city of the address.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "City"
+        },
+        "comment": {
+          "description": "Additional comments about the address.",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "country_iso2": {
+          "description": "The ISO 2-letter country code.",
+          "type": "string",
+          "x-go-name": "CountryIso2"
+        },
+        "first_name": {
+          "description": "First name",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "description": "Unique identifier for the address.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "last_name": {
+          "description": "Last name",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "postal_code": {
+          "description": "The postal code.",
+          "maximum": 20,
+          "minimum": 4,
+          "type": "string",
+          "x-go-name": "PostalCode"
+        },
+        "province": {
+          "description": "The province of the address.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Province"
+        },
+        "state": {
+          "description": "The state of the address.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "State"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "ClientData": {
+      "properties": {
+        "created_at": {
+          "description": "Timestamp of when the client data was created.",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "Unique identifier for client data.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "ip_address": {
+          "description": "Client's IP address (IPv4 or IPv6).",
+          "type": "string",
+          "x-go-name": "IPAddress"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Additional map-like data for any custom extra data.",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "modified_at": {
+          "description": "Timestamp of the last modification to the client data.",
+          "x-go-name": "ModifiedAt"
+        },
+        "user_agent": {
+          "description": "Client's User-Agent.",
+          "type": "string",
+          "x-go-name": "UserAgent"
+        }
+      },
+      "title": "ClientData represents client-related data.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/pkg/dto"
+    },
+    "CustomerCheckout": {
+      "properties": {
+        "addresses": {
+          "description": "Addresses associated with the customer",
+          "items": {
+            "$ref": "#/$defs/AddressCheckout"
+          },
+          "maximum": 100,
+          "type": "array",
+          "x-go-name": "Addresses"
+        },
+        "destination_reference_id": {
+          "description": "Destination reference ID",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "DestinationReferenceID"
+        },
+        "email": {
+          "description": "Email address of the customer",
+          "format": "email",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "description": "First name of the customer",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "description": "The unique identifier for the customer",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "last_name": {
+          "description": "Last name of the customer",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Metadata associated with the customer as key-value pairs",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "phone": {
+          "description": "Phone number of the customer",
+          "maximum": 30,
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "source_reference_id": {
+          "description": "Source reference ID",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "SourceReferenceID"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "DiscountCheckout": {
+      "properties": {
+        "amount": {
+          "description": "The amount that the discount is for in string-decimal format,",
+          "type": "string",
+          "x-go-name": "Amount"
+        },
+        "description": {
+          "description": "A description about the discount",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "effect_type": {
+          "description": "The effect type that the discount was for. Used to hint on how to deserialize the meta field",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "EffectType"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the discount.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Metadata field for additional props the merchant may want to use to display additional context to the user.",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "name": {
+          "description": "A descriptive name to display to a user",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "title": "DiscountCheckout contains information about a purchase discount.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "ErrorDetail": {
+      "properties": {
+        "category": {
+          "description": "Category of an error.",
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "message": {
+          "description": "Human-readable error message.",
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Additional map-like data for any custom extra data.",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "response_headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "ResponseHeaders (if we have any), to be sent with the error response.",
+          "type": "object",
+          "x-go-name": "ResponseHeaders"
+        },
+        "response_status": {
+          "description": "HTTP status code, to be sent with the error response.",
+          "format": "int64",
+          "type": "integer",
+          "x-go-name": "ResponseStatus"
+        },
+        "responsibility": {
+          "description": "Responsibility type of the error.",
+          "type": "string",
+          "x-go-name": "Responsibility"
+        },
+        "severity": {
+          "description": "Severity level of the error.",
+          "type": "string",
+          "x-go-name": "Severity"
+        }
+      },
+      "title": "ErrorDetail represents an error for specific API call / flow step.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/pkg/dto"
+    },
+    "ErrorResponse": {
+      "description": "Error details are collected from multiple API calls, until we reach fatal/error severity and need to stop the flow.\nError details list can be used for deciding what errors we should show to clients (usually Fatal/Error severity).\nFor example, we can show the first Fatal/Error we found in the error details list,\nor we can show all Fatal/Error errors we have.",
+      "properties": {
+        "details": {
+          "description": "Details to provide information about the errors.",
+          "items": {
+            "$ref": "#/$defs/ErrorDetail"
+          },
+          "type": "array",
+          "x-go-name": "Details"
+        }
+      },
+      "title": "ErrorResponse represents error details for a multi-order / multi-cart.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/pkg/dto"
+    },
+    "OrderCheckout": {
+      "properties": {
+        "applied_discounts": {
+          "description": "Applied discounts.",
+          "items": {
+            "$ref": "#/$defs/DiscountCheckout"
+          },
+          "type": "array",
+          "x-go-name": "AppliedDiscounts"
+        },
+        "billing_address": {
+          "$ref": "#/$defs/AddressCheckout"
+        },
+        "client_data": {
+          "$ref": "#/$defs/ClientData"
+        },
+        "comment": {
+          "description": "Any additional comments about the order.",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "currency": {
+          "description": "Currency code.",
+          "type": "string",
+          "x-go-name": "Currency"
+        },
+        "customer": {
+          "$ref": "#/$defs/CustomerCheckout"
+        },
+        "destination_reference_id": {
+          "description": "External id of the order in destination service.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "DestinationReferenceID"
+        },
+        "discounts": {
+          "description": "Total discounts.",
+          "type": "string",
+          "x-go-name": "Discounts"
+        },
+        "email": {
+          "description": "Email of the order.",
+          "format": "email",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "error": {
+          "$ref": "#/$defs/ErrorResponse"
+        },
+        "id": {
+          "description": "Unique identifier for the order.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Additional map-like data for any custom extra data.",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "order_items": {
+          "description": "Order items.",
+          "items": {
+            "$ref": "#/$defs/OrderItemCheckout"
+          },
+          "maximum": 100,
+          "minimum": 1,
+          "type": "array",
+          "x-go-name": "OrderItems"
+        },
+        "payments": {
+          "description": "Payments.",
+          "items": {
+            "$ref": "#/$defs/PaymentCheckout"
+          },
+          "minimum": 1,
+          "type": "array",
+          "x-go-name": "Payments"
+        },
+        "phone": {
+          "description": "Phone number of the order.",
+          "maximum": 30,
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "price": {
+          "description": "Price.",
+          "type": "string",
+          "x-go-name": "Price"
+        },
+        "promotion": {
+          "$ref": "#/$defs/PromotionCheckout"
+        },
+        "shipping_address": {
+          "$ref": "#/$defs/AddressCheckout"
+        },
+        "shipping_rate": {
+          "$ref": "#/$defs/ShippingRateCheckout"
+        },
+        "shipping_rates": {
+          "description": "Shipping rates (Order-Checkout).",
+          "items": {
+            "$ref": "#/$defs/ShippingRateCheckout"
+          },
+          "maximum": 100,
+          "minimum": 1,
+          "type": "array",
+          "x-go-name": "ShippingRates"
+        },
+        "source_reference_id": {
+          "description": "External id of the order in source service.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "SourceReferenceID"
+        },
+        "status": {
+          "description": "Optional merchant status of the order.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Status"
+        },
+        "subtotal_price": {
+          "description": "Subtotal price.",
+          "type": "string",
+          "x-go-name": "SubtotalPrice"
+        },
+        "tax": {
+          "description": "Tax amount.",
+          "type": "string",
+          "x-go-name": "Tax"
+        },
+        "tax_data": {
+          "$ref": "#/$defs/TaxCheckout"
+        },
+        "tax_rate": {
+          "description": "Tax rate.",
+          "type": "string",
+          "x-go-name": "TaxRate"
+        }
+      },
+      "title": "OrderCheckout represents the details of an order/order-checkout.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "OrderItemCheckout": {
+      "properties": {
+        "applied_discounts": {
+          "description": "List of applied discounts.",
+          "items": {
+            "$ref": "#/$defs/DiscountCheckout"
+          },
+          "minimum": 1,
+          "type": "array",
+          "x-go-name": "AppliedDiscounts"
+        },
+        "available": {
+          "description": "Available (Order-Checkout).",
+          "format": "uint64",
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer",
+          "x-go-name": "Available"
+        },
+        "canceled_at": {
+          "description": "When this Order Item was cancelled.",
+          "format": "date-time",
+          "type": "string",
+          "x-go-name": "CanceledAt"
+        },
+        "canceled_by": {
+          "description": "Who cancelled this OrderItem.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "CanceledBy"
+        },
+        "canceled_reason": {
+          "description": "Reason for cancelling this OrderItem.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "CanceledReason"
+        },
+        "comment": {
+          "description": "Additional comment.",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Comment"
+        },
+        "description": {
+          "description": "Short description of the product.",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "destination_reference_id": {
+          "description": "External id of the OrderItem in destination service.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "DestinationReferenceID"
+        },
+        "discounts_amount": {
+          "description": "Discount amount.",
+          "type": "string",
+          "x-go-name": "DiscountsAmount"
+        },
+        "id": {
+          "description": "Unique identifier for the OrderItem.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Additional map-like data for any custom extra data.",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "price_amount": {
+          "description": "Price.",
+          "type": "string",
+          "x-go-name": "PriceAmount"
+        },
+        "price_book_id": {
+          "description": "Nacelle Price Book ID.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "PriceBookID"
+        },
+        "product_id": {
+          "description": "Nacelle Product ID.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ProductID"
+        },
+        "quantity": {
+          "description": "Quantity.",
+          "format": "uint64",
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer",
+          "x-go-name": "Quantity"
+        },
+        "sku": {
+          "description": "SKU of the product.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Sku"
+        },
+        "source_reference_id": {
+          "description": "External id of the OrderItem in source service.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "SourceReferenceID"
+        },
+        "status": {
+          "description": "Status of the OrderItem.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Status"
+        },
+        "subtotal_price_amount": {
+          "description": "Subtotal price.",
+          "type": "string",
+          "x-go-name": "SubtotalPriceAmount"
+        },
+        "tax_amount": {
+          "description": "Tax amount.",
+          "type": "string",
+          "x-go-name": "TaxAmount"
+        },
+        "tax_rate": {
+          "description": "Tax rate.",
+          "type": "string",
+          "x-go-name": "TaxRate"
+        },
+        "variant_id": {
+          "description": "Nacelle Variant ID.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "VariantID"
+        }
+      },
+      "title": "OrderItemCheckout represents the details of an order item.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "PaymentCheckout": {
+      "properties": {
+        "amount_value": {
+          "description": "The amount of the payment",
+          "type": "string",
+          "x-go-name": "AmountValue"
+        },
+        "card_brand": {
+          "description": "Brand of the card used for payment",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "CardBrand"
+        },
+        "currency": {
+          "description": "Currency code for the payment.",
+          "type": "string",
+          "x-go-name": "Currency"
+        },
+        "external_id": {
+          "description": "External ID associated with the payment",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ExternalID"
+        },
+        "id": {
+          "description": "Unique identifier for the Payment.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "payment_data": {
+          "additionalProperties": {},
+          "description": "Additional payment data as key-value pairs",
+          "type": "object",
+          "x-go-name": "PaymentData"
+        },
+        "payment_method_id": {
+          "description": "ID of the payment method",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "PaymentMethodID"
+        },
+        "payment_type": {
+          "description": "Type of payment, e.g., Credit Card",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "PaymentType"
+        },
+        "processor_name": {
+          "description": "Name of the payment processor",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ProcessorName"
+        },
+        "processor_status": {
+          "description": "Status returned by the payment processor",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ProcessorStatus"
+        },
+        "status": {
+          "description": "Status of the payment",
+          "enum": [
+            "created",
+            "pending",
+            "succeeded",
+            "failed",
+            "requires_confirmation",
+            "balance_due",
+            "credit_owed"
+          ],
+          "type": "string",
+          "x-go-name": "Status"
+        },
+        "transactions": {
+          "description": "Transactions associated with the payment",
+          "items": {
+            "$ref": "#/$defs/Transaction"
+          },
+          "type": "array",
+          "x-go-name": "Transactions"
+        }
+      },
+      "title": "PaymentCheckout contains information about an order payment.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "PromotionCheckout": {
+      "properties": {
+        "coupon_codes": {
+          "description": "Any coupon codes entered.",
+          "items": {
+            "type": "string"
+          },
+          "maximum": 100,
+          "minimum": 1,
+          "type": "array",
+          "x-go-name": "CouponCodes"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the promotion.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "identifiers": {
+          "description": "Session custom identifiers that you can set limits on or use inside your rules.",
+          "items": {
+            "type": "string"
+          },
+          "maximum": 100,
+          "minimum": 1,
+          "type": "array",
+          "x-go-name": "Identifiers"
+        },
+        "loyalty_card": {
+          "description": "Any loyalty cards used.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "LoyaltyCard"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Metadata fields to store tracking additional ids for promotion systems",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "profile_id": {
+          "description": "ID of the customer profile set by your integration layer",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ProfileID"
+        },
+        "referral_code": {
+          "description": "Any referral code entered.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ReferralCode"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "ShippingRateCheckout": {
+      "properties": {
+        "amount": {
+          "description": "Price of the shipping rate in string-decimal format,",
+          "type": "string",
+          "x-go-name": "Amount"
+        },
+        "currency": {
+          "description": "Currency code in ISO 4217 three-letter format,",
+          "type": "string",
+          "x-go-name": "Currency"
+        },
+        "delivery_estimate_max": {
+          "description": "Value of the upper bound of the estimated range. If empty, represents no upper bound,",
+          "format": "uint64",
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer",
+          "x-go-name": "DeliveryEstimateMax"
+        },
+        "delivery_estimate_min": {
+          "description": "Value of the lower bound of the estimated range. If empty, represents no lower bound,",
+          "format": "uint64",
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer",
+          "x-go-name": "DeliveryEstimateMin"
+        },
+        "delivery_estimate_unit": {
+          "description": "Unit of the delivery estimated range,",
+          "enum": [
+            "hour",
+            "day",
+            "business_day",
+            "week",
+            "month"
+          ],
+          "type": "string",
+          "x-go-name": "DeliveryEstimateUnit"
+        },
+        "description": {
+          "description": "Detailed description of the shipping rate,",
+          "maximum": 255,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "display_name": {
+          "description": "The display name of the shipping rate,",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "DisplayName"
+        },
+        "external_id": {
+          "description": "External (non-nacelle) id of the ShippingRate object from the ShippingRate API service.",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ExternalID"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the shipping rate.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "service_name": {
+          "description": "Name of the shipping company,",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ServiceName"
+        },
+        "tax_behavior": {
+          "description": "Describes if shipping rate price includes taxes,\nexamples: unspecified / inclusive / exclusive",
+          "type": "string",
+          "x-go-name": "TaxBehavior"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "TaxCheckout": {
+      "properties": {
+        "currency": {
+          "type": "string",
+          "x-go-name": "Currency"
+        },
+        "expires_at": {
+          "x-go-name": "ExpiresAt"
+        },
+        "external_id": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "ExternalID"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the Tax.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "items": {
+          "$ref": "#/$defs/TaxItemsDataCheckout"
+        },
+        "service": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "Service"
+        },
+        "shipping": {
+          "$ref": "#/$defs/TaxShippingDataCheckout"
+        },
+        "tax_date": {
+          "x-go-name": "TaxDate"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "TaxEntryBreakdownCheckout": {
+      "properties": {
+        "amount": {
+          "type": "string",
+          "x-go-name": "Amount"
+        },
+        "created_at": {
+          "description": "Creation timestamp for the TaxEntryBreakdown.",
+          "x-go-name": "CreatedAt"
+        },
+        "display_name": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "DisplayName"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the TaxEntryBreakdown.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified_at": {
+          "description": "Modification timestamp for the TaxEntryBreakdown.",
+          "x-go-name": "ModifiedAt"
+        },
+        "percentage": {
+          "type": "string",
+          "x-go-name": "Percentage"
+        },
+        "tax_type": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "TaxType"
+        },
+        "taxability_reason": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "TaxabilityReason"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "TaxEntryCheckout": {
+      "properties": {
+        "amount": {
+          "type": "string",
+          "x-go-name": "Amount"
+        },
+        "breakdown": {
+          "items": {
+            "$ref": "#/$defs/TaxEntryBreakdownCheckout"
+          },
+          "maximum": 100,
+          "type": "array",
+          "x-go-name": "Breakdown"
+        },
+        "created_at": {
+          "description": "Creation timestamp for the TaxEntry.",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the TaxEntry.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified_at": {
+          "description": "Modification timestamp for the TaxEntry.",
+          "x-go-name": "ModifiedAt"
+        },
+        "order_item_id": {
+          "description": "OrderItem ID (for OrderItem-related tax data only).",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "OrderItemID"
+        },
+        "quantity": {
+          "description": "Quantity (for OrderItem-related tax data only).",
+          "format": "uint64",
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer",
+          "x-go-name": "Quantity"
+        },
+        "tax": {
+          "type": "string",
+          "x-go-name": "Tax"
+        },
+        "tax_behavior": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "TaxBehavior"
+        },
+        "tax_code": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "string",
+          "x-go-name": "TaxCode"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "TaxItemsDataCheckout": {
+      "properties": {
+        "created_at": {
+          "description": "Creation timestamp for the TaxItemsData.",
+          "x-go-name": "CreatedAt"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/TaxEntryCheckout"
+          },
+          "maximum": 100,
+          "type": "array",
+          "x-go-name": "Entries"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the TaxItemsData.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified_at": {
+          "description": "Modification timestamp for the TaxItemsData.",
+          "x-go-name": "ModifiedAt"
+        },
+        "price": {
+          "type": "string",
+          "x-go-name": "Price"
+        },
+        "subtotal_price": {
+          "type": "string",
+          "x-go-name": "SubtotalPrice"
+        },
+        "tax": {
+          "type": "string",
+          "x-go-name": "Tax"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "TaxShippingDataCheckout": {
+      "properties": {
+        "created_at": {
+          "description": "Creation timestamp for the TaxShippingData.",
+          "x-go-name": "CreatedAt"
+        },
+        "entries": {
+          "$ref": "#/$defs/TaxEntryCheckout"
+        },
+        "id": {
+          "description": "Unique Nacelle identifier for the TaxShippingData.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "modified_at": {
+          "description": "Modification timestamp for the TaxShippingData.",
+          "x-go-name": "ModifiedAt"
+        },
+        "price": {
+          "type": "string",
+          "x-go-name": "Price"
+        },
+        "subtotal_price": {
+          "type": "string",
+          "x-go-name": "SubtotalPrice"
+        },
+        "tax": {
+          "type": "string",
+          "x-go-name": "Tax"
+        }
+      },
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/docs"
+    },
+    "Transaction": {
+      "properties": {
+        "amount": {
+          "description": "The Amount of the Transaction",
+          "type": "string",
+          "x-go-name": "Amount"
+        },
+        "error": {
+          "description": "Error encountered during the Transaction",
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "id": {
+          "description": "Unique identifier for the Transaction.",
+          "format": "uuid",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "metadata": {
+          "additionalProperties": {},
+          "description": "Metadata for the Transaction",
+          "type": "object",
+          "x-go-name": "Metadata"
+        },
+        "operation": {
+          "description": "Operation of the Transaction",
+          "enum": [
+            "authorization",
+            "authorization_release",
+            "charge",
+            "refund"
+          ],
+          "type": "string",
+          "x-go-name": "Operation"
+        },
+        "status": {
+          "description": "Status code for the Transaction.",
+          "enum": [
+            "pending",
+            "succeeded",
+            "failed"
+          ],
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "title": "Transaction contains information about an payments transactions.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/noms/pkg/dto"
+    }
+  }
+}

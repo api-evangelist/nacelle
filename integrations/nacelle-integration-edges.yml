@@ -1,0 +1,16 @@
+generated: '2026-10-14'
+method: none
+source:
+- https://zapier.com/apps/nacelle/integrations
+- https://n8n.io/integrations/nacelle/
+- https://composio.dev/toolkits/nacelle
+- https://monid.ai/tools/nacelle
+checked:
+- https://composio.dev/toolkits/nacelle
+- https://monid.ai/tools/nacelle
+- https://n8n.io/integrations/nacelle/
+- https://zapier.com/apps/nacelle/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

@@ -1,0 +1,373 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/nacelle-auth-api-openapi.yml
+- openapi/nacelle-ingest-api-openapi.yml
+- openapi/nacelle-order-management-api-experimental-openapi.yml
+vocabulary:
+  name: Nacelle Domain Vocabulary
+  description: 'Terms declared by Nacelle''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: entries (BETA)
+    definition: Entry operations
+    tags:
+    - Resource Group
+    source: openapi/nacelle-ingest-api-openapi.yml
+  - term: Credentials holds information about client credentials.
+    definition: 'Object declared by the contract with fields: client_id, client_secret, description, last_updated, name, ttl.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/Credentials
+  - term: CredentialsRequest represents the request to create a new credentials.
+    definition: 'Object declared by the contract with fields: description, name.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/CredentialsRequest
+  - term: error
+    definition: 'Object declared by the contract with fields: code, message.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/error
+  - term: Token represents the structure of an access token.
+    definition: 'Object declared by the contract with fields: access_token, expires_in.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/Token
+  - term: TokenRequest represents the request to create a new token.
+    definition: 'Object declared by the contract with fields: audience, client_id, client_secret, grant_type.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/TokenRequest
+  - term: PayloadJWT represents the request to create a new public token.
+    definition: 'Object declared by the contract with fields: customer_id, segment_id, space_id.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/IssueRequest
+  - term: JWTResponse represents the structure of a JWT token response.
+    definition: 'Object declared by the contract with fields: expires_in, token.'
+    tags:
+    - Object
+    source: openapi/nacelle-auth-api-openapi.yml#/components/schemas/IssueResponse
+  - term: AddressUpdate
+    definition: 'Object declared by the contract with fields: address1, address2, city, comment, country_iso2, first_name, id, last_name, merchant_modified_at,
+      postal_code, province, state.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/AddressUpdate
+  - term: UpdateResponse
+    definition: UpdaterResponse represents the response returned after a successful update operation
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/UpdateResponse
+  - term: AddressCheckout
+    definition: 'Object declared by the contract with fields: address1, address2, city, comment, country_iso2, first_name, id, last_name, postal_code,
+      province, state.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/AddressCheckout
+  - term: ClientData represents client-related data.
+    definition: 'Object declared by the contract with fields: created_at, id, ip_address, metadata, modified_at, user_agent.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/ClientData
+  - term: CustomerCheckout
+    definition: 'Object declared by the contract with fields: addresses, destination_reference_id, email, first_name, id, last_name, metadata,
+      phone, source_reference_id.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/CustomerCheckout
+  - term: DiscountCheckout contains information about a purchase discount.
+    definition: 'Object declared by the contract with fields: amount, description, effect_type, id, metadata, name.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/DiscountCheckout
+  - term: ErrorDetail represents an error for specific API call / flow step.
+    definition: 'Object declared by the contract with fields: category, message, metadata, response_headers, response_status, responsibility,
+      severity.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/ErrorDetail
+  - term: ErrorResponse represents error details for a multi-order / multi-cart.
+    definition: Error details are collected from multiple API calls, until we reach fatal/error severity and need to stop the flow. Error details
+      list can be used for deciding what errors we should show to clients (usually Fatal/Error severity). For example, we can show the first Fatal/Error
+      we found in the error details list, or we can show all Fatal/Error errors we have.
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/ErrorResponse
+  - term: OrderCheckout represents the details of an order/order-checkout.
+    definition: 'Object declared by the contract with fields: applied_discounts, billing_address, client_data, comment, currency, customer, destination_reference_id,
+      discounts, email, error, id, metadata. (14 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderCheckout
+  - term: OrderItemCheckout represents the details of an order item.
+    definition: 'Object declared by the contract with fields: applied_discounts, available, canceled_at, canceled_by, canceled_reason, comment,
+      description, destination_reference_id, discounts_amount, id, metadata, price_amount. (10 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderItemCheckout
+  - term: PaymentCheckout contains information about an order payment.
+    definition: 'Object declared by the contract with fields: amount_value, card_brand, currency, external_id, id, payment_data, payment_method_id,
+      payment_type, processor_name, processor_status, status, transactions.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/PaymentCheckout
+  - term: PromotionCheckout
+    definition: 'Object declared by the contract with fields: coupon_codes, id, identifiers, loyalty_card, metadata, profile_id, referral_code.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/PromotionCheckout
+  - term: ShippingRateCheckout
+    definition: 'Object declared by the contract with fields: amount, currency, delivery_estimate_max, delivery_estimate_min, delivery_estimate_unit,
+      description, display_name, external_id, id, service_name, tax_behavior.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/ShippingRateCheckout
+  - term: TaxCheckout
+    definition: 'Object declared by the contract with fields: currency, expires_at, external_id, id, items, service, shipping, tax_date.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxCheckout
+  - term: TaxEntryBreakdownCheckout
+    definition: 'Object declared by the contract with fields: amount, created_at, display_name, id, modified_at, percentage, tax_type, taxability_reason.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxEntryBreakdownCheckout
+  - term: TaxEntryCheckout
+    definition: 'Object declared by the contract with fields: amount, breakdown, created_at, id, modified_at, order_item_id, quantity, tax, tax_behavior,
+      tax_code.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxEntryCheckout
+  - term: TaxItemsDataCheckout
+    definition: 'Object declared by the contract with fields: created_at, entries, id, modified_at, price, subtotal_price, tax.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxItemsDataCheckout
+  - term: TaxShippingDataCheckout
+    definition: 'Object declared by the contract with fields: created_at, entries, id, modified_at, price, subtotal_price, tax.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxShippingDataCheckout
+  - term: Transaction contains information about an payments transactions.
+    definition: 'Object declared by the contract with fields: amount, error, id, metadata, operation, status.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/Transaction
+  - term: MultiOrderCheckout represents the details of a multi-order/multi-cart.
+    definition: 'Object declared by the contract with fields: applied_discounts, billing_address, client_data, comment, currency, customer, discounts,
+      email, error, id, metadata, orchestration_steps. (8 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/MultiOrderCheckout
+  - term: AddressCreate
+    definition: 'Object declared by the contract with fields: address1, address2, city, comment, country_iso2, first_name, id, last_name, merchant_created_at,
+      merchant_modified_at, postal_code, province. (1 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/AddressCreate
+  - term: CustomerCreate
+    definition: 'Object declared by the contract with fields: addresses, destination_reference_id, email, first_name, id, last_name, merchant_created_at,
+      merchant_modified_at, metadata, phone, source_reference_id.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/CustomerCreate
+  - term: IDResponse represents the ID returned after a successful operation.
+    definition: 'Object declared by the contract with fields: id.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/IDResponse
+  - term: CustomerUpdate
+    definition: 'Object declared by the contract with fields: addresses, destination_reference_id, email, first_name, id, last_name, merchant_modified_at,
+      metadata, phone, source_reference_id.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/CustomerUpdate
+  - term: FulfillmentCreate represents the details of a fulfillment.
+    definition: 'Object declared by the contract with fields: assigned_location_id, delivery_date, delivery_estimation, delivery_method, delivery_type,
+      destination_address, external_id, fulfillment_order_items, id, nacelle_status, shipment_status, status. (3 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/FulfillmentCreate
+  - term: FulfillmentOrderItemCreate represents the details of an order item in a fulfillment.
+    definition: 'Object declared by the contract with fields: order_id, order_item_id, quantity.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/FulfillmentOrderItemCreate
+  - term: FulfillmentOrderItemUpdate represents the details of an order item in a fulfillment.
+    definition: 'Object declared by the contract with fields: order_id, order_item_id, quantity.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/FulfillmentOrderItemUpdate
+  - term: FulfillmentUpdate represents the details of a fulfillment.
+    definition: 'Object declared by the contract with fields: assigned_location_id, delivery_date, delivery_estimation, delivery_method, delivery_type,
+      destination_address, external_id, fulfillment_order_items, id, nacelle_status, shipment_status, status. (3 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/FulfillmentUpdate
+  - term: DiscountCreate contains information about a purchase discount.
+    definition: 'Object declared by the contract with fields: amount, description, effect_type, id, metadata, name.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/DiscountCreate
+  - term: MultiOrderCreate represents the details of a multi-order/multi-cart.
+    definition: 'Object declared by the contract with fields: applied_discounts, billing_address, client_data, comment, currency, customer, discounts,
+      email, error, id, merchant_created_at, merchant_modified_at. (9 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/MultiOrderCreate
+  - term: OrderCreate represents the details of an order/order-checkout.
+    definition: 'Object declared by the contract with fields: applied_discounts, billing_address, canceled_at, canceled_by, canceled_reason, client_data,
+      comment, currency, customer, destination_reference_id, discounts, email. (18 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderCreate
+  - term: OrderItemCreate represents the details of an order item.
+    definition: 'Object declared by the contract with fields: applied_discounts, canceled_at, canceled_by, canceled_reason, comment, description,
+      destination_reference_id, discounts_amount, id, merchant_created_at, merchant_modified_at, metadata. (11 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderItemCreate
+  - term: PaymentCreate contains information about an order payment.
+    definition: 'Object declared by the contract with fields: amount_value, capture_method, card_brand, currency, external_id, id, merchant_created_at,
+      merchant_modified_at, payment_data, payment_method_id, payment_type, processor_name. (3 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/PaymentCreate
+  - term: PromotionCreate
+    definition: 'Object declared by the contract with fields: coupon_codes, id, identifiers, loyalty_card, metadata, profile_id, referral_code.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/PromotionCreate
+  - term: ShippingRateCreate
+    definition: 'Object declared by the contract with fields: amount, currency, delivery_estimate_max, delivery_estimate_min, delivery_estimate_unit,
+      description, display_name, external_id, id, service_name, tax_behavior.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/ShippingRateCreate
+  - term: TaxCreate
+    definition: 'Object declared by the contract with fields: currency, expires_at, external_id, id, items, service, shipping, tax_date.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxCreate
+  - term: TaxEntryBreakdownCreate
+    definition: 'Object declared by the contract with fields: amount, created_at, display_name, id, modified_at, percentage, tax_type, taxability_reason.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxEntryBreakdownCreate
+  - term: TaxEntryCreate
+    definition: 'Object declared by the contract with fields: amount, breakdown, created_at, id, modified_at, order_item_id, quantity, tax, tax_behavior,
+      tax_code.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxEntryCreate
+  - term: TaxItemsDataCreate
+    definition: 'Object declared by the contract with fields: created_at, entries, id, modified_at, price, subtotal_price, tax.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxItemsDataCreate
+  - term: TaxShippingDataCreate
+    definition: 'Object declared by the contract with fields: created_at, entries, id, modified_at, price, subtotal_price, tax.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/TaxShippingDataCreate
+  - term: MultiOrderUpdate represents the details of a multi-order/multi-cart.
+    definition: 'Object declared by the contract with fields: billing_address, client_data, comment, customer, email, error, id, merchant_modified_at,
+      metadata, orders, phone, status.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/MultiOrderUpdate
+  - term: OrderItemUpdate represents the details of an order item.
+    definition: 'Object declared by the contract with fields: canceled_at, canceled_by, canceled_reason, comment, description, destination_reference_id,
+      id, merchant_modified_at, metadata, quantity, sku, source_reference_id. (1 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderItemUpdate
+  - term: OrderUpdate represents the details of an order/order-checkout.
+    definition: 'Object declared by the contract with fields: billing_address, canceled_at, canceled_by, canceled_reason, client_data, comment,
+      customer, destination_reference_id, email, error, id, merchant_modified_at. (6 more)'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderUpdate
+  - term: PaymentUpdate contains information about an order payment.
+    definition: 'Object declared by the contract with fields: card_brand, external_id, id, merchant_modified_at, payment_data, payment_method_id,
+      payment_type, processor_name, processor_status, status, transactions.'
+    tags:
+    - Object
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/PaymentUpdate
+  - term: credentials
+    definition: 'Resource group in the contract; its operation POST /credential: This will create a new nacelle credential based on the input
+      parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-auth-api-openapi.yml
+  - term: token
+    definition: 'Resource group in the contract; its operation POST /credential/token: This will create a new nacelle private token based on the
+      input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-auth-api-openapi.yml
+  - term: entries
+    definition: 'Resource group in the contract; its operation PUT /collection: The _**collection**_ endpoint adds collection entries to an index.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-ingest-api-openapi.yml
+  - term: index
+    definition: 'Resource group in the contract; its operation GET /index: The _**index**_ endpoint allows checking the status of indexes for
+      a given source.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-ingest-api-openapi.yml
+  - term: entries (ALPHA)
+    definition: 'Resource group in the contract; its operation PUT /inventory-item: The _**inventory-item**_ endpoint adds inventory items to
+      an index.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-ingest-api-openapi.yml
+  - term: addresses
+    definition: 'Resource group in the contract; its operation PATCH /addresses/{nacelle-address-id}: This will update an address based on the
+      input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: checkout
+    definition: 'Resource group in the contract; its operation POST /checkout/validate: This will validate and return an order-checkout based
+      on the input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: customers
+    definition: 'Resource group in the contract; its operation POST /customers: This will create a customer based on the input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: fulfillments
+    definition: 'Resource group in the contract; its operation POST /fulfillments: This will create a fulfillment based on the input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: multiorders
+    definition: 'Resource group in the contract; its operation POST /multiorders: This will create a multi-order based on the input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: orderitems
+    definition: 'Resource group in the contract; its operation PATCH /orderitems/{nacelle-order-item-id}: This will update an order item based
+      on the input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: paymentintent
+    definition: 'Resource group in the contract; its operation POST /paymentintent/create: This will create a payment intent on the input parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - term: payment
+    definition: 'Resource group in the contract; its operation PATCH /payments/{nacelle-payment-id}: This will update a payment based on the input
+      parameters.'
+    tags:
+    - Resource Group
+    source: openapi/nacelle-order-management-api-experimental-openapi.yml

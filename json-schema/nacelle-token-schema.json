@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nacelle/main/json-schema/nacelle-token-schema.json",
+  "title": "Token represents the structure of an access token.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/nacelle-auth-api-openapi.yml#/components/schemas/Token",
+  "properties": {
+    "access_token": {
+      "description": "The access token that can be used for authenticated requests.",
+      "type": "string",
+      "x-go-name": "AccessToken"
+    },
+    "expires_in": {
+      "description": "The duration in seconds for which the access token is valid.",
+      "format": "int64",
+      "type": "integer",
+      "x-go-name": "ExpiresIn"
+    }
+  },
+  "type": "object",
+  "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+}

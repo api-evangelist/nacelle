@@ -1,0 +1,71 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/nacelle-auth-api-openapi.yml
+- openapi/nacelle-ingest-api-openapi.yml
+- openapi/nacelle-order-management-api-experimental-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: error
+coverage:
+  operations: 55
+  statuses_declared: 8
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 52
+  media_types:
+  - application/json
+  schema: error
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 25
+  media_types:
+  - application/json
+  schema: error
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 31
+  media_types:
+  - application/json
+  schema: error
+- status: 404
+  title: Not Found
+  description: Not Found
+  operations: 42
+  media_types:
+  - application/json
+  schema: error
+- status: 409
+  title: Conflict
+  description: Conflict
+  operations: 3
+  media_types:
+  - application/json
+  schema: null
+- status: 422
+  title: Unprocessable Content
+  description: Unprocessable Entity
+  operations: 2
+  media_types:
+  - application/json
+  schema: error
+- status: 429
+  title: Too Many Requests
+  description: Rate Limit Exceeded
+  operations: 23
+  media_types:
+  - application/json
+  schema: error
+- status: 500
+  title: Internal Server Error
+  description: Internal Server Error
+  operations: 55
+  media_types:
+  - application/json
+  schema: error

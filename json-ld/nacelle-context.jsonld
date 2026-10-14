@@ -1,0 +1,569 @@
+{
+  "@context": {
+    "@vocab": "https://nacelle.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "nacelle": "https://nacelle.com/schema#",
+    "Credentials": "nacelle:Credentials",
+    "client_id": {
+      "@id": "nacelle:client_id",
+      "@type": "xsd:string"
+    },
+    "client_secret": {
+      "@id": "nacelle:client_secret",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "nacelle:description",
+      "@type": "xsd:string"
+    },
+    "last_updated": {
+      "@id": "nacelle:last_updated",
+      "@type": "xsd:dateTime"
+    },
+    "name": {
+      "@id": "nacelle:name",
+      "@type": "xsd:string"
+    },
+    "ttl": {
+      "@id": "nacelle:ttl",
+      "@type": "xsd:integer"
+    },
+    "CredentialsRequest": "nacelle:CredentialsRequest",
+    "error": "nacelle:error",
+    "code": {
+      "@id": "nacelle:code",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "nacelle:message",
+      "@type": "xsd:string"
+    },
+    "Token": "nacelle:Token",
+    "access_token": {
+      "@id": "nacelle:access_token",
+      "@type": "xsd:string"
+    },
+    "expires_in": {
+      "@id": "nacelle:expires_in",
+      "@type": "xsd:integer"
+    },
+    "TokenRequest": "nacelle:TokenRequest",
+    "audience": {
+      "@id": "nacelle:audience",
+      "@type": "xsd:string"
+    },
+    "grant_type": {
+      "@id": "nacelle:grant_type",
+      "@type": "xsd:string"
+    },
+    "IssueRequest": "nacelle:IssueRequest",
+    "customer_id": {
+      "@id": "nacelle:customer_id",
+      "@type": "xsd:string"
+    },
+    "segment_id": {
+      "@id": "nacelle:segment_id",
+      "@type": "xsd:string"
+    },
+    "space_id": {
+      "@id": "nacelle:space_id",
+      "@type": "xsd:string"
+    },
+    "IssueResponse": "nacelle:IssueResponse",
+    "token": {
+      "@id": "nacelle:token",
+      "@type": "xsd:string"
+    },
+    "AddressUpdate": "nacelle:AddressUpdate",
+    "address1": {
+      "@id": "nacelle:address1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "nacelle:address2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "nacelle:city",
+      "@type": "xsd:string"
+    },
+    "comment": {
+      "@id": "nacelle:comment",
+      "@type": "xsd:string"
+    },
+    "country_iso2": {
+      "@id": "nacelle:country_iso2",
+      "@type": "xsd:string"
+    },
+    "first_name": {
+      "@id": "nacelle:first_name",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "nacelle:id",
+      "@type": "xsd:string"
+    },
+    "last_name": {
+      "@id": "nacelle:last_name",
+      "@type": "xsd:string"
+    },
+    "merchant_modified_at": {
+      "@id": "nacelle:merchant_modified_at",
+      "@type": "xsd:dateTime"
+    },
+    "postal_code": {
+      "@id": "nacelle:postal_code",
+      "@type": "xsd:string"
+    },
+    "province": {
+      "@id": "nacelle:province",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "nacelle:state",
+      "@type": "xsd:string"
+    },
+    "AddressCheckout": "nacelle:AddressCheckout",
+    "ClientData": "nacelle:ClientData",
+    "created_at": {
+      "@id": "nacelle:created_at"
+    },
+    "ip_address": {
+      "@id": "nacelle:ip_address",
+      "@type": "xsd:string"
+    },
+    "metadata": {
+      "@id": "nacelle:metadata"
+    },
+    "modified_at": {
+      "@id": "nacelle:modified_at"
+    },
+    "user_agent": {
+      "@id": "nacelle:user_agent",
+      "@type": "xsd:string"
+    },
+    "CustomerCheckout": "nacelle:CustomerCheckout",
+    "addresses": {
+      "@id": "nacelle:addresses",
+      "@container": "@list"
+    },
+    "destination_reference_id": {
+      "@id": "nacelle:destination_reference_id",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "nacelle:email",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "nacelle:phone",
+      "@type": "xsd:string"
+    },
+    "source_reference_id": {
+      "@id": "nacelle:source_reference_id",
+      "@type": "xsd:string"
+    },
+    "DiscountCheckout": "nacelle:DiscountCheckout",
+    "amount": {
+      "@id": "nacelle:amount",
+      "@type": "xsd:string"
+    },
+    "effect_type": {
+      "@id": "nacelle:effect_type",
+      "@type": "xsd:string"
+    },
+    "ErrorDetail": "nacelle:ErrorDetail",
+    "category": {
+      "@id": "nacelle:category",
+      "@type": "xsd:string"
+    },
+    "response_headers": {
+      "@id": "nacelle:response_headers"
+    },
+    "response_status": {
+      "@id": "nacelle:response_status",
+      "@type": "xsd:integer"
+    },
+    "responsibility": {
+      "@id": "nacelle:responsibility",
+      "@type": "xsd:string"
+    },
+    "severity": {
+      "@id": "nacelle:severity",
+      "@type": "xsd:string"
+    },
+    "ErrorResponse": "nacelle:ErrorResponse",
+    "details": {
+      "@id": "nacelle:details",
+      "@container": "@list"
+    },
+    "OrderCheckout": "nacelle:OrderCheckout",
+    "applied_discounts": {
+      "@id": "nacelle:applied_discounts",
+      "@container": "@list"
+    },
+    "billing_address": {
+      "@id": "nacelle:billing_address",
+      "@type": "@id"
+    },
+    "client_data": {
+      "@id": "nacelle:client_data",
+      "@type": "@id"
+    },
+    "currency": {
+      "@id": "nacelle:currency",
+      "@type": "xsd:string"
+    },
+    "customer": {
+      "@id": "nacelle:customer",
+      "@type": "@id"
+    },
+    "discounts": {
+      "@id": "nacelle:discounts",
+      "@type": "xsd:string"
+    },
+    "order_items": {
+      "@id": "nacelle:order_items",
+      "@container": "@list"
+    },
+    "payments": {
+      "@id": "nacelle:payments",
+      "@container": "@list"
+    },
+    "price": {
+      "@id": "nacelle:price",
+      "@type": "xsd:string"
+    },
+    "promotion": {
+      "@id": "nacelle:promotion",
+      "@type": "@id"
+    },
+    "shipping_address": {
+      "@id": "nacelle:shipping_address",
+      "@type": "@id"
+    },
+    "shipping_rate": {
+      "@id": "nacelle:shipping_rate",
+      "@type": "@id"
+    },
+    "shipping_rates": {
+      "@id": "nacelle:shipping_rates",
+      "@container": "@list"
+    },
+    "status": {
+      "@id": "nacelle:status",
+      "@type": "xsd:string"
+    },
+    "subtotal_price": {
+      "@id": "nacelle:subtotal_price",
+      "@type": "xsd:string"
+    },
+    "tax": {
+      "@id": "nacelle:tax",
+      "@type": "xsd:string"
+    },
+    "tax_data": {
+      "@id": "nacelle:tax_data",
+      "@type": "@id"
+    },
+    "tax_rate": {
+      "@id": "nacelle:tax_rate",
+      "@type": "xsd:string"
+    },
+    "OrderItemCheckout": "nacelle:OrderItemCheckout",
+    "available": {
+      "@id": "nacelle:available",
+      "@type": "xsd:integer"
+    },
+    "canceled_at": {
+      "@id": "nacelle:canceled_at",
+      "@type": "xsd:dateTime"
+    },
+    "canceled_by": {
+      "@id": "nacelle:canceled_by",
+      "@type": "xsd:string"
+    },
+    "canceled_reason": {
+      "@id": "nacelle:canceled_reason",
+      "@type": "xsd:string"
+    },
+    "discounts_amount": {
+      "@id": "nacelle:discounts_amount",
+      "@type": "xsd:string"
+    },
+    "price_amount": {
+      "@id": "nacelle:price_amount",
+      "@type": "xsd:string"
+    },
+    "price_book_id": {
+      "@id": "nacelle:price_book_id",
+      "@type": "xsd:string"
+    },
+    "product_id": {
+      "@id": "nacelle:product_id",
+      "@type": "xsd:string"
+    },
+    "quantity": {
+      "@id": "nacelle:quantity",
+      "@type": "xsd:integer"
+    },
+    "sku": {
+      "@id": "nacelle:sku",
+      "@type": "xsd:string"
+    },
+    "subtotal_price_amount": {
+      "@id": "nacelle:subtotal_price_amount",
+      "@type": "xsd:string"
+    },
+    "tax_amount": {
+      "@id": "nacelle:tax_amount",
+      "@type": "xsd:string"
+    },
+    "variant_id": {
+      "@id": "nacelle:variant_id",
+      "@type": "xsd:string"
+    },
+    "PaymentCheckout": "nacelle:PaymentCheckout",
+    "amount_value": {
+      "@id": "nacelle:amount_value",
+      "@type": "xsd:string"
+    },
+    "card_brand": {
+      "@id": "nacelle:card_brand",
+      "@type": "xsd:string"
+    },
+    "external_id": {
+      "@id": "nacelle:external_id",
+      "@type": "xsd:string"
+    },
+    "payment_data": {
+      "@id": "nacelle:payment_data"
+    },
+    "payment_method_id": {
+      "@id": "nacelle:payment_method_id",
+      "@type": "xsd:string"
+    },
+    "payment_type": {
+      "@id": "nacelle:payment_type",
+      "@type": "xsd:string"
+    },
+    "processor_name": {
+      "@id": "nacelle:processor_name",
+      "@type": "xsd:string"
+    },
+    "processor_status": {
+      "@id": "nacelle:processor_status",
+      "@type": "xsd:string"
+    },
+    "transactions": {
+      "@id": "nacelle:transactions",
+      "@container": "@list"
+    },
+    "PromotionCheckout": "nacelle:PromotionCheckout",
+    "coupon_codes": {
+      "@id": "nacelle:coupon_codes",
+      "@container": "@list"
+    },
+    "identifiers": {
+      "@id": "nacelle:identifiers",
+      "@container": "@list"
+    },
+    "loyalty_card": {
+      "@id": "nacelle:loyalty_card",
+      "@type": "xsd:string"
+    },
+    "profile_id": {
+      "@id": "nacelle:profile_id",
+      "@type": "xsd:string"
+    },
+    "referral_code": {
+      "@id": "nacelle:referral_code",
+      "@type": "xsd:string"
+    },
+    "ShippingRateCheckout": "nacelle:ShippingRateCheckout",
+    "delivery_estimate_max": {
+      "@id": "nacelle:delivery_estimate_max",
+      "@type": "xsd:integer"
+    },
+    "delivery_estimate_min": {
+      "@id": "nacelle:delivery_estimate_min",
+      "@type": "xsd:integer"
+    },
+    "delivery_estimate_unit": {
+      "@id": "nacelle:delivery_estimate_unit",
+      "@type": "xsd:string"
+    },
+    "display_name": {
+      "@id": "nacelle:display_name",
+      "@type": "xsd:string"
+    },
+    "service_name": {
+      "@id": "nacelle:service_name",
+      "@type": "xsd:string"
+    },
+    "tax_behavior": {
+      "@id": "nacelle:tax_behavior",
+      "@type": "xsd:string"
+    },
+    "TaxCheckout": "nacelle:TaxCheckout",
+    "expires_at": {
+      "@id": "nacelle:expires_at"
+    },
+    "items": {
+      "@id": "nacelle:items",
+      "@type": "@id"
+    },
+    "service": {
+      "@id": "nacelle:service",
+      "@type": "xsd:string"
+    },
+    "shipping": {
+      "@id": "nacelle:shipping",
+      "@type": "@id"
+    },
+    "tax_date": {
+      "@id": "nacelle:tax_date"
+    },
+    "TaxEntryBreakdownCheckout": "nacelle:TaxEntryBreakdownCheckout",
+    "percentage": {
+      "@id": "nacelle:percentage",
+      "@type": "xsd:string"
+    },
+    "tax_type": {
+      "@id": "nacelle:tax_type",
+      "@type": "xsd:string"
+    },
+    "taxability_reason": {
+      "@id": "nacelle:taxability_reason",
+      "@type": "xsd:string"
+    },
+    "TaxEntryCheckout": "nacelle:TaxEntryCheckout",
+    "breakdown": {
+      "@id": "nacelle:breakdown",
+      "@container": "@list"
+    },
+    "order_item_id": {
+      "@id": "nacelle:order_item_id",
+      "@type": "xsd:string"
+    },
+    "tax_code": {
+      "@id": "nacelle:tax_code",
+      "@type": "xsd:string"
+    },
+    "TaxItemsDataCheckout": "nacelle:TaxItemsDataCheckout",
+    "entries": {
+      "@id": "nacelle:entries",
+      "@container": "@list"
+    },
+    "TaxShippingDataCheckout": "nacelle:TaxShippingDataCheckout",
+    "Transaction": "nacelle:Transaction",
+    "operation": {
+      "@id": "nacelle:operation",
+      "@type": "xsd:string"
+    },
+    "MultiOrderCheckout": "nacelle:MultiOrderCheckout",
+    "orchestration_steps": {
+      "@id": "nacelle:orchestration_steps",
+      "@container": "@list"
+    },
+    "orders": {
+      "@id": "nacelle:orders",
+      "@container": "@list"
+    },
+    "AddressCreate": "nacelle:AddressCreate",
+    "merchant_created_at": {
+      "@id": "nacelle:merchant_created_at",
+      "@type": "xsd:dateTime"
+    },
+    "CustomerCreate": "nacelle:CustomerCreate",
+    "IDResponse": "nacelle:IDResponse",
+    "CustomerUpdate": "nacelle:CustomerUpdate",
+    "FulfillmentCreate": "nacelle:FulfillmentCreate",
+    "assigned_location_id": {
+      "@id": "nacelle:assigned_location_id",
+      "@type": "xsd:string"
+    },
+    "delivery_date": {
+      "@id": "nacelle:delivery_date",
+      "@type": "xsd:integer"
+    },
+    "delivery_estimation": {
+      "@id": "nacelle:delivery_estimation",
+      "@type": "xsd:string"
+    },
+    "delivery_method": {
+      "@id": "nacelle:delivery_method",
+      "@type": "xsd:string"
+    },
+    "delivery_type": {
+      "@id": "nacelle:delivery_type",
+      "@type": "xsd:string"
+    },
+    "destination_address": {
+      "@id": "nacelle:destination_address",
+      "@type": "@id"
+    },
+    "fulfillment_order_items": {
+      "@id": "nacelle:fulfillment_order_items",
+      "@container": "@list"
+    },
+    "nacelle_status": {
+      "@id": "nacelle:nacelle_status",
+      "@type": "xsd:string"
+    },
+    "shipment_status": {
+      "@id": "nacelle:shipment_status",
+      "@type": "xsd:string"
+    },
+    "tracking_company": {
+      "@id": "nacelle:tracking_company",
+      "@type": "xsd:string"
+    },
+    "tracking_numbers": {
+      "@id": "nacelle:tracking_numbers",
+      "@container": "@list"
+    },
+    "tracking_urls": {
+      "@id": "nacelle:tracking_urls",
+      "@container": "@list"
+    },
+    "FulfillmentOrderItemCreate": "nacelle:FulfillmentOrderItemCreate",
+    "order_id": {
+      "@id": "nacelle:order_id",
+      "@type": "xsd:string"
+    },
+    "FulfillmentOrderItemUpdate": "nacelle:FulfillmentOrderItemUpdate",
+    "FulfillmentUpdate": "nacelle:FulfillmentUpdate",
+    "DiscountCreate": "nacelle:DiscountCreate",
+    "MultiOrderCreate": "nacelle:MultiOrderCreate",
+    "OrderCreate": "nacelle:OrderCreate",
+    "OrderItemCreate": "nacelle:OrderItemCreate",
+    "PaymentCreate": "nacelle:PaymentCreate",
+    "capture_method": {
+      "@id": "nacelle:capture_method",
+      "@type": "xsd:string"
+    },
+    "PromotionCreate": "nacelle:PromotionCreate",
+    "ShippingRateCreate": "nacelle:ShippingRateCreate",
+    "TaxCreate": "nacelle:TaxCreate",
+    "TaxEntryBreakdownCreate": "nacelle:TaxEntryBreakdownCreate",
+    "TaxEntryCreate": "nacelle:TaxEntryCreate",
+    "TaxItemsDataCreate": "nacelle:TaxItemsDataCreate",
+    "TaxShippingDataCreate": "nacelle:TaxShippingDataCreate",
+    "MultiOrderUpdate": "nacelle:MultiOrderUpdate",
+    "OrderItemUpdate": "nacelle:OrderItemUpdate",
+    "OrderUpdate": "nacelle:OrderUpdate",
+    "PaymentUpdate": "nacelle:PaymentUpdate"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Nacelle API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Nacelle's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/nacelle-auth-api-openapi.yml, openapi/nacelle-ingest-api-openapi.yml, openapi/nacelle-order-management-api-experimental-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/nacelle-auth-api-openapi.yml",
+    "openapi/nacelle-ingest-api-openapi.yml",
+    "openapi/nacelle-order-management-api-experimental-openapi.yml"
+  ]
+}

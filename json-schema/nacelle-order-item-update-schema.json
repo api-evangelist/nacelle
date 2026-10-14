@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nacelle/main/json-schema/nacelle-order-item-update-schema.json",
+  "title": "OrderItemUpdate represents the details of an order item.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/nacelle-order-management-api-experimental-openapi.yml#/components/schemas/OrderItemUpdate",
+  "properties": {
+    "canceled_at": {
+      "description": "When this Order Item was cancelled.",
+      "format": "date-time",
+      "type": "string",
+      "x-go-name": "CanceledAt"
+    },
+    "canceled_by": {
+      "description": "Who cancelled this OrderItem.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "CanceledBy"
+    },
+    "canceled_reason": {
+      "description": "Reason for cancelling this OrderItem.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "CanceledReason"
+    },
+    "comment": {
+      "description": "Additional comment.",
+      "maximum": 1000,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Comment"
+    },
+    "description": {
+      "description": "Short description of the product.",
+      "maximum": 1000,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Description"
+    },
+    "destination_reference_id": {
+      "description": "External id of the OrderItem in destination service.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "DestinationReferenceID"
+    },
+    "id": {
+      "description": "Unique identifier for the OrderItem.",
+      "format": "uuid",
+      "type": "string",
+      "x-go-name": "ID"
+    },
+    "merchant_modified_at": {
+      "description": "Merchant Specified Timestamp of the last modification to the OrderItem.",
+      "format": "date-time",
+      "type": "string",
+      "x-go-name": "MerchantModifiedAt"
+    },
+    "metadata": {
+      "additionalProperties": {},
+      "description": "Additional map-like data for any custom extra data.",
+      "type": "object",
+      "x-go-name": "Metadata"
+    },
+    "quantity": {
+      "description": "Quantity.",
+      "format": "uint64",
+      "maximum": 9999,
+      "minimum": 1,
+      "type": "integer",
+      "x-go-name": "Quantity"
+    },
+    "sku": {
+      "description": "SKU of the product.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Sku"
+    },
+    "source_reference_id": {
+      "description": "External id of the OrderItem in source service.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "SourceReferenceID"
+    },
+    "status": {
+      "description": "Status of the OrderItem.",
+      "maximum": 100,
+      "minimum": 1,
+      "type": "string",
+      "x-go-name": "Status"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "type": "object",
+  "x-go-package": "github.com/getnacelle/noms/docs"
+}

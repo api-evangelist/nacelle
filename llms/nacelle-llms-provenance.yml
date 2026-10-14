@@ -1,0 +1,6 @@
+generated: '2026-10-14'
+method: probed
+generator: harvest-llms.py
+source: https://docs.nacelle.com/llms.txt
+bytes: 19799
+note: saved verbatim; the provider's own document

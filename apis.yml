@@ -1,13 +1,16 @@
 aid: nacelle
+
 url: https://raw.githubusercontent.com/api-evangelist/nacelle/refs/heads/main/apis.yml
+
 name: Nacelle
+
 kind: company
-description: Nacelle is a headless / composable commerce data platform that ingests,
-  normalizes, and indexes commerce and content data (Shopify, Contentful and other
-  CMS sources) and serves it back to headless storefronts through a single, fast
-  GraphQL Storefront API. The company has since pivoted toward an AI personalization
-  engine, and the headless commerce Storefront API is now a legacy / maintenance-mode
-  product rather than an actively expanding platform.
+
+description: Nacelle is a headless / composable commerce data platform that ingests, normalizes, and indexes commerce and content data (Shopify,
+  Contentful and other CMS sources) and serves it back to headless storefronts through a single, fast GraphQL Storefront API. The company has
+  since pivoted toward an AI personalization engine, and the headless commerce Storefront API is now a legacy / maintenance-mode product rather
+  than an actively expanding platform.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -19,6 +22,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: enterprise
   onboarding: unknown
@@ -31,7 +35,9 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nacelle.png
+
 tags:
 - Commerce
 - Headless Commerce
@@ -39,9 +45,71 @@ tags:
 - GraphQL
 - Content
 - Data Indexing
+
 created: '2026-07-01'
+
 modified: '2026-07-01'
+
 specificationVersion: '0.23'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: AgenticAccess
+  url: agentic-access/nacelle-agentic-access.yml
+- type: Spectral
+  url: rules/nacelle-rules.yml
+- type: JSONLD
+  url: json-ld/nacelle-context.jsonld
+- type: Vocabulary
+  url: vocabulary/nacelle-vocabulary.yml
+- type: DataModel
+  url: data-model/nacelle-data-model.yml
+- type: Compliance
+  url: https://nacelle.com/terms-and-conditions
+- type: Security
+  url: security/nacelle-vulnerability-disclosure.yml
+- type: ErrorCatalog
+  url: errors/nacelle-problem-types.yml
+- type: LLMsTxt
+  url: llms/nacelle-llms.txt
+- type: Hosts
+  url: hosts/nacelle-hosts.yml
+- type: Vendors
+  url: vendors/nacelle-vendors.yml
+- type: Support
+  url: https://help.nacelle.com/
+- type: StatusPage
+  url: https://status.nacelle.com/
+- type: Pricing
+  url: https://nacelle.com/pricing/
+- type: OAuthScopes
+  url: scopes/nacelle-scopes.yml
+- type: Authentication
+  url: authentication/nacelle-authentication.yml
+- type: TrustCenter
+  url: security/nacelle-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/nacelle-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/nacelle-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/getnacelle
+- type: LinkedIn
+  url: https://www.linkedin.com/company/nacelle
+- type: Website
+  url: https://nacelle.com/
+- type: Documentation
+  url: https://docs.nacelle.com/
+- type: Plans
+  url: plans/nacelle-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/nacelle-rate-limits.yml
+- type: FinOps
+  url: finops/nacelle-finops.yml
+
 apis:
 - aid: nacelle:nacelle-storefront-products-api
   name: Nacelle Storefront Products API
@@ -71,10 +139,8 @@ apis:
     type: PostmanCollection
   - url: collections/nacelle.opencollection.json
     type: OpenCollection
-  description: The `allProducts` query on Nacelle's Storefront GraphQL API returns
-    normalized product entries (variants, pricing, media, metafields) drawn from
-    ingested Shopify or other commerce sources, with Relay-style pagination by
-    handle or nacelleEntryId.
+  description: The `allProducts` query on Nacelle's Storefront GraphQL API returns normalized product entries (variants, pricing, media, metafields)
+    drawn from ingested Shopify or other commerce sources, with Relay-style pagination by handle or nacelleEntryId.
 - aid: nacelle:nacelle-storefront-product-collections-api
   name: Nacelle Storefront Product Collections API
   tags:
@@ -95,10 +161,8 @@ apis:
     type: PostmanCollection
   - url: collections/nacelle.opencollection.json
     type: OpenCollection
-  description: The `allProductCollections` query returns merchandised collections
-    of products (the normalized equivalent of Shopify collections) with their
-    member product references, for building category and listing pages on a
-    headless storefront.
+  description: The `allProductCollections` query returns merchandised collections of products (the normalized equivalent of Shopify collections)
+    with their member product references, for building category and listing pages on a headless storefront.
 - aid: nacelle:nacelle-storefront-content-api
   name: Nacelle Storefront Content API
   tags:
@@ -119,9 +183,8 @@ apis:
     type: PostmanCollection
   - url: collections/nacelle.opencollection.json
     type: OpenCollection
-  description: The `allContent` query returns CMS content entries (pages, articles,
-    marketing blocks, media) ingested from sources such as Contentful, with a
-    configurable entryDepth for resolving nested content references.
+  description: The `allContent` query returns CMS content entries (pages, articles, marketing blocks, media) ingested from sources such as Contentful,
+    with a configurable entryDepth for resolving nested content references.
 - aid: nacelle:nacelle-storefront-navigation-spaces-api
   name: Nacelle Storefront Navigation and Spaces API
   tags:
@@ -152,9 +215,8 @@ apis:
     type: PostmanCollection
   - url: collections/nacelle.opencollection.json
     type: OpenCollection
-  description: The `navigation` and `spaceProperties` queries return a space's
-    navigation groups (menus) and space-level configuration (locales, currency,
-    metadata) used to render a headless storefront's chrome and localization.
+  description: The `navigation` and `spaceProperties` queries return a space's navigation groups (menus) and space-level configuration (locales,
+    currency, metadata) used to render a headless storefront's chrome and localization.
 - aid: nacelle:nacelle-admin-indexing-api
   name: Nacelle Admin Indexing and Ingestion API
   tags:
@@ -176,34 +238,66 @@ apis:
     type: PostmanCollection
   - url: collections/nacelle.opencollection.json
     type: OpenCollection
-  description: The Admin GraphQL API triggers and monitors the indexing / ingestion
-    pipeline that pulls data from connected sources (Shopify, CMS) into a space -
-    starting or resetting index jobs for a data source, entry, or entry type, and
-    querying indexing status. Documented as a beta / limited-availability feature
-    and authenticated with an admin token.
-common:
-- type: TrustCenter
-  url: security/nacelle-trust-center.yml
-- type: VulnerabilityDisclosure
-  url: security/nacelle-vulnerability-disclosure.yml
-- type: DomainSecurity
-  url: security/nacelle-domain-security.yml
-- type: GitHubOrganization
-  url: https://github.com/getnacelle
-- type: LinkedIn
-  url: https://www.linkedin.com/company/nacelle
-- type: Website
-  url: https://nacelle.com/
-- type: Documentation
-  url: https://docs.nacelle.com/
-- type: Plans
-  url: plans/nacelle-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/nacelle-rate-limits.yml
-- type: FinOps
-  url: finops/nacelle-finops.yml
-- type: Blog
-  url: https://nacelle.com/blog
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  description: The Admin GraphQL API triggers and monitors the indexing / ingestion pipeline that pulls data from connected sources (Shopify,
+    CMS) into a space - starting or resetting index jobs for a data source, entry, or entry type, and querying indexing status. Documented as
+    a beta / limited-availability feature and authenticated with an admin token.
+- aid: nacelle:nacelle-auth-api
+  name: Nacelle Auth API
+  description: The Auth API from Nacelle — 6 operation(s) for auth.
+  humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/nacelle-auth-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/nacelle-credentials-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-token-request-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-issue-request-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-issue-response-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-token-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-credentials-request-schema.json
+- aid: nacelle:nacelle-ingest-api
+  name: Nacelle entries (BETA) API
+  description: Entry operations
+  humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  tags:
+  - entries (BETA)
+  properties:
+  - type: OpenAPI
+    url: openapi/nacelle-ingest-api-openapi.yml
+- aid: nacelle:nacelle-order-management-api-experimental
+  name: Nacelle Order Management Api Experimental Openapi.Yml API
+  description: The Order Management Api Experimental Openapi.Yml API from Nacelle — 18 operation(s) for order management api experimental openapi.yml.
+  humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
+  baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
+  tags:
+  - Order Management Api Experimental Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/nacelle-order-management-api-experimental-openapi.yml
+  - type: JSONSchema
+    url: json-schema/nacelle-order-checkout-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-multi-order-checkout-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-fulfillment-create-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-fulfillment-update-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-order-item-update-schema.json
+  - type: JSONSchema
+    url: json-schema/nacelle-address-create-schema.json
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 55
+  tool: harvest-readme-openapi.py
+  portal: https://docs.nacelle.com

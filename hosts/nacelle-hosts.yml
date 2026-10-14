@@ -1,0 +1,73 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 6
+  own: 4
+  other_domain: 0
+  platform: 2
+  roles:
+  - api
+  - docs
+  - other
+  - source
+  - website
+hosts:
+- host: admin.api.nacelle.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: nacelle.com
+  role: api
+  relation: own
+- host: docs.nacelle.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Documentation
+  serves:
+  - docs
+  registrable_domain: nacelle.com
+  role: docs
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: nacelle.com
+  found_by:
+  - pointer
+  types:
+  - Website
+  - Blog
+  serves: []
+  registrable_domain: nacelle.com
+  role: website
+  relation: own
+- host: storefront.api.nacelle.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: nacelle.com
+  role: api
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform

@@ -1,0 +1,215 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/nacelle-auth-api-openapi.yml
+- openapi/nacelle-ingest-api-openapi.yml
+- openapi/nacelle-order-management-api-experimental-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 55 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: create_credential
+  operationId: createCredential
+  method: POST
+  path: /credential
+  description: Create a new nacelle credential
+- name: update_collection
+  operationId: PUT /collection
+  method: PUT
+  path: /collection
+  description: collection
+- name: update_address
+  operationId: updateAddress
+  method: PATCH
+  path: /addresses/{nacelle-address-id}
+  description: Update an address
+- name: list_credentials
+  operationId: listCredentials
+  method: GET
+  path: /credential/list/available
+  description: List all available nacelle credentials
+- name: delete_collection
+  operationId: DELETE /collection
+  method: DELETE
+  path: /collection
+  description: collection
+- name: validate_checkout
+  operationId: validateCheckout
+  method: POST
+  path: /checkout/validate
+  description: Validates an order-checkout request.
+- name: create_private_token
+  operationId: createPrivateToken
+  method: POST
+  path: /credential/token
+  description: Create a new nacelle token
+- name: update_collection-content
+  operationId: PUT /collection-content
+  method: PUT
+  path: /collection-content
+  description: collection content
+- name: create_customer
+  operationId: createCustomer
+  method: POST
+  path: /customers
+  description: Create a customer
+- name: delete_credential
+  operationId: deleteCredential
+  method: DELETE
+  path: /credential/{client-id}
+  description: Delete a nacelle credential
+- name: delete_collection-content
+  operationId: DELETE /collection-content
+  method: DELETE
+  path: /collection-content
+  description: collection content
+- name: update_customer
+  operationId: updateCustomer
+  method: PATCH
+  path: /customers/{nacelle-customer-id}
+  description: Update a customer
+- name: read_credential
+  operationId: readCredential
+  method: GET
+  path: /credential/{client-id}
+  description: Read a nacelle credential
+- name: update_content
+  operationId: PUT /content
+  method: PUT
+  path: /content
+  description: content
+- name: add_customer_address
+  operationId: addCustomerAddress
+  method: POST
+  path: /customers/{nacelle-customer-id}/addresses
+  description: Add a customer address
+- name: rotate_credential_secret
+  operationId: rotateCredentialSecret
+  method: POST
+  path: /credential/{client-id}/refresh
+  description: Rotate a nacelle credential secret
+- name: delete_content
+  operationId: DELETE /content
+  method: DELETE
+  path: /content
+  description: content
+- name: create_fulfillment
+  operationId: createFulfillment
+  method: POST
+  path: /fulfillments
+  description: Create a fulfillment
+- name: issue_public_token
+  operationId: issuePublicToken
+  method: POST
+  path: /issue
+  description: Issue a public token.
+- name: update_custom-schema
+  operationId: PUT /custom-schema
+  method: PUT
+  path: /custom-schema
+  description: custom schema (BETA)
+- name: update_fulfillment
+  operationId: updateFulfillment
+  method: PATCH
+  path: /fulfillments/{nacelle-fulfillment-id}
+  description: Update a fulfillment
+- name: get_index
+  operationId: GET /index
+  method: GET
+  path: /index
+  description: Read indexes status
+- name: multi_cart_validate
+  operationId: multiCartValidate
+  method: POST
+  path: /multicart/validate
+  description: Validates a multi-cart.
+- name: create_index
+  operationId: POST /index
+  method: POST
+  path: /index
+  description: Start an index
+- name: create_multi_order
+  operationId: createMultiOrder
+  method: POST
+  path: /multiorders
+  description: Create a multi-order
+- name: create_index_cancel
+  operationId: POST /index/cancel
+  method: POST
+  path: /index/cancel
+  description: Cancel all running indexes for a source
+- name: update_multi_order
+  operationId: updateMultiOrder
+  method: PATCH
+  path: /multiorders/{nacelle-multi-order-id}
+  description: Update a multi-order
+- name: create_index_clear
+  operationId: POST /index/clear
+  method: POST
+  path: /index/clear
+  description: Clear all entries of specified entry types
+- name: create_async_multi_order
+  operationId: createAsyncMultiOrder
+  method: POST
+  path: /multiordersasync
+  description: Create a multi-order
+- name: create_index_finish
+  operationId: POST /index/{indexId}/finish
+  method: POST
+  path: /index/{indexId}/finish
+  description: Finishes an index
+- name: update_order_item
+  operationId: updateOrderItem
+  method: PATCH
+  path: /orderitems/{nacelle-order-item-id}
+  description: Update an order item
+- name: update_inventory-item
+  operationId: PUT /inventory-item
+  method: PUT
+  path: /inventory-item
+  description: inventory-item (ALPHA)
+- name: create_payment_intent
+  operationId: createPaymentIntent
+  method: POST
+  path: /paymentintent/create
+  description: Create a paymentintent
+- name: delete_inventory-item
+  operationId: DELETE /inventory-item
+  method: DELETE
+  path: /inventory-item
+  description: inventory-item (ALPHA)
+- name: capture_payment_intent
+  operationId: capturePaymentIntent
+  method: PATCH
+  path: /paymentintent/{payment-intent-id}/capture
+  description: Capture a payment
+- name: update_inventory-level
+  operationId: PUT /inventory-level
+  method: PUT
+  path: /inventory-level
+  description: inventory-level (ALPHA)
+- name: refund_payment_intent
+  operationId: refundPaymentIntent
+  method: PATCH
+  path: /paymentintent/{payment-intent-id}/refund
+  description: Refund a payment
+- name: delete_inventory-level
+  operationId: DELETE /inventory-level
+  method: DELETE
+  path: /inventory-level
+  description: inventory-level (ALPHA)
+- name: retrieve_payment_intent
+  operationId: retrievePaymentIntent
+  method: GET
+  path: /paymentintent/{payment-intent-id}/retrieve
+  description: Retrieve a paymentintent
+- name: update_inventory-location
+  operationId: PUT /inventory-location
+  method: PUT
+  path: /inventory-location
+  description: inventory-location (ALPHA)

@@ -1,0 +1,29 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/nacelle-auth-api-openapi.yml, openapi/nacelle-order-management-api-experimental-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/nacelle-auth-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://authimilate.api.nacelle.com/v1/token
+- name: oauth2
+  source: openapi/nacelle-order-management-api-experimental-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://authimilate.api.nacelle.com/v1/token
+scopes:
+- scope: read
+  description: Grants read access
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/nacelle-auth-api-openapi.yml
+  - openapi/nacelle-order-management-api-experimental-openapi.yml
+- scope: write
+  description: Grants write access
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/nacelle-auth-api-openapi.yml
+  - openapi/nacelle-order-management-api-experimental-openapi.yml

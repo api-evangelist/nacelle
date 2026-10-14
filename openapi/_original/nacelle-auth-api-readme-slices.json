@@ -1,0 +1,1592 @@
+[
+ {
+  "page": "https://docs.nacelle.com/reference/createcredential.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/credential": {
+     "post": {
+      "description": "This will create a new nacelle credential based on the input parameters.",
+      "operationId": "createCredential",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/CredentialsRequest"
+         }
+        }
+       },
+       "required": true
+      },
+      "responses": {
+       "200": {
+        "description": "Credentials",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/Credentials"
+          }
+         }
+        }
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "Create a new nacelle credential",
+      "tags": [
+       "credentials"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "Credentials": {
+      "properties": {
+       "client_id": {
+        "description": "The unique client ID.",
+        "example": "abc123",
+        "type": "string",
+        "x-go-name": "ClientID"
+       },
+       "client_secret": {
+        "description": "The client's secret key.",
+        "example": "secretKey123",
+        "type": "string",
+        "x-go-name": "ClientSecret"
+       },
+       "description": {
+        "description": "A brief description for the client.",
+        "example": "A sample client application for demonstration.",
+        "type": "string",
+        "x-go-name": "Description"
+       },
+       "last_updated": {
+        "description": "The last time the credentials were updated.",
+        "example": "2023-01-10T14:48:00Z",
+        "format": "date-time",
+        "type": "string",
+        "x-go-name": "LastUpdated"
+       },
+       "name": {
+        "description": "The name of the client.",
+        "example": "MyClientApp",
+        "type": "string",
+        "x-go-name": "Name"
+       },
+       "ttl": {
+        "description": "The time-to-live (in seconds) for the credentials.",
+        "example": 3600,
+        "format": "int64",
+        "type": "integer",
+        "x-go-name": "TTL"
+       }
+      },
+      "required": [
+       "client_id",
+       "client_secret",
+       "last_updated"
+      ],
+      "title": "Credentials holds information about client credentials.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "CredentialsRequest": {
+      "properties": {
+       "description": {
+        "description": "The description of the credentials.",
+        "example": "This is a sample description for the credentials.",
+        "type": "string",
+        "x-go-name": "Description"
+       },
+       "name": {
+        "description": "The name of the credentials.",
+        "example": "Sample Name",
+        "type": "string",
+        "x-go-name": "Name"
+       }
+      },
+      "title": "CredentialsRequest represents the request to create a new credentials.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ },
+ {
+  "page": "https://docs.nacelle.com/reference/deletecredential.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/credential/{client-id}": {
+     "delete": {
+      "description": "This will delete a nacelle credential based on the input parameters.",
+      "operationId": "deleteCredential",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "in": "path",
+        "name": "client-id",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "responses": {
+       "204": {
+        "$ref": "#/components/responses/204"
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "Delete a nacelle credential",
+      "tags": [
+       "credentials"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "204": {
+      "description": "No Content",
+      "content": {
+       "application/json": {
+        "schema": {
+         "nullable": true
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ },
+ {
+  "page": "https://docs.nacelle.com/reference/readcredential.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/credential/{client-id}": {
+     "get": {
+      "description": "This will read all nacelle credentials based on the input parameters.",
+      "operationId": "readCredential",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "in": "path",
+        "name": "client-id",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "Credentials",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/Credentials"
+          }
+         }
+        }
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "Read a nacelle credential",
+      "tags": [
+       "credentials"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "Credentials": {
+      "properties": {
+       "client_id": {
+        "description": "The unique client ID.",
+        "example": "abc123",
+        "type": "string",
+        "x-go-name": "ClientID"
+       },
+       "client_secret": {
+        "description": "The client's secret key.",
+        "example": "secretKey123",
+        "type": "string",
+        "x-go-name": "ClientSecret"
+       },
+       "description": {
+        "description": "A brief description for the client.",
+        "example": "A sample client application for demonstration.",
+        "type": "string",
+        "x-go-name": "Description"
+       },
+       "last_updated": {
+        "description": "The last time the credentials were updated.",
+        "example": "2023-01-10T14:48:00Z",
+        "format": "date-time",
+        "type": "string",
+        "x-go-name": "LastUpdated"
+       },
+       "name": {
+        "description": "The name of the client.",
+        "example": "MyClientApp",
+        "type": "string",
+        "x-go-name": "Name"
+       },
+       "ttl": {
+        "description": "The time-to-live (in seconds) for the credentials.",
+        "example": 3600,
+        "format": "int64",
+        "type": "integer",
+        "x-go-name": "TTL"
+       }
+      },
+      "required": [
+       "client_id",
+       "client_secret",
+       "last_updated"
+      ],
+      "title": "Credentials holds information about client credentials.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ },
+ {
+  "page": "https://docs.nacelle.com/reference/rotatecredentialsecret.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/credential/{client-id}/refresh": {
+     "post": {
+      "description": "This will rotate a nacelle credential secret based on the input parameters.",
+      "operationId": "rotateCredentialSecret",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "in": "path",
+        "name": "client-id",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "Credentials",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/Credentials"
+          }
+         }
+        }
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "Rotate a nacelle credential secret",
+      "tags": [
+       "credentials"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "Credentials": {
+      "properties": {
+       "client_id": {
+        "description": "The unique client ID.",
+        "example": "abc123",
+        "type": "string",
+        "x-go-name": "ClientID"
+       },
+       "client_secret": {
+        "description": "The client's secret key.",
+        "example": "secretKey123",
+        "type": "string",
+        "x-go-name": "ClientSecret"
+       },
+       "description": {
+        "description": "A brief description for the client.",
+        "example": "A sample client application for demonstration.",
+        "type": "string",
+        "x-go-name": "Description"
+       },
+       "last_updated": {
+        "description": "The last time the credentials were updated.",
+        "example": "2023-01-10T14:48:00Z",
+        "format": "date-time",
+        "type": "string",
+        "x-go-name": "LastUpdated"
+       },
+       "name": {
+        "description": "The name of the client.",
+        "example": "MyClientApp",
+        "type": "string",
+        "x-go-name": "Name"
+       },
+       "ttl": {
+        "description": "The time-to-live (in seconds) for the credentials.",
+        "example": 3600,
+        "format": "int64",
+        "type": "integer",
+        "x-go-name": "TTL"
+       }
+      },
+      "required": [
+       "client_id",
+       "client_secret",
+       "last_updated"
+      ],
+      "title": "Credentials holds information about client credentials.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ },
+ {
+  "page": "https://docs.nacelle.com/reference/listcredentials.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/credential/list/available": {
+     "get": {
+      "description": "This will list all available nacelle credentials based on the input parameters.",
+      "operationId": "listCredentials",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "arrayCredential",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/arrayCredential"
+          }
+         }
+        }
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "List all available nacelle credentials",
+      "tags": [
+       "credentials"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "Credentials": {
+      "properties": {
+       "client_id": {
+        "description": "The unique client ID.",
+        "example": "abc123",
+        "type": "string",
+        "x-go-name": "ClientID"
+       },
+       "client_secret": {
+        "description": "The client's secret key.",
+        "example": "secretKey123",
+        "type": "string",
+        "x-go-name": "ClientSecret"
+       },
+       "description": {
+        "description": "A brief description for the client.",
+        "example": "A sample client application for demonstration.",
+        "type": "string",
+        "x-go-name": "Description"
+       },
+       "last_updated": {
+        "description": "The last time the credentials were updated.",
+        "example": "2023-01-10T14:48:00Z",
+        "format": "date-time",
+        "type": "string",
+        "x-go-name": "LastUpdated"
+       },
+       "name": {
+        "description": "The name of the client.",
+        "example": "MyClientApp",
+        "type": "string",
+        "x-go-name": "Name"
+       },
+       "ttl": {
+        "description": "The time-to-live (in seconds) for the credentials.",
+        "example": 3600,
+        "format": "int64",
+        "type": "integer",
+        "x-go-name": "TTL"
+       }
+      },
+      "required": [
+       "client_id",
+       "client_secret",
+       "last_updated"
+      ],
+      "title": "Credentials holds information about client credentials.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "arrayCredential": {
+      "items": {
+       "$ref": "#/components/schemas/Credentials"
+      },
+      "type": "array",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ },
+ {
+  "page": "https://docs.nacelle.com/reference/createprivatetoken.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/credential/token": {
+     "post": {
+      "description": "This will create a new nacelle private token based on the input parameters.",
+      "operationId": "createPrivateToken",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/TokenRequest"
+         }
+        }
+       },
+       "required": true
+      },
+      "responses": {
+       "200": {
+        "description": "Token",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/Token"
+          }
+         }
+        }
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "Create a new nacelle token",
+      "tags": [
+       "token"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "Token": {
+      "properties": {
+       "access_token": {
+        "description": "The access token that can be used for authenticated requests.",
+        "example": "your_access_token_here",
+        "type": "string",
+        "x-go-name": "AccessToken"
+       },
+       "expires_in": {
+        "description": "The duration in seconds for which the access token is valid.",
+        "example": 3600,
+        "format": "int64",
+        "type": "integer",
+        "x-go-name": "ExpiresIn"
+       }
+      },
+      "title": "Token represents the structure of an access token.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "TokenRequest": {
+      "properties": {
+       "audience": {
+        "description": "The audience for the token.",
+        "example": "https://api.example.com/",
+        "type": "string",
+        "x-go-name": "Audience"
+       },
+       "client_id": {
+        "description": "The client ID.",
+        "example": "exampleClientID",
+        "type": "string",
+        "x-go-name": "ClientID"
+       },
+       "client_secret": {
+        "description": "The client secret.",
+        "example": "exampleClientSecret",
+        "type": "string",
+        "x-go-name": "ClientSecret"
+       },
+       "grant_type": {
+        "description": "The type of grant being used.",
+        "example": "client_credentials",
+        "type": "string",
+        "x-go-name": "GrantType"
+       }
+      },
+      "title": "TokenRequest represents the request to create a new token.",
+      "type": "object",
+      "x-go-package": "github.com/getnacelle/authimilate/services/auth0-mgmt/pkg/model"
+     },
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ },
+ {
+  "page": "https://docs.nacelle.com/reference/issuepublictoken.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "description": "The Auth API is used to manage credentials and tokens for nacelle authentication and authorization.\n",
+    "title": "Auth API",
+    "version": "0.1.0"
+   },
+   "paths": {
+    "/issue": {
+     "post": {
+      "operationId": "issuePublicToken",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "X-Nacelle-Space-ID",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/IssueRequest"
+         }
+        }
+       },
+       "required": true
+      },
+      "responses": {
+       "200": {
+        "description": "IssueResponse",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/IssueResponse"
+          }
+         }
+        }
+       },
+       "400": {
+        "$ref": "#/components/responses/400"
+       },
+       "401": {
+        "$ref": "#/components/responses/401"
+       },
+       "403": {
+        "$ref": "#/components/responses/403"
+       },
+       "404": {
+        "$ref": "#/components/responses/404"
+       },
+       "429": {
+        "$ref": "#/components/responses/429"
+       },
+       "500": {
+        "$ref": "#/components/responses/500"
+       }
+      },
+      "summary": "Issue a public token.",
+      "tags": [
+       "token"
+      ]
+     }
+    }
+   },
+   "security": [
+    {
+     "oauth2": []
+    }
+   ],
+   "servers": [
+    {
+     "url": "http://authimilate.api.nacelle.com/v1"
+    },
+    {
+     "url": "https://authimilate.api.nacelle.com/v1"
+    }
+   ],
+   "components": {
+    "responses": {
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "403": {
+      "description": "Forbidden",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "429": {
+      "description": "Rate Limit Exceeded",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/error"
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oauth2": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://authimilate.api.nacelle.com/v1/token",
+        "scopes": {
+         "read": "Grants read access",
+         "write": "Grants write access"
+        }
+       }
+      }
+     }
+    },
+    "schemas": {
+     "IssueRequest": {
+      "properties": {
+       "customer_id": {
+        "description": "The customer's unique identifier.\ncust12345",
+        "type": "string",
+        "x-go-name": "CustomerID"
+       },
+       "segment_id": {
+        "description": "The segment's unique identifier.",
+        "example": "seg67890",
+        "type": "string",
+        "x-go-name": "SegmentID"
+       },
+       "space_id": {
+        "description": "The space's unique identifier.",
+        "example": "spaceXYZ",
+        "type": "string",
+        "x-go-name": "SpaceID"
+       }
+      },
+      "title": "PayloadJWT represents the request to create a new public token.",
+      "type": "object",
+      "x-go-name": "PayloadJWT",
+      "x-go-package": "github.com/getnacelle/authimilate/services/themisproxy/internal/themisclient"
+     },
+     "IssueResponse": {
+      "properties": {
+       "expires_in": {
+        "description": "The duration in seconds for which the JWT token is valid.",
+        "example": 3600,
+        "format": "int64",
+        "type": "integer",
+        "x-go-name": "ExpiresIn"
+       },
+       "token": {
+        "description": "The JWT token that can be used for authentication.",
+        "example": "token",
+        "type": "string",
+        "x-go-name": "Token"
+       }
+      },
+      "title": "JWTResponse represents the structure of a JWT token response.",
+      "type": "object",
+      "x-go-name": "JWTResponse",
+      "x-go-package": "github.com/getnacelle/authimilate/services/themisproxy/internal/themisclient"
+     },
+     "error": {
+      "properties": {
+       "code": {
+        "description": "A numeric error code.",
+        "type": "integer"
+       },
+       "message": {
+        "description": "A description of the reason for the error.",
+        "type": "string"
+       }
+      },
+      "type": "object"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   }
+  }
+ }
+]

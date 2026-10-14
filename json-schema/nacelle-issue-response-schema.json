@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nacelle/main/json-schema/nacelle-issue-response-schema.json",
+  "title": "JWTResponse represents the structure of a JWT token response.",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/nacelle-auth-api-openapi.yml#/components/schemas/IssueResponse",
+  "properties": {
+    "expires_in": {
+      "description": "The duration in seconds for which the JWT token is valid.",
+      "format": "int64",
+      "type": "integer",
+      "x-go-name": "ExpiresIn"
+    },
+    "token": {
+      "description": "The JWT token that can be used for authentication.",
+      "type": "string",
+      "x-go-name": "Token"
+    }
+  },
+  "type": "object",
+  "x-go-name": "JWTResponse",
+  "x-go-package": "github.com/getnacelle/authimilate/services/themisproxy/internal/themisclient"
+}

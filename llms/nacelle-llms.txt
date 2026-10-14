@@ -1,0 +1,177 @@
+# nacelledocs Documentation
+
+> Nacelle's Developer Documentation
+
+## Guides: Introduction
+- [Build with Nacelle](https://docs.nacelle.com/docs/build-with-nacelle.md): Unlock seamless commerce experiences with Nacelle
+- [Getting Started](https://docs.nacelle.com/docs/getting-started.md): Explore our guides, API references, and accelerator starter kits
+- [Getting Started with Data Ingestion](https://docs.nacelle.com/docs/getting-started-data-ingestion.md): Get started with Nacelle by ingesting your content, collections, products and pricing data
+
+## Guides: Ingest Data
+- [Prebuilt Connectors](https://docs.nacelle.com/docs/prebuilt-connectors.md): Seamlessly ingest your content, collections, products and pricing data
+  - [Contentful Connector](https://docs.nacelle.com/docs/contentful-connector.md): Quickly get started with the Contentful prebuilt connector
+  - [Sanity Connector](https://docs.nacelle.com/docs/sanity-connector.md)
+  - [Shopify Connector](https://docs.nacelle.com/docs/shopify-connector.md)
+- [Custom Connector](https://docs.nacelle.com/docs/custom-connector.md)
+- [Ingest REST API](https://docs.nacelle.com/docs/ingest-rest-api.md)
+- [Admin API](https://docs.nacelle.com/docs/admin-api.md)
+
+## Guides: Query & Syndicate Data
+- [Heads & Digital Storefronts](https://docs.nacelle.com/docs/heads.md)
+  - [PWA - Next.js](https://docs.nacelle.com/docs/pwa-nextjs.md)
+  - [PWA - Nuxt](https://docs.nacelle.com/docs/pwa-nuxt.md)
+- [Storefront GraphQL API](https://docs.nacelle.com/docs/storefront-graphql-api-stable.md)
+  - [Typed Fields](https://docs.nacelle.com/docs/typed-fields-querying.md)
+  - [Preview Data](https://docs.nacelle.com/docs/preview-data.md)
+- [Storefront SDK](https://docs.nacelle.com/docs/javascript-storefront-sdk.md)
+  - [Version 2.x](https://docs.nacelle.com/docs/storefront-sdk-major-version-2.md)
+  - [Version 1.x](https://docs.nacelle.com/docs/storefront-sdk-major-version-1.md)
+  - [Storefront SDK Commerce Queries Plugin](https://docs.nacelle.com/docs/storefront-sdk-commerce-queries-plugin.md)
+  - [With GraphQL Codegen](https://docs.nacelle.com/docs/graphql-codegen.md): Supercharge your development experience in TypeScript projects with Nacelle Storefront SDK 2.x and GraphQL Codegen
+  - [Changelog](https://docs.nacelle.com/docs/storefront-sdk-changelog.md)
+
+## Guides: Canonical Commerce Data Model
+- [Introduction](https://docs.nacelle.com/docs/introduction.md)
+- [Product Data Model](https://docs.nacelle.com/docs/product-data-model.md): Products, Product Content, Product Collections, Product Collection Content
+- [Variant Data Model](https://docs.nacelle.com/docs/variant-data-model.md)
+- [Content Data Model](https://docs.nacelle.com/docs/content-data-model.md)
+- [Price Rules and Price Breaks](https://docs.nacelle.com/docs/price-pricerules-price-breaks.md)
+- [Media](https://docs.nacelle.com/docs/media.md): An object representing a Media asset
+- [Metafields](https://docs.nacelle.com/docs/metafields.md): key-value pairings for all objects
+- [SEO](https://docs.nacelle.com/docs/seo.md): A field used to provide SEO data for web crawlers
+- [Product Option](https://docs.nacelle.com/docs/product-options.md): A helper object used to build variant selectors
+- [Input filters](https://docs.nacelle.com/docs/input-filters.md)
+
+## Guides: Genesis
+- [Campaigns](https://docs.nacelle.com/docs/genesis-campaigns.md): Streamline your marketing efforts with Genesis's powerful AI-driven personalization
+- [Genesis Settings](https://docs.nacelle.com/docs/genesis-settings.md): Maximize the impact of your personalized marketing campaigns by configuring Genesis settings
+
+## Guides: Order Management (EXPERIMENTAL)
+- [Introduction](https://docs.nacelle.com/docs/noms-introduction.md)
+- [Authentication](https://docs.nacelle.com/docs/noms-authentication.md)
+- [Mapping Commerce Data](https://docs.nacelle.com/docs/mappers.md): Send data between your commerce tools and Nacelle.
+  - [Promotions Mapper](https://docs.nacelle.com/docs/promotions-mapper.md): Send data between your coupon monitoring tools and Nacelle.
+  - [Shipping Mapper](https://docs.nacelle.com/docs/shipping-mapper.md): Send data between your shipping tools and Nacelle.
+  - [Inventory Mapper](https://docs.nacelle.com/docs/inventory-mapper.md): Send data between your inventory management tools and Nacelle.
+  - [MultiOrder Sync](https://docs.nacelle.com/docs/sync-mapper.md): Send data between your order management system and Nacelle.
+  - [Response Model Reference](https://docs.nacelle.com/docs/mappers-response-model-reference.md)
+- [Syndicate](https://docs.nacelle.com/docs/noms-syndicate.md)
+- [Limits](https://docs.nacelle.com/docs/noms-limits.md)
+- [Money Field](https://docs.nacelle.com/docs/noms-money.md)
+
+## Guides: Checkout (Experimental)
+- [Introduction](https://docs.nacelle.com/docs/checkout-introduction.md)
+- [Validation](https://docs.nacelle.com/docs/checkout-validation.md)
+- [Storage](https://docs.nacelle.com/docs/checkout-storage.md)
+- [Limits](https://docs.nacelle.com/docs/checkout-limits.md)
+
+## Guides: StandAlone Price Books (Experimental)
+- [Introduction](https://docs.nacelle.com/docs/standalone-price-books.md)
+- [Price Books and Shopify Connector](https://docs.nacelle.com/docs/standalone-price-books-shopify.md)
+- [Price Books and B2B](https://docs.nacelle.com/docs/standalone-price-books-b2b.md)
+
+## Guides: inventory (experimental)
+- [Introduction](https://docs.nacelle.com/docs/inventory.md)
+- [Inventory and Shopify Connector](https://docs.nacelle.com/docs/inventory-shopify.md)
+
+## Guides: Account & Dashboard
+- [Account and Team Setup](https://docs.nacelle.com/docs/account-and-team-setup.md)
+- [Spaces](https://docs.nacelle.com/docs/spaces.md): Spaces are containers of commerce and content data derived from your composed data sources.
+- [Navigation](https://docs.nacelle.com/docs/navigation.md): Use Nacelle's navigation data to organize and power your storefront.
+- [Indexed Data](https://docs.nacelle.com/docs/managing-indexed-data.md): Learn how about data connectors and viewing indexed data.
+- [GraphQL Explorer](https://docs.nacelle.com/docs/graphql-explorer.md): Build queries, explore the Storefront API schema, and your space's data.
+
+## Guides: authentication
+- [Introduction](https://docs.nacelle.com/docs/auth-introduction.md)
+- [OAuth 2.0](https://docs.nacelle.com/docs/auth-oauth.md)
+- [Client Credentials](https://docs.nacelle.com/docs/auth-credentials.md)
+- [API Authentication](https://docs.nacelle.com/docs/auth-storefront.md)
+
+## API Reference: Overview
+- [API Reference](https://docs.nacelle.com/reference/api-reference.md): Welcome to the Nacelle API Reference
+
+## API Reference: Ingest API
+- entries (BETA)
+  - [custom schema (BETA)](https://docs.nacelle.com/reference/put_custom-schema.md): The _**custom schema**_ endpoint updates a schema for an index.  * If an `indexId` field is present, the schema will be added to that index.  * If an `indexId` is not specified the schema will be…
+  - [price-book (BETA)](https://docs.nacelle.com/reference/put_price-book.md): The _**price-book**_ endpoint adds price books to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified the entries will be added…
+  - [price-book (BETA)](https://docs.nacelle.com/reference/delete_price-book.md): The `DELETE` _**price-book**_ endpoint deletes price book entries from the current active index, and all in progress indexes.  Required field is `sourceEntryId`.
+  - [pricing (BETA)](https://docs.nacelle.com/reference/put_pricing.md): The _**pricing**_ endpoint adds pricings to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified the entries will be added to…
+  - [pricing (BETA)](https://docs.nacelle.com/reference/delete_pricing.md): The `DELETE` _**pricing**_ endpoint deletes pricing entries from the current active index, and all in progress indexes.  Required fields are `sourceEntryId`.
+- index
+  - [Read indexes status](https://docs.nacelle.com/reference/get_index.md): The _**index**_ endpoint allows checking the status of indexes for a given source.  When errors occur during index processing, details may be provided via the `errors` field.
+  - [Start an index](https://docs.nacelle.com/reference/post_index.md): The _**start**_ endpoint allows to start an index for specific `entryTypes`. If successful, the response will contain an `indexId` which can subsequently be used to ingest entries, finish or cancel…
+  - [Finishes an index](https://docs.nacelle.com/reference/post_index-indexid-finish.md): The _**finish**_ endpoint completes an index, signaling Nacelle to promote it to the current active index and trigger deletion of the previous active index once internal processing has completed.
+  - [Cancel all running indexes for a source](https://docs.nacelle.com/reference/post_index-cancel.md): The _**cancel**_ endpoint allows to cancel all in-flight indexes for the given sourceId header.
+  - [Clear all entries of specified entry types](https://docs.nacelle.com/reference/post_index-clear.md): The _**clear**_ endpoint allows you to remove all entries of specified `entryType`s for a source in a Nacelle space.
+- entries
+  - [content](https://docs.nacelle.com/reference/put_content.md): The `PUT` _**content**_ endpoint adds content entries to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified the entries will…
+  - [content](https://docs.nacelle.com/reference/delete_content.md): The `DELETE` _**content**_ endpoint deletes content entries from the current active index, and all in progress indexes.  Required fields are `sourceEntryId`.
+  - [collection](https://docs.nacelle.com/reference/put_collection.md): The _**collection**_ endpoint adds collection entries to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified the entries will…
+  - [collection](https://docs.nacelle.com/reference/delete_collection.md): The _**delete collection**_ endpoint deletes collection entries from the currently active index.  The required fields are `sourceEntryId`, `collectionType` and `items`.
+  - [collection content](https://docs.nacelle.com/reference/put_collection-content.md): The `PUT` _**collection-content**_ endpoint adds collection content entries to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not…
+  - [collection content](https://docs.nacelle.com/reference/delete_collection-content.md): The `DELETE` _**collection-content**_ endpoint deletes collection content entries from the current active index, and all in progress indexes.  Required fields are `sourceEntryId` and…
+  - [product](https://docs.nacelle.com/reference/put_product.md): The _**product**_ endpoint adds product entries to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified the entries will be…
+  - [product](https://docs.nacelle.com/reference/delete_product.md): The _**delete product**_ endpoint deletes product entries from the current active index, and all in progress indexes.  The only required field is `sourceEntryId`.
+  - [product content](https://docs.nacelle.com/reference/put_product-content.md): The `PUT` _**product-content**_ endpoint adds product content entries to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified…
+  - [product content](https://docs.nacelle.com/reference/delete_product-content.md): The `DELETE` _**product-content**_ endpoint deletes product content entries from the current active index, and all in progress indexes.  Required fields are `sourceEntryId` and `sourceProductId`.
+  - [variant](https://docs.nacelle.com/reference/put_variant.md): The _**variant**_ endpoint adds variants to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified the entries will be added to…
+  - [variant](https://docs.nacelle.com/reference/delete_variant.md): The `DELETE` _**variant**_ endpoint deletes variant entries from the current active index, and all in progress indexes.  Required fields are `sourceEntryId` and `sourceProductId`.
+  - [variant content](https://docs.nacelle.com/reference/put_variant-content.md): The `PUT` _**variant-content**_ endpoint adds variant content entries to an index.  * If an `indexId` field is present, the entries will be added to that index.  * If an `indexId` is not specified…
+  - [variant content](https://docs.nacelle.com/reference/delete_variant-content.md): The `DELETE` _**variant-content**_ endpoint deletes variant content entries from the current active index, and all in progress indexes.  Required fields are `sourceEntryId`, `sourceProductID`, and…
+- entries (ALPHA)
+  - [inventory-item (ALPHA)](https://docs.nacelle.com/reference/put_inventory-item.md): The _**inventory-item**_ endpoint adds inventory items to an index.  * **NOTE: versioning is NOT supported in inventory items ALPHA, so passing an indexId will cause ingest to fail. Additionally,…
+  - [inventory-item (ALPHA)](https://docs.nacelle.com/reference/delete_inventory-item.md): The _**delete inventory-item**_ endpoint deletes inventory items from an index.  The only required field is `sourceEntryId`.
+  - [inventory-level (ALPHA)](https://docs.nacelle.com/reference/put_inventory-level.md): The _**inventory-level**_ endpoint adds inventory levels to an index.  * **NOTE: versioning is NOT supported in inventory levels ALPHA, so passing an indexId will cause ingest to fail. Additionally,…
+  - [inventory-level (ALPHA)](https://docs.nacelle.com/reference/delete_inventory-level.md): The _**delete inventory-level**_ endpoint deletes inventory levels from an index.  The only required field is `sourceEntryId`.
+  - [inventory-location (ALPHA)](https://docs.nacelle.com/reference/put_inventory-location.md): The _**inventory-location**_ endpoint adds inventory locations to an index.  * **NOTE: versioning is NOT supported in inventory locations ALPHA, so passing an indexId will cause ingest to fail.…
+  - [inventory-location (ALPHA)](https://docs.nacelle.com/reference/delete_inventory-location.md): The _**delete inventory-location**_ endpoint deletes inventory locations from an index.  The only required field is `sourceEntryId`.
+
+## API Reference: Order Management API (Experimental)
+- addresses
+  - [Update an address](https://docs.nacelle.com/reference/updateaddress.md): This will update an address based on the input parameters.
+- checkout
+  - [Validates an order-checkout request.](https://docs.nacelle.com/reference/validatecheckout.md): This will validate and return an order-checkout based on the input parameters.
+  - [Validates a multi-cart.](https://docs.nacelle.com/reference/multicartvalidate.md): This will validate and return a multi-cart based on the input parameters.
+- customers
+  - [Create a customer](https://docs.nacelle.com/reference/createcustomer.md): This will create a customer based on the input parameters.
+  - [Update a customer](https://docs.nacelle.com/reference/updatecustomer.md): This will update a customer based on the input parameters.
+  - [Add a customer address](https://docs.nacelle.com/reference/addcustomeraddress.md): This will add an address to a customer based on the input parameters.
+- fulfillments
+  - [Create a fulfillment](https://docs.nacelle.com/reference/createfulfillment.md): This will create a fulfillment based on the input parameters.
+  - [Update a fulfillment](https://docs.nacelle.com/reference/updatefulfillment.md): This will update a fulfillment based on the input parameters.
+- multiorders
+  - [Create a multi-order](https://docs.nacelle.com/reference/createmultiorder.md): This will create a multi-order based on the input parameters.
+  - [Update a multi-order](https://docs.nacelle.com/reference/updatemultiorder.md): This will update a multi-order based on the input parameters.
+  - [Create a multi-order](https://docs.nacelle.com/reference/createasyncmultiorder.md): This will create a multi-order based on the input parameters.
+- orderitems
+  - [Update an order item](https://docs.nacelle.com/reference/updateorderitem.md): This will update an order item based on the input parameters.
+- paymentintent
+  - [Capture a payment](https://docs.nacelle.com/reference/capturepaymentintent.md): This will capture a specific amount from a payment intent based on the input parameters.
+  - [Refund a payment](https://docs.nacelle.com/reference/refundpaymentintent.md): This will refund a payment intent based on the input parameters.
+  - [Retrieve a paymentintent](https://docs.nacelle.com/reference/retrievepaymentintent.md): This will retrieve a paymentintent from stripe based on the input parameters.
+  - [Update a payment](https://docs.nacelle.com/reference/updatepaymentintent.md): This will update a payment intent based on the input parameters.
+  - [Create a paymentintent](https://docs.nacelle.com/reference/createpaymentintent.md): This will create a payment intent on the input parameters.
+- payment
+  - [Update a payment](https://docs.nacelle.com/reference/updatepayment.md): This will update a payment based on the input parameters.
+- [Picart Storefront Graphql](https://docs.nacelle.com/reference/picart-graphql.md): Schema breakdown for Picart
+- [Noms Admin Graphql](https://docs.nacelle.com/reference/noms-graphql.md): Schema breakdown for Noms admin graphql endpoint
+- [NOMS Storefront Graphql](https://docs.nacelle.com/reference/noms-storefront-graphql-1.md): Schema breakdown for Noms storefront graphql endpoint
+- [Webhook Config Graphql API](https://docs.nacelle.com/reference/webhook-config-graphql-api.md): Graphql API used to configure outbound webhooks
+
+## API Reference: Auth API
+- credentials
+  - [Create a new nacelle credential](https://docs.nacelle.com/reference/createcredential.md): This will create a new nacelle credential based on the input parameters.
+  - [Delete a nacelle credential](https://docs.nacelle.com/reference/deletecredential.md): This will delete a nacelle credential based on the input parameters.
+  - [Read a nacelle credential](https://docs.nacelle.com/reference/readcredential.md): This will read all nacelle credentials based on the input parameters.
+  - [Rotate a nacelle credential secret](https://docs.nacelle.com/reference/rotatecredentialsecret.md): This will rotate a nacelle credential secret based on the input parameters.
+  - [List all available nacelle credentials](https://docs.nacelle.com/reference/listcredentials.md): This will list all available nacelle credentials based on the input parameters.
+- token
+  - [Create a new nacelle token](https://docs.nacelle.com/reference/createprivatetoken.md): This will create a new nacelle private token based on the input parameters.
+  - [Issue a public token.](https://docs.nacelle.com/reference/issuepublictoken.md)
+
+## Recipes
+- [Disabling APQ in Storefront SDK 2.x](https://docs.nacelle.com/recipes/disabling-apq-in-storefront-sdk-2x.md)
+- [Enable client-side caching with a TTL (Time-to-live) in Storefront SDK 2.x](https://docs.nacelle.com/recipes/enable-client-side-caching-with-a-ttl-time-to-live-in-storefront-sdk-2x.md)
+- [Initializing the Storefront SDK version 2.x](https://docs.nacelle.com/recipes/initializing-the-storefront-sdk-version-2x.md)
+- [Observability in Storefront SDK 2.x](https://docs.nacelle.com/recipes/observability-in-storefront-sdk-2x.md)
+- [Setting up the Commerce Queries plugin for Storefront SDK 2.x](https://docs.nacelle.com/recipes/setting-up-the-commerce-queries-plugin-for-storefront-sdk-2x.md)
