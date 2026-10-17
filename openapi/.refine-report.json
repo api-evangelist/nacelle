@@ -1,0 +1,55 @@
+{
+  "provider": "nacelle",
+  "sources": [
+    "nacelle-order-management-api-experimental-openapi.yml",
+    "nacelle-auth-api-openapi.yml",
+    "nacelle-ingest-api-openapi.yml"
+  ],
+  "outputs": [
+    "nacelle-addresses-api-openapi.yml",
+    "nacelle-checkout-api-openapi.yml",
+    "nacelle-customers-api-openapi.yml",
+    "nacelle-fulfillments-api-openapi.yml",
+    "nacelle-multiorders-api-openapi.yml",
+    "nacelle-orderitems-api-openapi.yml",
+    "nacelle-payment-api-openapi.yml",
+    "nacelle-paymentintent-api-openapi.yml",
+    "nacelle-credentials-api-openapi.yml",
+    "nacelle-token-api-openapi.yml",
+    "nacelle-entries-api-openapi.yml",
+    "nacelle-entries-alpha-api-openapi.yml",
+    "nacelle-entries-beta-api-openapi.yml",
+    "nacelle-index-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation",
+    "archived openapi/nacelle-order-management-api-experimental-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [
+    "nacelle-auth-api-openapi.yml: previously refined output kept for 7 operation(s) no archived document covers (e.g. /credential post, /credential/list/available get, /credential/token post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "nacelle-ingest-api-openapi.yml: previously refined output kept for 30 operation(s) no archived document covers (e.g. /collection delete, /collection put, /collection-content delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "nacelle-order-management-api-experimental-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: addresses",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: checkout",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: customers",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: fulfillments",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: multiorders",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: orderitems",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: payment",
+    "nacelle-order-management-api-experimental-openapi.yml: declared missing tag: paymentintent",
+    "nacelle-auth-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "nacelle-auth-api-openapi.yml: declared missing tag: credentials",
+    "nacelle-auth-api-openapi.yml: declared missing tag: token",
+    "nacelle-ingest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacelle-ingest-api-openapi.yml: declared missing tag: entries",
+    "nacelle-ingest-api-openapi.yml: declared missing tag: entries (ALPHA)",
+    "nacelle-ingest-api-openapi.yml: declared missing tag: index",
+    "superseded outputs removed: nacelle-auth-api-openapi.yml, nacelle-ingest-api-openapi.yml",
+    "apis.yml register: written (+14 apis, 19 total)"
+  ],
+  "skipped": []
+}

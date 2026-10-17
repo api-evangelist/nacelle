@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  description: The Order Management API is used to manage orders in the Nacelle Order Management System. This API is currently experimental and is subject to change.
+  title: Order Management API (Experimental) Orderitems API
+  version: 0.1.0
+servers:
+- url: https://noms.api.nacelle.com/api/v1
+security:
+- oauth2: []
+tags:
+- name: orderitems
+paths:
+  /orderitems/{nacelle-order-item-id}:
+    patch:
+      description: This will update an order item based on the input parameters.
+      operationId: updateOrderItem
+      parameters:
+      - in: path
+        name: nacelle-order-item-id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderItemUpdate'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Update an order item
+      tags:
+      - orderitems
+components:
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '429':
+      description: Rate Limit Exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    OrderItemUpdate:
+      properties:
+        canceled_at:
+          description: When this Order Item was cancelled.
+          example: '2023-01-10T14:48:00Z'
+          format: date-time
+          type: string
+          x-go-name: CanceledAt
+        canceled_by:
+          description: Who cancelled this OrderItem.
+          example: admin
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: CanceledBy
+        canceled_reason:
+          description: Reason for cancelling this OrderItem.
+          example: wrong color
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: CanceledReason
+        comment:
+          description: Additional comment.
+          example: please make sure to verify ordered color.
+          maximum: 1000
+          minimum: 1
+          type: string
+          x-go-name: Comment
+        description:
+          description: Short description of the product.
+          example: Wool shirt.
+          maximum: 1000
+          minimum: 1
+          type: string
+          x-go-name: Description
+        destination_reference_id:
+          description: External id of the OrderItem in destination service.
+          example: test-destination-id
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DestinationReferenceID
+        id:
+          description: Unique identifier for the OrderItem.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        merchant_modified_at:
+          description: Merchant Specified Timestamp of the last modification to the OrderItem.
+          example: '2023-01-10T14:48:00Z'
+          format: date-time
+          type: string
+          x-go-name: MerchantModifiedAt
+        metadata:
+          additionalProperties: {}
+          description: Additional map-like data for any custom extra data.
+          example:
+            custom_external_id: abc_123
+          type: object
+          x-go-name: Metadata
+        quantity:
+          description: Quantity.
+          example: 2
+          format: uint64
+          maximum: 9999
+          minimum: 1
+          type: integer
+          x-go-name: Quantity
+        sku:
+          description: SKU of the product.
+          example: sku-123
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: Sku
+        source_reference_id:
+          description: External id of the OrderItem in source service.
+          example: test-external-id
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: SourceReferenceID
+        status:
+          description: Status of the OrderItem.
+          example: pending
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: Status
+      required:
+      - id
+      title: OrderItemUpdate represents the details of an order item.
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    UpdateResponse:
+      description: UpdaterResponse represents the response returned after a successful update operation
+      type: object
+      x-go-name: UpdaterResponse
+      x-go-package: github.com/getnacelle/noms/services/oingest/internal/httpapp/shared
+    error:
+      properties:
+        code:
+          description: A numeric error code.
+          type: integer
+        message:
+          description: A description of the reason for the error.
+          type: string
+      type: object
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://authimilate.api.nacelle.com/v1/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/addcustomeraddress.md
+  - https://docs.nacelle.com/reference/capturepaymentintent.md
+  - https://docs.nacelle.com/reference/createasyncmultiorder.md
+  - https://docs.nacelle.com/reference/createcustomer.md
+  - https://docs.nacelle.com/reference/createfulfillment.md
+  - https://docs.nacelle.com/reference/createmultiorder.md
+  - https://docs.nacelle.com/reference/createpaymentintent.md
+  - https://docs.nacelle.com/reference/multicartvalidate.md
+  - https://docs.nacelle.com/reference/refundpaymentintent.md
+  - https://docs.nacelle.com/reference/retrievepaymentintent.md
+  - https://docs.nacelle.com/reference/updateaddress.md
+  - https://docs.nacelle.com/reference/updatecustomer.md
+  - https://docs.nacelle.com/reference/updatefulfillment.md
+  - https://docs.nacelle.com/reference/updatemultiorder.md
+  - https://docs.nacelle.com/reference/updateorderitem.md
+  - https://docs.nacelle.com/reference/updatepayment.md
+  - https://docs.nacelle.com/reference/updatepaymentintent.md
+  - https://docs.nacelle.com/reference/validatecheckout.md
+  merge:
+    pages: 18
+    deduped: 205
+    conflicts_kept_first: 0

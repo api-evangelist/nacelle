@@ -1,3 +1,5 @@
+# x-archived-from: nacelle-order-management-api-experimental-openapi.yml
+# x-archived-on: 2026-10-17
 openapi: 3.0.0
 info:
   description: 'The Order Management API is used to manage orders in the Nacelle Order Management System. This API is currently experimental and is subject to change.

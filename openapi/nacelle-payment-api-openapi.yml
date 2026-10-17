@@ -1,0 +1,274 @@
+openapi: 3.2.0
+info:
+  description: The Order Management API is used to manage orders in the Nacelle Order Management System. This API is currently experimental and is subject to change.
+  title: Order Management API (Experimental) Payment API
+  version: 0.1.0
+servers:
+- url: https://noms.api.nacelle.com/api/v1
+security:
+- oauth2: []
+tags:
+- name: Payment
+paths:
+  /payments/{nacelle-payment-id}:
+    patch:
+      description: This will update a payment based on the input parameters.
+      operationId: updatePayment
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: nacelle-payment-id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentUpdate'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Update a payment
+      tags:
+      - Payment
+components:
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '429':
+      description: Rate Limit Exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    UpdateResponse:
+      description: UpdaterResponse represents the response returned after a successful update operation
+      type: object
+      x-go-name: UpdaterResponse
+      x-go-package: github.com/getnacelle/noms/services/oingest/internal/httpapp/shared
+    error:
+      properties:
+        code:
+          description: A numeric error code.
+          type: integer
+        message:
+          description: A description of the reason for the error.
+          type: string
+      type: object
+    PaymentUpdate:
+      properties:
+        card_brand:
+          description: Brand of the card used for payment
+          example: Visa
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: CardBrand
+        external_id:
+          description: External ID associated with the payment
+          example: ext_12345
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ExternalID
+        id:
+          description: Unique identifier for the Payment.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        merchant_modified_at:
+          description: Merchant Specified Timestamp of the last modification to the Payment.
+          example: '2023-01-10T14:48:00Z'
+          format: date-time
+          type: string
+          x-go-name: MerchantModifiedAt
+        payment_data:
+          additionalProperties: {}
+          description: Additional payment data as key-value pairs
+          example:
+            transaction_id: txn_123
+          type: object
+          x-go-name: PaymentData
+        payment_method_id:
+          description: ID of the payment method
+          example: pm_12345
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: PaymentMethodID
+        payment_type:
+          description: Type of payment, e.g., Credit Card
+          example: Credit Card
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: PaymentType
+        processor_name:
+          description: Name of the payment processor
+          example: Stripe
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ProcessorName
+        processor_status:
+          description: Status returned by the payment processor
+          example: Approved
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ProcessorStatus
+        status:
+          description: Status of the payment
+          enum:
+          - created
+          - pending
+          - succeeded
+          - failed
+          - requires_confirmation
+          - balance_due
+          - credit_owed
+          example: succeeded
+          type: string
+          x-go-name: Status
+        transactions:
+          description: Transactions associated with the payment
+          items:
+            $ref: '#/components/schemas/Transaction'
+          type: array
+          x-go-name: Transactions
+      required:
+      - id
+      title: PaymentUpdate contains information about an order payment.
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    Transaction:
+      properties:
+        amount:
+          description: The Amount of the Transaction
+          example: '99.99'
+          type: string
+          x-go-name: Amount
+        error:
+          description: Error encountered during the Transaction
+          example: test error
+          type: string
+          x-go-name: Error
+        id:
+          description: Unique identifier for the Transaction.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        metadata:
+          additionalProperties: {}
+          description: Metadata for the Transaction
+          example:
+            key: value
+          type: object
+          x-go-name: Metadata
+        operation:
+          description: Operation of the Transaction
+          enum:
+          - authorization
+          - authorization_release
+          - charge
+          - refund
+          example: succeeded
+          type: string
+          x-go-name: Operation
+        status:
+          description: Status code for the Transaction.
+          enum:
+          - pending
+          - succeeded
+          - failed
+          example: succeeded
+          type: string
+          x-go-name: Status
+      title: Transaction contains information about an payments transactions.
+      type: object
+      x-go-package: github.com/getnacelle/noms/pkg/dto
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://authimilate.api.nacelle.com/v1/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/addcustomeraddress.md
+  - https://docs.nacelle.com/reference/capturepaymentintent.md
+  - https://docs.nacelle.com/reference/createasyncmultiorder.md
+  - https://docs.nacelle.com/reference/createcustomer.md
+  - https://docs.nacelle.com/reference/createfulfillment.md
+  - https://docs.nacelle.com/reference/createmultiorder.md
+  - https://docs.nacelle.com/reference/createpaymentintent.md
+  - https://docs.nacelle.com/reference/multicartvalidate.md
+  - https://docs.nacelle.com/reference/refundpaymentintent.md
+  - https://docs.nacelle.com/reference/retrievepaymentintent.md
+  - https://docs.nacelle.com/reference/updateaddress.md
+  - https://docs.nacelle.com/reference/updatecustomer.md
+  - https://docs.nacelle.com/reference/updatefulfillment.md
+  - https://docs.nacelle.com/reference/updatemultiorder.md
+  - https://docs.nacelle.com/reference/updateorderitem.md
+  - https://docs.nacelle.com/reference/updatepayment.md
+  - https://docs.nacelle.com/reference/updatepaymentintent.md
+  - https://docs.nacelle.com/reference/validatecheckout.md
+  merge:
+    pages: 18
+    deduped: 205
+    conflicts_kept_first: 0

@@ -1,0 +1,253 @@
+openapi: 3.2.0
+info:
+  description: The Order Management API is used to manage orders in the Nacelle Order Management System. This API is currently experimental and is subject to change.
+  title: Order Management API (Experimental) Paymentintent API
+  version: 0.1.0
+servers:
+- url: https://noms.api.nacelle.com/api/v1
+security:
+- oauth2: []
+tags:
+- name: paymentintent
+paths:
+  /paymentintent/create:
+    post:
+      description: This will create a payment intent on the input parameters.
+      operationId: createPaymentIntent
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Create a paymentintent
+      tags:
+      - paymentintent
+  /paymentintent/{payment-intent-id}/capture:
+    patch:
+      description: This will capture a specific amount from a payment intent based on the input parameters.
+      operationId: capturePaymentIntent
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: payment-intent-id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Capture a payment
+      tags:
+      - paymentintent
+  /paymentintent/{payment-intent-id}/refund:
+    patch:
+      description: This will refund a payment intent based on the input parameters.
+      operationId: refundPaymentIntent
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: payment-intent-id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Refund a payment
+      tags:
+      - paymentintent
+  /paymentintent/{payment-intent-id}/retrieve:
+    get:
+      description: This will retrieve a paymentintent from stripe based on the input parameters.
+      operationId: retrievePaymentIntent
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: payment-intent-id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Retrieve a paymentintent
+      tags:
+      - paymentintent
+  /paymentintent/{payment-intent-id}/update:
+    patch:
+      description: This will update a payment intent based on the input parameters.
+      operationId: updatePaymentIntent
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: payment-intent-id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Update a payment
+      tags:
+      - paymentintent
+components:
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '429':
+      description: Rate Limit Exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    UpdateResponse:
+      description: UpdaterResponse represents the response returned after a successful update operation
+      type: object
+      x-go-name: UpdaterResponse
+      x-go-package: github.com/getnacelle/noms/services/oingest/internal/httpapp/shared
+    error:
+      properties:
+        code:
+          description: A numeric error code.
+          type: integer
+        message:
+          description: A description of the reason for the error.
+          type: string
+      type: object
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://authimilate.api.nacelle.com/v1/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/addcustomeraddress.md
+  - https://docs.nacelle.com/reference/capturepaymentintent.md
+  - https://docs.nacelle.com/reference/createasyncmultiorder.md
+  - https://docs.nacelle.com/reference/createcustomer.md
+  - https://docs.nacelle.com/reference/createfulfillment.md
+  - https://docs.nacelle.com/reference/createmultiorder.md
+  - https://docs.nacelle.com/reference/createpaymentintent.md
+  - https://docs.nacelle.com/reference/multicartvalidate.md
+  - https://docs.nacelle.com/reference/refundpaymentintent.md
+  - https://docs.nacelle.com/reference/retrievepaymentintent.md
+  - https://docs.nacelle.com/reference/updateaddress.md
+  - https://docs.nacelle.com/reference/updatecustomer.md
+  - https://docs.nacelle.com/reference/updatefulfillment.md
+  - https://docs.nacelle.com/reference/updatemultiorder.md
+  - https://docs.nacelle.com/reference/updateorderitem.md
+  - https://docs.nacelle.com/reference/updatepayment.md
+  - https://docs.nacelle.com/reference/updatepaymentintent.md
+  - https://docs.nacelle.com/reference/validatecheckout.md
+  merge:
+    pages: 18
+    deduped: 205
+    conflicts_kept_first: 0

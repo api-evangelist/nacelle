@@ -1,0 +1,1262 @@
+openapi: 3.2.0
+info:
+  title: Ingest Entries API
+  version: 1.0.0
+  description: This is the documentation for the Ingest API.
+servers:
+- url: https://ingest.api.nacelle.com/v1/
+  description: Ingest API Development server
+tags:
+- name: Entries
+paths:
+  /collection:
+    put:
+      tags:
+      - Entries
+      summary: collection
+      description: 'The _**collection**_ endpoint adds collection entries to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        The required fields are `sourceEntryId`, `collectionType` and `items`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - collectionType
+                    - items
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Collection/0000000000000
+                      items:
+                        type: array
+                        example:
+                        - '1234'
+                        items:
+                          type: string
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      tags:
+                        $ref: '#/paths/~1product/put/requestBody/content/application~1json/schema/properties/entries/items/properties/tags'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                CollectionCreated:
+                  summary: Success
+                  value:
+                    message: 'COLLECTION UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putCollection
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: collection
+      description: 'The _**delete collection**_ endpoint deletes collection entries from the currently active index.
+
+
+        The required fields are `sourceEntryId`, `collectionType` and `items`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - collectionType
+                    - items
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Collection/0000000000000
+                      items:
+                        type: array
+                        example:
+                        - '1234'
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'COLLECTION DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteCollection
+      x-operation-id-source: derived
+  /collection-content:
+    put:
+      tags:
+      - Entries
+      summary: collection content
+      description: 'The `PUT` _**collection-content**_ endpoint adds collection content entries to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        Required fields are `sourceEntryId` and `sourceCollectionId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceCollectionId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Collection/0000000000000
+                      sourceCollectionId:
+                        type: string
+                        example: gid://shopify/Collection/0000000000000
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      title:
+                        type: string
+                        example: My Content Title
+                      handle:
+                        type: string
+                        example: contentHandle
+                      description:
+                        type: string
+                        example: My Content Description
+                      locale:
+                        type: string
+                        example: en-US
+                      published:
+                        type: boolean
+                        example: true
+                      fields:
+                        type: object
+                        example:
+                          foo: bar
+                      seo:
+                        $ref: '#/paths/~1product-content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/seo'
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      featuredMedia:
+                        $ref: '#/paths/~1product-content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/featuredMedia'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'COLLECTION_CONTENT UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putCollectionContent
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: collection content
+      description: 'The `DELETE` _**collection-content**_ endpoint deletes collection content entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required fields are `sourceEntryId` and `sourceCollectionId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceCollectionId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Collection/0000000000000
+                      sourceCollectionId:
+                        type: string
+                        example: gid://shopify/Collection/0000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'COLLECTION_CONTENT DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteCollectionContent
+      x-operation-id-source: derived
+  /content:
+    put:
+      tags:
+      - Entries
+      summary: content
+      description: 'The `PUT` _**content**_ endpoint adds content entries to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        Required fields are `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+                      locale:
+                        type: string
+                        example: en-US
+                      title:
+                        type: string
+                        example: My Content Title
+                      published:
+                        type: boolean
+                      type:
+                        type: string
+                        example: blog
+                      handle:
+                        type: string
+                        example: contentHandle
+                      createdAt:
+                        type: string
+                        format: date-time (ISO 8601 UTC)
+                        example: '2023-09-16T00:00:00'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      fields:
+                        type: string
+                        example: '{ "foo": "bar" }'
+                        description: A json encoded string of custom ingestion data
+                      isTopLevel:
+                        type: boolean
+                        example: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'CONTENT UPDATE: success'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              examples:
+                BadRequestNoSourceEntryIdExample:
+                  summary: Bad Request (no sourceEntryId)
+                  value:
+                    error: Bad Request
+                    message: Bad Request
+                    errors:
+                    - sourceEntryId: null
+                      errors:
+                      - target:
+                          locale: en-US
+                        property: sourceEntryId
+                        children: []
+                        constraints:
+                          maxLength: sourceEntryId must be shorter than or equal to 128 characters
+                          isString: sourceEntryId must be a string
+                BadRequestSourceEntryIdTooLongExample:
+                  summary: Bad Request (sourceEntryId too long)
+                  value:
+                    error: Bad Request
+                    message: Bad Request
+                    errors:
+                    - sourceEntryId: abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+                      errors:
+                      - target:
+                          locale: en-US
+                          sourceEntryId: abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+                        value: abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+                        property: sourceEntryId
+                        children: []
+                        constraints:
+                          maxLength: sourceEntryId must be shorter than or equal to 128 characters
+                BadRequestSourceEntryIdNotAStringExample:
+                  summary: Bad Request (sourceEntryId is not a string)
+                  value:
+                    error: Bad Request
+                    message: Bad Request
+                    errors:
+                    - sourceEntryId: 12345
+                      errors:
+                      - target:
+                          locale: en-US
+                          sourceEntryId: 12345
+                        value: 12345
+                        property: sourceEntryId
+                        children: []
+                        constraints:
+                          maxLength: sourceEntryId must be shorter than or equal to 128 characters
+                          isString: sourceEntryId must be a string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              examples:
+                SourceNotFoundExample:
+                  summary: Source Not Found
+                  value:
+                    message: Source with id 00000000-0000-0000-0000-000000000000 not found
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              examples:
+                IndexNotInProgress:
+                  summary: 'Conflict: index not in progress'
+                  value:
+                    error: Conflict
+                    reason: The provided index id is invalid. No index in progress was found for the given index id.
+                EntryTypeNotIncludedInIndex:
+                  summary: 'Conflict: entry types'
+                  value:
+                    error: Conflict
+                    reason: 'The provided index id can only accept entries of types: CONTENT, PRODUCT'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putContent
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: content
+      description: 'The `DELETE` _**content**_ endpoint deletes content entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required fields are `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'CONTENT DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteContent
+      x-operation-id-source: derived
+  /product:
+    put:
+      tags:
+      - Entries
+      summary: product
+      description: 'The _**product**_ endpoint adds product entries to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        The only required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+                      availableForSale:
+                        type: boolean
+                      productType:
+                        type: string
+                        example: GiftCard
+                      vendor:
+                        type: string
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      tags:
+                        type: array
+                        example:
+                        - tag
+                        items:
+                          type: string
+                      dimensions:
+                        type: object
+                        properties:
+                          length:
+                            type: number
+                            description: The length of the product. We support up to 15 whole digits of length.
+                            example: 12
+                          width:
+                            type: number
+                            description: The width of the product. We support up to 15 whole digits of length.
+                            example: 12
+                          height:
+                            type: number
+                            description: The height of the product. We support up to 15 whole digits of length.
+                            example: 12
+                          unit:
+                            type: string
+                            example: in
+                      taxes:
+                        type: object
+                        properties:
+                          taxCode:
+                            type: string
+                            example: VAT
+                            description: A code which defines how a tax is assessed
+                          taxProvider:
+                            type: string
+                            example: Avalara
+                            description: A company that provides tax calculation services
+                          hsCode:
+                            type: string
+                            example: '8533.90'
+                            description: A 6 - 12 digit code used to classify goods for import and export
+                          countryOfOrigin:
+                            type: string
+                            example: US
+                            description: 'An ISO 3166-1 alpha-2 country code (ISO-2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)'
+                          countryCode:
+                            type: string
+                            example: US
+                            description: 'An ISO 3166-1 alpha-2 country code (ISO-2: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'PRODUCT UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putProduct
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: product
+      description: 'The _**delete product**_ endpoint deletes product entries from the
+
+        current active index, and all in progress indexes.
+
+
+        The only required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'PRODUCT DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteProduct
+      x-operation-id-source: derived
+  /product-content:
+    put:
+      tags:
+      - Entries
+      summary: product content
+      description: 'The `PUT` _**product-content**_ endpoint adds product content entries to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        Required fields are `sourceEntryId` and `sourceProductId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceProductId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      locale:
+                        type: string
+                        example: en-US
+                      sourceProductId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+                      published:
+                        type: boolean
+                      handle:
+                        type: string
+                        example: contentHandle
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      title:
+                        type: string
+                        example: My Content Title
+                      description:
+                        type: string
+                        example: My Content Description
+                      options:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: OptionName
+                          values:
+                            type: array
+                            example:
+                            - option value
+                      featuredMedia:
+                        type: object
+                        required:
+                        - type
+                        - src
+                        properties:
+                          id:
+                            type: string
+                            example: mediaId
+                          type:
+                            type: string
+                            example: IMAGE
+                          src:
+                            type: string
+                            example: https://my-cdn.com/myImage.png
+                          thumbnailSrc:
+                            type: string
+                            example: https://my-cdn.com/myImageThumbnail.png
+                          altText:
+                            type: string
+                            example: Alt text for my media
+                          mimeType:
+                            type: string
+                            example: image/png
+                          featured:
+                            type: boolean
+                      media:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1product-content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/featuredMedia'
+                      fields:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/fields'
+                      seo:
+                        type: object
+                        properties:
+                          title:
+                            type: string
+                            example: SEO field title
+                          description:
+                            type: string
+                            example: SEO field description
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'PRODUCT_CONTENT UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putProductContent
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: product content
+      description: 'The `DELETE` _**product-content**_ endpoint deletes product content entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required fields are `sourceEntryId` and `sourceProductId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceProductId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceProductId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'PRODUCT_CONTENT DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteProductContent
+      x-operation-id-source: derived
+  /variant:
+    put:
+      tags:
+      - Entries
+      summary: variant
+      description: 'The _**variant**_ endpoint adds variants to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        Required fields are `sourceEntryId` and `sourceProductId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceProductId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceProductId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      availableForSale:
+                        type: boolean
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      priceRules:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - title
+                          - price
+                          - priceCurrency
+                          - country
+                          properties:
+                            title:
+                              type: string
+                              example: Price Rule Title
+                            price:
+                              type: string
+                              example: 10.99
+                            priceCurrency:
+                              type: string
+                              example: USD
+                            country:
+                              type: string
+                              example: United States
+                            priceBreaks:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  quantityMin:
+                                    type: number
+                                    example: 1
+                                  quantityMax:
+                                    type: number
+                                    example: 5
+                                  price:
+                                    type: string
+                                    example: 9.99
+                                  metafields:
+                                    $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                                required:
+                                - quantityMin
+                                - quantityMax
+                                - price
+                            compareAtPrice:
+                              type: string
+                              example: $12.99
+                            metafields:
+                              $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      price:
+                        type: string
+                        example: 10.99
+                      priceCurrency:
+                        type: string
+                        example: USD
+                      compareAtPrice:
+                        type: number
+                        example: 10.99
+                      sku:
+                        type: string
+                        example: XYZ12345
+                      weight:
+                        type: number
+                        example: 5.4
+                      weightUnit:
+                        type: string
+                        example: lbs
+                      quantityAvailable:
+                        type: number
+                        example: 100
+                      position:
+                        type: number
+                        example: 1
+                      dimensions:
+                        $ref: '#/paths/~1product/put/requestBody/content/application~1json/schema/properties/entries/items/properties/dimensions'
+                      taxes:
+                        $ref: '#/paths/~1product/put/requestBody/content/application~1json/schema/properties/entries/items/properties/taxes'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'VARIANT UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putVariant
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: variant
+      description: 'The `DELETE` _**variant**_ endpoint deletes variant entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required fields are `sourceEntryId` and `sourceProductId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceProductId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceProductId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'VARIANT DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteVariant
+      x-operation-id-source: derived
+  /variant-content:
+    put:
+      tags:
+      - Entries
+      summary: variant content
+      description: 'The `PUT` _**variant-content**_ endpoint adds variant content entries to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        Required fields are `sourceEntryId`, `sourceProductID`, and `sourceVariantId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceEntryId
+              - sourceProductId
+              - sourceVariantId
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceProductId
+                    - sourceVariantId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      locale:
+                        type: string
+                        example: en-US
+                      sourceProductId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+                      sourceVariantId:
+                        type: string
+                        example: 4858f62230ac3c915f300c664312c63f
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      handle:
+                        type: string
+                        example: contentHandle
+                      description:
+                        type: string
+                        example: My Content Description
+                      featuredMedia:
+                        $ref: '#/paths/~1product-content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/featuredMedia'
+                      media:
+                        type: array
+                        items:
+                          $ref: '#/paths/~1product-content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/featuredMedia'
+                      selectedOptions:
+                        type: array
+                        required:
+                        - name
+                        - value
+                        items:
+                          type: object
+                          required:
+                          - name
+                          - value
+                          properties:
+                            name:
+                              type: string
+                              example: OptionName
+                            value:
+                              type: string
+                              example: Option Value
+                            label:
+                              type: string
+                              example: option_label
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      swatchSrc:
+                        type: string
+                        example: https://my-cdn.com/mySwatch
+                      title:
+                        type: string
+                        example: My Content Title
+                      published:
+                        type: boolean
+                        example: My Content Title
+                      fields:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'VARIANT_CONTENT UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putVariantContent
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Entries
+      summary: variant content
+      description: 'The `DELETE` _**variant-content**_ endpoint deletes variant content entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required fields are `sourceEntryId`, `sourceProductID`, and `sourceVariantId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceProductId
+                    - sourceVariantId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceProductId:
+                        type: string
+                        example: gid://shopify/Product/0000000000000
+                      sourceVariantId:
+                        type: string
+                        example: 4858f62230ac3c915f300c664312c63f
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'VARIANT_CONTENT DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteVariantContent
+      x-operation-id-source: derived
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/delete_collection-content.md
+  - https://docs.nacelle.com/reference/delete_collection.md
+  - https://docs.nacelle.com/reference/delete_content.md
+  - https://docs.nacelle.com/reference/delete_inventory-item.md
+  - https://docs.nacelle.com/reference/delete_inventory-level.md
+  - https://docs.nacelle.com/reference/delete_inventory-location.md
+  - https://docs.nacelle.com/reference/delete_price-book.md
+  - https://docs.nacelle.com/reference/delete_pricing.md
+  - https://docs.nacelle.com/reference/delete_product-content.md
+  - https://docs.nacelle.com/reference/delete_product.md
+  - https://docs.nacelle.com/reference/delete_variant-content.md
+  - https://docs.nacelle.com/reference/delete_variant.md
+  - https://docs.nacelle.com/reference/get_index.md
+  - https://docs.nacelle.com/reference/post_index-cancel.md
+  - https://docs.nacelle.com/reference/post_index-clear.md
+  - https://docs.nacelle.com/reference/post_index-indexid-finish.md
+  - https://docs.nacelle.com/reference/post_index.md
+  - https://docs.nacelle.com/reference/put_collection-content.md
+  - https://docs.nacelle.com/reference/put_collection.md
+  - https://docs.nacelle.com/reference/put_content.md
+  - https://docs.nacelle.com/reference/put_custom-schema.md
+  - https://docs.nacelle.com/reference/put_inventory-item.md
+  - https://docs.nacelle.com/reference/put_inventory-level.md
+  - https://docs.nacelle.com/reference/put_inventory-location.md
+  - https://docs.nacelle.com/reference/put_price-book.md
+  - https://docs.nacelle.com/reference/put_pricing.md
+  - https://docs.nacelle.com/reference/put_product-content.md
+  - https://docs.nacelle.com/reference/put_product.md
+  - https://docs.nacelle.com/reference/put_variant-content.md
+  - https://docs.nacelle.com/reference/put_variant.md
+  merge:
+    pages: 30
+    deduped: 74
+    conflicts_kept_first: 0

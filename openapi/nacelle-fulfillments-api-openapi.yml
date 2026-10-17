@@ -1,0 +1,642 @@
+openapi: 3.2.0
+info:
+  description: The Order Management API is used to manage orders in the Nacelle Order Management System. This API is currently experimental and is subject to change.
+  title: Order Management API (Experimental) Fulfillments API
+  version: 0.1.0
+servers:
+- url: https://noms.api.nacelle.com/api/v1
+security:
+- oauth2: []
+tags:
+- name: Fulfillments
+paths:
+  /fulfillments:
+    post:
+      description: This will create a fulfillment based on the input parameters.
+      operationId: createFulfillment
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillmentCreate'
+        required: true
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Create a fulfillment
+      tags:
+      - Fulfillments
+  /fulfillments/{nacelle-fulfillment-id}:
+    patch:
+      description: This will update a fulfillment based on the input parameters.
+      operationId: updateFulfillment
+      parameters:
+      - in: header
+        name: X-Nacelle-Space-ID
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: nacelle-fulfillment-id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillmentUpdate'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Update a fulfillment
+      tags:
+      - Fulfillments
+components:
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IDResponse'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '429':
+      description: Rate Limit Exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    FulfillmentUpdate:
+      properties:
+        assigned_location_id:
+          description: Identifier for the assigned location.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: AssignedLocationID
+        delivery_date:
+          description: Date of delivery.
+          format: int64
+          minimum: 1
+          type: integer
+          x-go-name: DeliveryDate
+        delivery_estimation:
+          description: Estimated delivery details.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DeliveryEstimation
+        delivery_method:
+          description: Method of delivery.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DeliveryMethod
+        delivery_type:
+          description: Type of delivery.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DeliveryType
+        destination_address:
+          $ref: '#/components/schemas/AddressUpdate'
+        external_id:
+          description: External identifier for the fulfillment.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ExternalID
+        fulfillment_order_items:
+          description: Items associated with the fulfillment order.
+          items:
+            $ref: '#/components/schemas/FulfillmentOrderItemUpdate'
+          minimum: 1
+          type: array
+          x-go-name: FulfillmentOrderItems
+        id:
+          description: Unique identifier for the fulfillment.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        nacelle_status:
+          description: Status as per Nacelle's specifications.
+          enum:
+          - open
+          - partially_fulfilled
+          - in_progress
+          - scheduled
+          - cancelled
+          - on_hold
+          - incomplete
+          - succeeded
+          example: in_progress
+          type: string
+          x-go-name: NacelleStatus
+        shipment_status:
+          description: Status of the shipment.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ShipmentStatus
+        status:
+          description: General status of the fulfillment.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: Status
+        tracking_company:
+          description: Company handling the tracking.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: TrackingCompany
+        tracking_numbers:
+          description: Tracking numbers associated with the fulfillment.
+          items:
+            type: string
+          maximum: 100
+          minimum: 1
+          type: array
+          x-go-name: TrackingNumbers
+        tracking_urls:
+          description: URLs for tracking the fulfillment.
+          items:
+            type: string
+          maximum: 500
+          minimum: 1
+          type: array
+          x-go-name: TrackingUrls
+      required:
+      - id
+      title: FulfillmentUpdate represents the details of a fulfillment.
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    FulfillmentOrderItemCreate:
+      properties:
+        order_id:
+          description: Unique identifier for the order.
+          format: uuid
+          type: string
+          x-go-name: OrderID
+        order_item_id:
+          description: Unique identifier for the order item.
+          format: uuid
+          type: string
+          x-go-name: OrderItemID
+        quantity:
+          description: Quantity of the order item.
+          format: uint64
+          maximum: 9999
+          minimum: 1
+          type: integer
+          x-go-name: Quantity
+      required:
+      - order_id
+      - order_item_id
+      - quantity
+      title: FulfillmentOrderItemCreate represents the details of an order item in a fulfillment.
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    UpdateResponse:
+      description: UpdaterResponse represents the response returned after a successful update operation
+      type: object
+      x-go-name: UpdaterResponse
+      x-go-package: github.com/getnacelle/noms/services/oingest/internal/httpapp/shared
+    IDResponse:
+      properties:
+        id:
+          description: Unique identifier for the resource.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          format: uuid
+          type: string
+          x-go-name: ID
+      title: IDResponse represents the ID returned after a successful operation.
+      type: object
+      x-go-package: github.com/getnacelle/noms/services/oingest/internal/httpapp/shared
+    error:
+      properties:
+        code:
+          description: A numeric error code.
+          type: integer
+        message:
+          description: A description of the reason for the error.
+          type: string
+      type: object
+    AddressUpdate:
+      properties:
+        address1:
+          description: The first line of the address.
+          example: 1234 Elm St
+          maximum: 500
+          minimum: 1
+          type: string
+          x-go-name: Address1
+        address2:
+          description: The second line of the address.
+          example: Apt 567
+          maximum: 500
+          minimum: 1
+          type: string
+          x-go-name: Address2
+        city:
+          description: The city of the address.
+          example: San Francisco
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: City
+        comment:
+          description: Additional comments about the address.
+          example: Please leave the package at the door.
+          maximum: 1000
+          minimum: 1
+          type: string
+          x-go-name: Comment
+        country_iso2:
+          description: The ISO 2-letter country code.
+          example: US
+          type: string
+          x-go-name: CountryIso2
+        first_name:
+          description: First name
+          example: John
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: FirstName
+        id:
+          description: Unique identifier for the address.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        last_name:
+          description: Last name
+          example: Doe
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: LastName
+        merchant_modified_at:
+          description: 'Merchant Specified Timestamp of the last modification to the Address.
+
+            Differs from ModifiedAt which is autogenerated.'
+          example: '2023-01-10T14:48:00Z'
+          format: date-time
+          type: string
+          x-go-name: MerchantModifiedAt
+        postal_code:
+          description: The postal code.
+          example: '94107'
+          maximum: 20
+          minimum: 4
+          type: string
+          x-go-name: PostalCode
+        province:
+          description: The province of the address.
+          example: CA
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: Province
+        state:
+          description: The state of the address.
+          example: CA
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: State
+      required:
+      - id
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    FulfillmentCreate:
+      properties:
+        assigned_location_id:
+          description: Identifier for the assigned location.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: AssignedLocationID
+        delivery_date:
+          description: Date of delivery.
+          format: int64
+          minimum: 1
+          type: integer
+          x-go-name: DeliveryDate
+        delivery_estimation:
+          description: Estimated delivery details.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DeliveryEstimation
+        delivery_method:
+          description: Method of delivery.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DeliveryMethod
+        delivery_type:
+          description: Type of delivery.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: DeliveryType
+        destination_address:
+          $ref: '#/components/schemas/AddressCreate'
+        external_id:
+          description: External identifier for the fulfillment.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ExternalID
+        fulfillment_order_items:
+          description: Items associated with the fulfillment order.
+          items:
+            $ref: '#/components/schemas/FulfillmentOrderItemCreate'
+          minimum: 1
+          type: array
+          x-go-name: FulfillmentOrderItems
+        id:
+          description: Unique identifier for the fulfillment.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        nacelle_status:
+          description: Status as per Nacelle's specifications.
+          enum:
+          - open
+          - partially_fulfilled
+          - in_progress
+          - scheduled
+          - cancelled
+          - on_hold
+          - incomplete
+          - succeeded
+          example: in_progress
+          type: string
+          x-go-name: NacelleStatus
+        shipment_status:
+          description: Status of the shipment.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: ShipmentStatus
+        status:
+          description: General status of the fulfillment.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: Status
+        tracking_company:
+          description: Company handling the tracking.
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: TrackingCompany
+        tracking_numbers:
+          description: Tracking numbers associated with the fulfillment.
+          items:
+            type: string
+          maximum: 100
+          minimum: 1
+          type: array
+          x-go-name: TrackingNumbers
+        tracking_urls:
+          description: URLs for tracking the fulfillment.
+          items:
+            type: string
+          maximum: 500
+          minimum: 1
+          type: array
+          x-go-name: TrackingUrls
+      required:
+      - external_id
+      - destination_address
+      - delivery_type
+      - delivery_method
+      - nacelle_status
+      - fulfillment_order_items
+      title: FulfillmentCreate represents the details of a fulfillment.
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    FulfillmentOrderItemUpdate:
+      properties:
+        order_id:
+          description: Unique identifier for the order.
+          format: uuid
+          type: string
+          x-go-name: OrderID
+        order_item_id:
+          description: Unique identifier for the order item.
+          format: uuid
+          type: string
+          x-go-name: OrderItemID
+        quantity:
+          description: Quantity of the order item.
+          format: uint64
+          maximum: 9999
+          minimum: 1
+          type: integer
+          x-go-name: Quantity
+      title: FulfillmentOrderItemUpdate represents the details of an order item in a fulfillment.
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+    AddressCreate:
+      properties:
+        address1:
+          description: The first line of the address.
+          example: 1234 Elm St
+          maximum: 500
+          minimum: 1
+          type: string
+          x-go-name: Address1
+        address2:
+          description: The second line of the address.
+          example: Apt 567
+          maximum: 500
+          minimum: 1
+          type: string
+          x-go-name: Address2
+        city:
+          description: The city of the address.
+          example: San Francisco
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: City
+        comment:
+          description: Additional comments about the address.
+          example: Please leave the package at the door.
+          maximum: 1000
+          minimum: 1
+          type: string
+          x-go-name: Comment
+        country_iso2:
+          description: The ISO 2-letter country code.
+          example: US
+          type: string
+          x-go-name: CountryIso2
+        first_name:
+          description: First name
+          example: John
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: FirstName
+        id:
+          description: Unique identifier for the address.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+          x-go-name: ID
+        last_name:
+          description: Last name
+          example: Doe
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: LastName
+        merchant_created_at:
+          description: 'Merchant Specified Timestamp of when the Address was created.
+
+            Differs from CreatedAt which is autogenerated.'
+          example: '2023-01-10T14:48:00Z'
+          format: date-time
+          type: string
+          x-go-name: MerchantCreatedAt
+        merchant_modified_at:
+          description: 'Merchant Specified Timestamp of the last modification to the Address.
+
+            Differs from ModifiedAt which is autogenerated.'
+          example: '2023-01-10T14:48:00Z'
+          format: date-time
+          type: string
+          x-go-name: MerchantModifiedAt
+        postal_code:
+          description: The postal code.
+          example: '94107'
+          maximum: 20
+          minimum: 4
+          type: string
+          x-go-name: PostalCode
+        province:
+          description: The province of the address.
+          example: CA
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: Province
+        state:
+          description: The state of the address.
+          example: CA
+          maximum: 100
+          minimum: 1
+          type: string
+          x-go-name: State
+      required:
+      - state
+      - address1
+      - country_iso2
+      - postal_code
+      - city
+      type: object
+      x-go-package: github.com/getnacelle/noms/docs
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://authimilate.api.nacelle.com/v1/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/addcustomeraddress.md
+  - https://docs.nacelle.com/reference/capturepaymentintent.md
+  - https://docs.nacelle.com/reference/createasyncmultiorder.md
+  - https://docs.nacelle.com/reference/createcustomer.md
+  - https://docs.nacelle.com/reference/createfulfillment.md
+  - https://docs.nacelle.com/reference/createmultiorder.md
+  - https://docs.nacelle.com/reference/createpaymentintent.md
+  - https://docs.nacelle.com/reference/multicartvalidate.md
+  - https://docs.nacelle.com/reference/refundpaymentintent.md
+  - https://docs.nacelle.com/reference/retrievepaymentintent.md
+  - https://docs.nacelle.com/reference/updateaddress.md
+  - https://docs.nacelle.com/reference/updatecustomer.md
+  - https://docs.nacelle.com/reference/updatefulfillment.md
+  - https://docs.nacelle.com/reference/updatemultiorder.md
+  - https://docs.nacelle.com/reference/updateorderitem.md
+  - https://docs.nacelle.com/reference/updatepayment.md
+  - https://docs.nacelle.com/reference/updatepaymentintent.md
+  - https://docs.nacelle.com/reference/validatecheckout.md
+  merge:
+    pages: 18
+    deduped: 205
+    conflicts_kept_first: 0

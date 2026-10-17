@@ -1,0 +1,353 @@
+openapi: 3.2.0
+info:
+  title: Ingest Index API
+  version: 1.0.0
+  description: This is the documentation for the Ingest API.
+servers:
+- url: https://ingest.api.nacelle.com/v1/
+  description: Ingest API Development server
+tags:
+- name: Index
+paths:
+  /index:
+    get:
+      tags:
+      - Index
+      summary: Read indexes status
+      description: 'The _**index**_ endpoint allows checking the status of indexes for a given source.
+
+
+        When errors occur during index processing, details may be provided via the `errors` field.'
+      parameters:
+      - name: x-nacelle-space-id
+        in: header
+        description: The unique identifier of the Nacelle space
+        required: true
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      - name: x-nacelle-source-id
+        in: header
+        description: The unique identifier of the source within the space
+        required: true
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      - name: x-nacelle-ingest-token
+        in: header
+        description: The authentication token for Nacelle Ingest
+        required: true
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Index statuses
+          content:
+            application/json:
+              examples:
+                IndexStatuses:
+                  summary: Index Statuses listed
+                  value:
+                  - indexId: 00000000-0000-0000-0000-000000000000
+                    sourceId: 00000000-0000-0000-0000-000000000000
+                    status: index_complete
+                    numEntriesCreated: 100
+                    indexVersion: 1
+                    createdAt: '2023-09-16T00:00:00'
+                    updatedAt: '2023-09-16T00:00:00'
+                    entryTypes:
+                    - PRODUCT
+                    - PRODUCT_CONTENT
+                    - PRODUCT_VARIANT
+                    - PRODUCT_VARIANT_CONTENT
+                    - CONTENT
+                    - COLLECTION
+                    - COLLECTION_CONTENT
+                    - PRICE_BOOK
+                    - PRICING
+                    - CUSTOM_SCHEMA
+                    errors: null
+        '404':
+          description: Not found
+          content:
+            application/json:
+              examples:
+                NotFoundExample:
+                  summary: Not Found
+                  value:
+                    reason: Source not found.
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              examples:
+                InternalErrorExample:
+                  summary: Internal Error
+                  value:
+                    error: Internal Error
+                    reason: An internal error occurred. Please read https://docs.getnacelle.com/ for more information.
+      operationId: getIndex
+      x-operation-id-source: derived
+    post:
+      tags:
+      - Index
+      summary: Start an index
+      description: 'The _**start**_ endpoint allows to start an index for specific `entryTypes`.
+
+        If successful, the response will contain an `indexId` which can subsequently
+
+        be used to ingest entries, finish or cancel the index.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            examples:
+              test:
+                summary: Start an index for PRODUCT and CONTENT entry types
+                value:
+                  entryTypes:
+                  - PRODUCT
+                  - CONTENT
+            schema:
+              type: object
+              properties:
+                entryTypes:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - COLLECTION
+                    - COLLECTION_CONTENT
+                    - CONTENT
+                    - PRICE_BOOK
+                    - PRICING
+                    - PRODUCT
+                    - PRODUCT_CONTENT
+                    - PRODUCT_VARIANT
+                    - PRODUCT_VARIANT_CONTENT
+                    - CUSTOM_SCHEMA
+      responses:
+        '200':
+          description: Index Created
+          content:
+            application/json:
+              examples:
+                IndexCreated:
+                  summary: Index Created
+                  value:
+                    message: Index Created
+                    indexId: 00000000-0000-0000-0000-000000000000
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              examples:
+                BadRequestExample:
+                  summary: Bad Request
+                  value:
+                    error: Bad Request
+                    errors:
+                    - target: {}
+                      property: entryTypes
+                      children: []
+                      constraints:
+                        arrayMinSize: entryTypes must contain at least 1 elements
+                        isArray: entryTypes must be an array
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: postIndex
+      x-operation-id-source: derived
+  /index/cancel:
+    post:
+      tags:
+      - Index
+      summary: Cancel all running indexes for a source
+      description: The _**cancel**_ endpoint allows to cancel all in-flight indexes for the given sourceId header.
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      responses:
+        '200':
+          description: Index cancelled
+          content:
+            application/json:
+              examples:
+                IndexCancelled:
+                  summary: Index cancelled
+                  value:
+                    message: Index cancelled
+        '304':
+          description: Not modified
+          content:
+            application/json:
+              examples:
+                NotFoundExample:
+                  summary: Not Modified
+                  value:
+                    message: No indexes to cancel
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: postIndexCancel
+      x-operation-id-source: derived
+  /index/clear:
+    post:
+      tags:
+      - Index
+      summary: Clear all entries of specified entry types
+      description: The _**clear**_ endpoint allows you to remove all entries of specified `entryType`s for a source in a Nacelle space.
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entryTypes:
+                  type: array
+                  items:
+                    $ref: '#/paths/~1index/post/requestBody/content/application~1json/schema/properties/entryTypes/items'
+      responses:
+        '200':
+          description: Index cleared
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Index cleared
+                  value:
+                    message: Index cleared
+        '400':
+          $ref: '#/paths/~1index/post/responses/400'
+        '404':
+          $ref: '#/paths/~1index/get/responses/404'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              examples:
+                ConflictExample:
+                  summary: Conflict Error
+                  value:
+                    error: Conflict
+                    reason: Cannot clear index that is in progress. Please read https://docs.getnacelle.com/ for more information.
+                    incompleteIndex:
+                      indexId: 49f0352a-e1ab-40f7-9385-2876b696fdd8
+                      sourceId: 150e2b3a-5699-42ed-9389-d386b0b5fa5a
+                      status: in_progress
+                      numEntriesCreated: 0
+                      entryTypes:
+                      - CONTENT
+                      indexVersion: 14
+                      createdAt: '2023-09-27T14:29:12.033Z'
+                      updatedAt: '2023-09-27T14:29:12.033Z'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: postIndexClear
+      x-operation-id-source: derived
+  /index/{indexId}/finish:
+    post:
+      tags:
+      - Index
+      summary: Finishes an index
+      description: 'The _**finish**_ endpoint completes an index, signaling Nacelle to promote
+
+        it to the current active index and trigger deletion of the previous active
+
+        index once internal processing has completed.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      - name: indexId
+        in: path
+        description: The ID of the index
+        required: true
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Index Finished
+          content:
+            application/json:
+              examples:
+                IndexFinished:
+                  summary: Index Finished
+                  value:
+                    message: Index Finished
+        '404':
+          description: Not found
+          content:
+            application/json:
+              examples:
+                SourceNotFoundExample:
+                  summary: Source Not Found
+                  value:
+                    reason: Source not found.
+                IndexNotFoundExample:
+                  summary: Index Not Found
+                  value:
+                    reason: Index not found.
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              examples:
+                ConflictExample:
+                  summary: Conflict Error
+                  value:
+                    error: Conflict
+                    reason: Index is not in progress.
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: postIndexByIndexIdFinish
+      x-operation-id-source: derived
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/delete_collection-content.md
+  - https://docs.nacelle.com/reference/delete_collection.md
+  - https://docs.nacelle.com/reference/delete_content.md
+  - https://docs.nacelle.com/reference/delete_inventory-item.md
+  - https://docs.nacelle.com/reference/delete_inventory-level.md
+  - https://docs.nacelle.com/reference/delete_inventory-location.md
+  - https://docs.nacelle.com/reference/delete_price-book.md
+  - https://docs.nacelle.com/reference/delete_pricing.md
+  - https://docs.nacelle.com/reference/delete_product-content.md
+  - https://docs.nacelle.com/reference/delete_product.md
+  - https://docs.nacelle.com/reference/delete_variant-content.md
+  - https://docs.nacelle.com/reference/delete_variant.md
+  - https://docs.nacelle.com/reference/get_index.md
+  - https://docs.nacelle.com/reference/post_index-cancel.md
+  - https://docs.nacelle.com/reference/post_index-clear.md
+  - https://docs.nacelle.com/reference/post_index-indexid-finish.md
+  - https://docs.nacelle.com/reference/post_index.md
+  - https://docs.nacelle.com/reference/put_collection-content.md
+  - https://docs.nacelle.com/reference/put_collection.md
+  - https://docs.nacelle.com/reference/put_content.md
+  - https://docs.nacelle.com/reference/put_custom-schema.md
+  - https://docs.nacelle.com/reference/put_inventory-item.md
+  - https://docs.nacelle.com/reference/put_inventory-level.md
+  - https://docs.nacelle.com/reference/put_inventory-location.md
+  - https://docs.nacelle.com/reference/put_price-book.md
+  - https://docs.nacelle.com/reference/put_pricing.md
+  - https://docs.nacelle.com/reference/put_product-content.md
+  - https://docs.nacelle.com/reference/put_product.md
+  - https://docs.nacelle.com/reference/put_variant-content.md
+  - https://docs.nacelle.com/reference/put_variant.md
+  merge:
+    pages: 30
+    deduped: 74
+    conflicts_kept_first: 0

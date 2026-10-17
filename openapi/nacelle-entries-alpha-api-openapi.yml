@@ -1,0 +1,429 @@
+openapi: 3.2.0
+info:
+  title: Ingest entries (ALPHA) API
+  version: 1.0.0
+  description: This is the documentation for the Ingest API.
+servers:
+- url: https://ingest.api.nacelle.com/v1/
+  description: Ingest API Development server
+tags:
+- name: entries (ALPHA)
+paths:
+  /inventory-item:
+    put:
+      tags:
+      - entries (ALPHA)
+      summary: inventory-item (ALPHA)
+      description: 'The _**inventory-item**_ endpoint adds inventory items to an index.
+
+
+        * **NOTE: versioning is NOT supported in inventory items ALPHA, so passing an indexId will cause ingest to fail. Additionally, non-versioned inventory-item data is only compatible with non-versioned product-variant data.**
+
+
+        * **NOTE: access to the inventory items API is given to select spaces in inventory items ALPHA.**
+
+
+        The only required fields are `sourceEntryId` and `sourceVariantId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceVariantId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceVariantId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sku:
+                        type: string
+                        example: XYZ12345
+                      key:
+                        type: string
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'INVENTORY_ITEM UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                SourceNotFoundExample:
+                  summary: Feature not available. Please read the documentation for more information.
+                  value:
+                    message: This feature is not available yet for source with id 00000000-0000-0000-0000-000000000000
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putInventoryItem
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - entries (ALPHA)
+      summary: inventory-item (ALPHA)
+      description: 'The _**delete inventory-item**_ endpoint deletes inventory items from an index.
+
+
+        The only required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'INVENTORY_ITEM DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '403':
+          $ref: '#/paths/~1inventory-item/put/responses/403'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteInventoryItem
+      x-operation-id-source: derived
+  /inventory-level:
+    put:
+      tags:
+      - entries (ALPHA)
+      summary: inventory-level (ALPHA)
+      description: 'The _**inventory-level**_ endpoint adds inventory levels to an index.
+
+
+        * **NOTE: versioning is NOT supported in inventory levels ALPHA, so passing an indexId will cause ingest to fail. Additionally, non-versioned inventory-level data is only compatible with non-versioned product-variant data.**
+
+
+        * **NOTE: access to the inventory levels API is given to select spaces in inventory levels ALPHA.**
+
+
+        The only required fields are `sourceEntryId`, `sourceInventoryItemId`, and `sourceInventoryLocationId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourceInventoryItemId
+                    - sourceInventoryLocationId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceInventoryItemId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourceInventoryLocationId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      quantityAvailable:
+                        type: number
+                        example: 5
+                      availableForPickup:
+                        type: boolean
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'INVENTORY_LEVEL UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '403':
+          $ref: '#/paths/~1inventory-item/put/responses/403'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putInventoryLevel
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - entries (ALPHA)
+      summary: inventory-level (ALPHA)
+      description: 'The _**delete inventory-level**_ endpoint deletes inventory levels from an index.
+
+
+        The only required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'INVENTORY_LEVEL DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '403':
+          $ref: '#/paths/~1inventory-item/put/responses/403'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteInventoryLevel
+      x-operation-id-source: derived
+  /inventory-location:
+    put:
+      tags:
+      - entries (ALPHA)
+      summary: inventory-location (ALPHA)
+      description: 'The _**inventory-location**_ endpoint adds inventory locations to an index.
+
+
+        * **NOTE: versioning is NOT supported in inventory locations ALPHA, so passing an indexId will cause ingest to fail. Additionally, non-versioned inventory-location data is only compatible with non-versioned product-variant data.**
+
+
+        * **NOTE: access to the inventory locations API is given to select spaces in inventory locations ALPHA.**
+
+
+        The only required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      name:
+                        type: string
+                      address1:
+                        type: string
+                      address2:
+                        type: string
+                      city:
+                        type: string
+                      region:
+                        type: string
+                      regionCode:
+                        type: string
+                      country:
+                        type: string
+                      countryCode:
+                        type: string
+                      postalCode:
+                        type: string
+                      phone:
+                        type: string
+                      coordinates:
+                        type: object
+                        required:
+                        - latitude
+                        - longitude
+                        properties:
+                          latitude:
+                            type: number
+                            example: 35.89421911
+                          longitude:
+                            type: number
+                            example: 139.94637467
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'INVENTORY_LOCATION UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '403':
+          $ref: '#/paths/~1inventory-item/put/responses/403'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putInventoryLocation
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - entries (ALPHA)
+      summary: inventory-location (ALPHA)
+      description: 'The _**delete inventory-location**_ endpoint deletes inventory locations from an index.
+
+
+        The only required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/paths/~1inventory-item/delete/requestBody/content/application~1json/schema'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                IndexCleared:
+                  summary: Success
+                  value:
+                    message: 'INVENTORY_LOCATION DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '403':
+          $ref: '#/paths/~1inventory-item/put/responses/403'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deleteInventoryLocation
+      x-operation-id-source: derived
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/delete_collection-content.md
+  - https://docs.nacelle.com/reference/delete_collection.md
+  - https://docs.nacelle.com/reference/delete_content.md
+  - https://docs.nacelle.com/reference/delete_inventory-item.md
+  - https://docs.nacelle.com/reference/delete_inventory-level.md
+  - https://docs.nacelle.com/reference/delete_inventory-location.md
+  - https://docs.nacelle.com/reference/delete_price-book.md
+  - https://docs.nacelle.com/reference/delete_pricing.md
+  - https://docs.nacelle.com/reference/delete_product-content.md
+  - https://docs.nacelle.com/reference/delete_product.md
+  - https://docs.nacelle.com/reference/delete_variant-content.md
+  - https://docs.nacelle.com/reference/delete_variant.md
+  - https://docs.nacelle.com/reference/get_index.md
+  - https://docs.nacelle.com/reference/post_index-cancel.md
+  - https://docs.nacelle.com/reference/post_index-clear.md
+  - https://docs.nacelle.com/reference/post_index-indexid-finish.md
+  - https://docs.nacelle.com/reference/post_index.md
+  - https://docs.nacelle.com/reference/put_collection-content.md
+  - https://docs.nacelle.com/reference/put_collection.md
+  - https://docs.nacelle.com/reference/put_content.md
+  - https://docs.nacelle.com/reference/put_custom-schema.md
+  - https://docs.nacelle.com/reference/put_inventory-item.md
+  - https://docs.nacelle.com/reference/put_inventory-level.md
+  - https://docs.nacelle.com/reference/put_inventory-location.md
+  - https://docs.nacelle.com/reference/put_price-book.md
+  - https://docs.nacelle.com/reference/put_pricing.md
+  - https://docs.nacelle.com/reference/put_product-content.md
+  - https://docs.nacelle.com/reference/put_product.md
+  - https://docs.nacelle.com/reference/put_variant-content.md
+  - https://docs.nacelle.com/reference/put_variant.md
+  merge:
+    pages: 30
+    deduped: 74
+    conflicts_kept_first: 0

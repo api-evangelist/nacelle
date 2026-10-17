@@ -1,0 +1,460 @@
+openapi: 3.2.0
+info:
+  title: Ingest entries (BETA) API
+  version: 1.0.0
+  description: This is the documentation for the Ingest API.
+servers:
+- url: https://ingest.api.nacelle.com/v1/
+  description: Ingest API Development server
+tags:
+- name: entries (BETA)
+  description: Entry operations
+paths:
+  /custom-schema:
+    put:
+      tags:
+      - entries (BETA)
+      summary: custom schema (BETA)
+      description: 'The _**custom schema**_ endpoint updates a schema for an index.
+
+
+        * If an `indexId` field is present, the schema will be added to that index.
+
+
+        * If an `indexId` is not specified the schema will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        The required fields are `schema` and `normalizationPrefix`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - schema
+                    - normalizationPrefix
+                    properties:
+                      schema:
+                        type: string
+                        example: 'type NacelleProduct { title: String collection: NacelleCollection} type NacelleCollection { name: String products: [NacelleProduct]}'
+                      normalizationPrefix:
+                        type: string
+                        example: Nacelle
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                CustomSchemaUpdated:
+                  summary: Success
+                  value:
+                    message: 'CUSTOM_SCHEMA UPDATE: success'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              examples:
+                BadRequestNoSchemaExample:
+                  summary: Bad Request (no schema)
+                  value:
+                    error: Bad Request
+                    message: Bad Request
+                    errors:
+                    - schema: null
+                      errors:
+                      - target: null
+                        property: schema
+                        children: []
+                        constraints:
+                          isString: schema must be a string
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putCustomSchema
+      x-operation-id-source: derived
+  /price-book:
+    put:
+      tags:
+      - entries (BETA)
+      summary: price-book (BETA)
+      description: 'The _**price-book**_ endpoint adds price books to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        Required fields are `sourceEntryId` and `currencyCode`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - currencyCode
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 2855f62230ac3c915f300c664312c62g
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      name:
+                        type: string
+                      key:
+                        type: string
+                      metafields:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/metafields'
+                      currencyCode:
+                        type: string
+                        example: USD
+                      countryCodes:
+                        type: array
+                        items:
+                          type: string
+                          example: US
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'PRICE_BOOK UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putPriceBook
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - entries (BETA)
+      summary: price-book (BETA)
+      description: 'The `DELETE` _**price-book**_ endpoint deletes price book entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required field is `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 2855f62230ac3c915f300c664312c62g
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'PRICE_BOOK DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deletePriceBook
+      x-operation-id-source: derived
+  /pricing:
+    put:
+      tags:
+      - entries (BETA)
+      summary: pricing (BETA)
+      description: 'The _**pricing**_ endpoint adds pricings to an index.
+
+
+        * If an `indexId` field is present, the entries will be added to that index.
+
+
+        * If an `indexId` is not specified the entries will be added to the current active index,
+
+        and all in progress indexes for the specified `sourceId`.
+
+
+        * An `entryTypeSourceIdMap` may be specified if the `sourceVariantId` points to a data connector from a different source, such as Shopify.
+
+        * The key being `PRODUCT_VARIANT` and the value being the Nacelle source ID for the Shopify data connector found in the dashboard.
+
+        * See the **Standalone Price Books with Shopify Guide** for details.
+
+
+        * An entry may contain `sourceSegmentId`. This will allow multiple versions of a variant pricing for different segments or customer groups.
+
+        * This should NOT be used by default, because pricings will not be queryable without a customer auth token pointing towards the given `sourceSegmentId`.
+
+        * See the **Standalone Price Books for B2B Guide** for details.
+
+
+        Required fields are `sourceEntryId`, `sourcePriceBookId`, and `sourceVariantId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                indexId:
+                  type: string
+                  required: false
+                  example: 00000000-0000-0000-0000-000000000000
+                entryTypeSourceIdMap:
+                  required: false
+                  type: object
+                  properties:
+                    PRODUCT_VARIANT:
+                      type: string
+                      required: false
+                      example: 00000000-0000-0000-0000-000000000000
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    - sourcePriceBookId
+                    - sourceVariantId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+                      sourcePriceBookId:
+                        type: string
+                        example: 2855f62230ac3c915f300c664312c62g
+                      sourceVariantId:
+                        type: string
+                        example: gid://shopify/Variant/0000000000000
+                      sourceSegmentId:
+                        type: string
+                        example: vip-members
+                      createdAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      updatedAt:
+                        $ref: '#/paths/~1content/put/requestBody/content/application~1json/schema/properties/entries/items/properties/createdAt'
+                      metafields:
+                        type: array
+                        example:
+                        - id: metafieldId
+                          namespace: metafieldNamespace
+                          key: metafieldKey
+                          value: metafieldValue
+                        required:
+                        - key
+                        - value
+                        items:
+                          type: object
+                          required:
+                          - key
+                          - value
+                          properties:
+                            key:
+                              type: string
+                            value:
+                              type: string
+                            id:
+                              type: string
+                            namespace:
+                              type: string
+                      price:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/msrp'
+                      shipping:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/msrp'
+                      taxValue:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/msrp'
+                      strikethroughPrice:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/msrp'
+                      sourceCountryCode:
+                        type: string
+                        example: US
+                        minLength: 2
+                        maxLength: 2
+                      compareAtPrice:
+                        $ref: '#/paths/~1pricing/put/requestBody/content/application~1json/schema/properties/entries/items/properties/msrp'
+                      msrp:
+                        type: object
+                        required:
+                        - amount
+                        - currencyCode
+                        properties:
+                          amount:
+                            type: integer
+                            example: 12099
+                          currencyCode:
+                            type: string
+                            example: USD
+                          precisionDigits:
+                            type: integer
+                            example: 2
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'pricing UPDATE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: putPricing
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - entries (BETA)
+      summary: pricing (BETA)
+      description: 'The `DELETE` _**pricing**_ endpoint deletes pricing entries from the
+
+        current active index, and all in progress indexes.
+
+
+        Required fields are `sourceEntryId`.'
+      parameters:
+      - $ref: '#/paths/~1index/get/parameters/0'
+      - $ref: '#/paths/~1index/get/parameters/1'
+      - $ref: '#/paths/~1index/get/parameters/2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - sourceEntryId
+                    properties:
+                      sourceEntryId:
+                        type: string
+                        example: 3858f62230ac3c915f300c664312c63f
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                Success:
+                  summary: Success
+                  value:
+                    message: 'pricing DELETE: success'
+        '400':
+          $ref: '#/paths/~1content/put/responses/400'
+        '404':
+          $ref: '#/paths/~1content/put/responses/404'
+        '500':
+          $ref: '#/paths/~1index/get/responses/500'
+      operationId: deletePricing
+      x-operation-id-source: derived
+x-provenance:
+  method: searched
+  source: https://docs.nacelle.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.nacelle.com/reference/delete_collection-content.md
+  - https://docs.nacelle.com/reference/delete_collection.md
+  - https://docs.nacelle.com/reference/delete_content.md
+  - https://docs.nacelle.com/reference/delete_inventory-item.md
+  - https://docs.nacelle.com/reference/delete_inventory-level.md
+  - https://docs.nacelle.com/reference/delete_inventory-location.md
+  - https://docs.nacelle.com/reference/delete_price-book.md
+  - https://docs.nacelle.com/reference/delete_pricing.md
+  - https://docs.nacelle.com/reference/delete_product-content.md
+  - https://docs.nacelle.com/reference/delete_product.md
+  - https://docs.nacelle.com/reference/delete_variant-content.md
+  - https://docs.nacelle.com/reference/delete_variant.md
+  - https://docs.nacelle.com/reference/get_index.md
+  - https://docs.nacelle.com/reference/post_index-cancel.md
+  - https://docs.nacelle.com/reference/post_index-clear.md
+  - https://docs.nacelle.com/reference/post_index-indexid-finish.md
+  - https://docs.nacelle.com/reference/post_index.md
+  - https://docs.nacelle.com/reference/put_collection-content.md
+  - https://docs.nacelle.com/reference/put_collection.md
+  - https://docs.nacelle.com/reference/put_content.md
+  - https://docs.nacelle.com/reference/put_custom-schema.md
+  - https://docs.nacelle.com/reference/put_inventory-item.md
+  - https://docs.nacelle.com/reference/put_inventory-level.md
+  - https://docs.nacelle.com/reference/put_inventory-location.md
+  - https://docs.nacelle.com/reference/put_price-book.md
+  - https://docs.nacelle.com/reference/put_pricing.md
+  - https://docs.nacelle.com/reference/put_product-content.md
+  - https://docs.nacelle.com/reference/put_product.md
+  - https://docs.nacelle.com/reference/put_variant-content.md
+  - https://docs.nacelle.com/reference/put_variant.md
+  merge:
+    pages: 30
+    deduped: 74
+    conflicts_kept_first: 0
