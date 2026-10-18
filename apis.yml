@@ -255,6 +255,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Addresses
+  tags_raw:
   - addresses
   properties:
   - type: OpenAPI
@@ -289,6 +291,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Checkout
+  tags_raw:
   - checkout
   properties:
   - type: OpenAPI
@@ -323,6 +327,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Credentials
+  tags_raw:
   - credentials
   properties:
   - type: OpenAPI
@@ -357,6 +363,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Customers
+  tags_raw:
   - customers
   properties:
   - type: OpenAPI
@@ -425,6 +433,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Entries
+  tags_raw:
   - entries
   properties:
   - type: OpenAPI
@@ -493,6 +503,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Fulfillments
+  tags_raw:
   - fulfillments
   properties:
   - type: OpenAPI
@@ -527,6 +539,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Index
+  tags_raw:
   - index
   properties:
   - type: OpenAPI
@@ -595,6 +609,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Order Items
+  tags_raw:
   - orderitems
   properties:
   - type: OpenAPI
@@ -629,6 +645,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Payments
+  tags_raw:
   - payment
   properties:
   - type: OpenAPI
@@ -663,6 +681,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - PaymentIntent
+  tags_raw:
   - paymentintent
   properties:
   - type: OpenAPI
@@ -697,6 +717,8 @@ apis:
   humanURL: https://docs.nacelle.com/docs/storefront-graphql-api-stable
   baseURL: https://storefront.api.nacelle.com/graphql/v1/spaces
   tags:
+  - Tokens
+  tags_raw:
   - token
   properties:
   - type: OpenAPI
