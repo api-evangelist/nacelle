@@ -17,26 +17,10 @@ checked:
 - https://www.indexventures.com/companies/
 - https://www.sequoiacap.com/our-companies/
 - https://www.sequoiacap.com/sitemap.xml
+- netlify/integrations/netlify-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
-- partner_name: Sanity (own)
-  partner: sanity
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.sanity.io/technology-partners/nacelle
-  mirror_of: sanity/integrations/sanity-integration-edges.yml
-  apps:
-  - Nacelle
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: Sanity technology partner
 - partner_name: Index Ventures
   partner: index-ventures
   partner_match: register
@@ -64,4 +48,40 @@ edges:
     sector: business-applications
   detected_by: sweep-vc-portfolios.py
   first_seen: '2026-10-21'
+- partner_name: Sanity (own)
+  partner: sanity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.sanity.io/technology-partners/nacelle
+  mirror_of: sanity/integrations/sanity-integration-edges.yml
+  apps:
+  - Nacelle
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Sanity technology partner
+- partner_name: Netlify (own)
+  partner: netlify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.netlify.com/integrations/nacelle/
+  mirror_of: netlify/integrations/netlify-integration-edges.yml
+  apps:
+  - Nacelle
+  - Nacelle Setup Guide
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: E-commerce
+  partner_tier: listing
 templates: []
