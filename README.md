@@ -1,4 +1,4 @@
-# Nacelle (nacelle)
+# Nacelle
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,159 +64,189 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Nacelle is a headless / composable commerce data platform that ingests, normalizes, and indexes commerce and content data (Shopify, Contentful and other CMS sources) per Space, and serves it back to headless storefronts through a single, fast GraphQL Storefront API. The company has since pivoted toward an AI personalization engine, and the headless commerce Storefront API is now a legacy / maintenance-mode product rather than an actively expanding platform.
+Nacelle is a headless / composable commerce data platform that ingests, normalizes, and indexes commerce and content data (Shopify, Contentful and other CMS sources) and serves it back to headless storefronts through a single, fast GraphQL Storefront API. The company has since pivoted toward an AI personalization engine, and the headless commerce Storefront API is now a legacy / maintenance-mode product rather than an actively expanding platform.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/nacelle/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/nacelle/refs/heads/main/apis.yml)
+**Areas:** Commerce · Headless Commerce · Composable Commerce · GraphQL · Content · Data Indexing
 
-## Current Status
+## Nacelle on APIs.io
 
-- **Not acquired.** Nacelle (founded 2019; ~$72.8M raised, incl. a $50M Series B led by Tiger Global in 2021) remained an independent company. It has repositioned around an **AI personalization engine** for e-commerce customer acquisition.
-- The original **headless commerce Storefront GraphQL API** is best treated as **legacy / maintenance-mode**. The docs publish both a "stable" and a "legacy" version of the Storefront API.
-- The **Admin (indexing / ingestion) API** is documented as a **beta / limited-availability** feature.
-- **GraphQL-first:** No public REST API is documented, so this catalog entry includes a GraphQL schema and omits OpenAPI honestly.
+Everything profiled for Nacelle is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/nacelle/](https://apis.io/providers/nacelle/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (19)
 
-- Commerce
-- Headless Commerce
-- Composable Commerce
-- GraphQL
-- Content
-- Data Indexing
+- [Nacelle Storefront Products API](https://apis.io/apis/nacelle/nacelle-storefront-products-api/) — The `allProducts` query on Nacelle's Storefront GraphQL API returns normalized product entries (variants, pricing, media, metafields) drawn from ingested…
+- [Nacelle Storefront Product Collections API](https://apis.io/apis/nacelle/nacelle-storefront-product-collections-api/) — The `allProductCollections` query returns merchandised collections of products (the normalized equivalent of Shopify collections) with their member product…
+- [Nacelle Storefront Content API](https://apis.io/apis/nacelle/nacelle-storefront-content-api/) — The `allContent` query returns CMS content entries (pages, articles, marketing blocks, media) ingested from sources such as Contentful, with a configurable…
+- [Nacelle Storefront Navigation and Spaces API](https://apis.io/apis/nacelle/nacelle-storefront-navigation-spaces-api/) — The `navigation` and `spaceProperties` queries return a space's navigation groups (menus) and space-level configuration (locales, currency, metadata) used…
+- [Nacelle Admin Indexing and Ingestion API](https://apis.io/apis/nacelle/nacelle-admin-indexing-api/) — The Admin GraphQL API triggers and monitors the indexing / ingestion pipeline that pulls data from connected sources (Shopify, CMS) into a space - starting…
+- [Nacelle Addresses API](https://apis.io/apis/nacelle/nacelle-addresses-api/) — The addresses API from Nacelle — 1 operation(s) for addresses.
+- [Nacelle Checkout API](https://apis.io/apis/nacelle/nacelle-checkout-api/) — The checkout API from Nacelle — 2 operation(s) for checkout.
+- [Nacelle Credentials API](https://apis.io/apis/nacelle/nacelle-credentials-api/) — The credentials API from Nacelle — 4 operation(s) for credentials.
+- [Nacelle Customers API](https://apis.io/apis/nacelle/nacelle-customers-api/) — The customers API from Nacelle — 3 operation(s) for customers.
+- [Nacelle entries (ALPHA) API](https://apis.io/apis/nacelle/nacelle-entries-alpha-api/) — The entries (ALPHA) API from Nacelle — 3 operation(s) for entries (alpha).
+- [Nacelle Entries API](https://apis.io/apis/nacelle/nacelle-entries-api/) — The entries API from Nacelle — 7 operation(s) for entries.
+- [Nacelle entries (BETA) API](https://apis.io/apis/nacelle/nacelle-entries-beta-api/) — Entry operations
+- [Nacelle Fulfillments API](https://apis.io/apis/nacelle/nacelle-fulfillments-api/) — The fulfillments API from Nacelle — 2 operation(s) for fulfillments.
+- [Nacelle Index API](https://apis.io/apis/nacelle/nacelle-index-api/) — The index API from Nacelle — 4 operation(s) for index.
+- [Nacelle Multiorders API](https://apis.io/apis/nacelle/nacelle-multiorders-api/) — The multiorders API from Nacelle — 3 operation(s) for multiorders.
+- [Nacelle Orderitems API](https://apis.io/apis/nacelle/nacelle-orderitems-api/) — The orderitems API from Nacelle — 1 operation(s) for orderitems.
+- [Nacelle Payment API](https://apis.io/apis/nacelle/nacelle-payment-api/) — The payment API from Nacelle — 1 operation(s) for payment.
+- [Nacelle Paymentintent API](https://apis.io/apis/nacelle/nacelle-paymentintent-api/) — The paymentintent API from Nacelle — 5 operation(s) for paymentintent.
+- [Nacelle Token API](https://apis.io/apis/nacelle/nacelle-token-api/) — The token API from Nacelle — 2 operation(s) for token.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-01
-- **Modified:** 2026-07-01
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Nacelle Storefront Products API
+GraphQL schemas.
 
-The `allProducts` query on Nacelle's Storefront GraphQL API returns normalized product entries (variants, pricing, media, metafields) drawn from ingested Shopify or other commerce sources, with Relay-style pagination by handle or nacelleEntryId.
+- [Nacelle GraphQL APIs](https://apis.io/graphqls/nacelle/nacelle-graphql/)
 
-- **Human URL:** [https://docs.nacelle.com/docs/storefront-graphql-api-stable](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- **Base URL:** `https://storefront.api.nacelle.com/graphql/v1/spaces`
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Products
-- Catalog
-- GraphQL
-- Commerce
+- [nacelle-mcp.yml](https://apis.io/servers/nacelle/nacelle-mcp-yml/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- [API Reference](https://docs.nacelle.com/reference/api-reference)
-- [GraphQL](graphql/nacelle-graphql.md)
-- [GraphQL Schema](graphql/nacelle-schema.graphql)
-- [Postman Collection](collections/nacelle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/nacelle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Nacelle Storefront Product Collections API
+- [Nacelle Agentic Access](https://apis.io/agentic-access/nacelle/nacelle-agentic-access/)
 
-The `allProductCollections` query returns merchandised collections of products (the normalized equivalent of Shopify collections) with their member product references, for building category and listing pages on a headless storefront.
+#### JSON Schema (12)
 
-- **Human URL:** [https://docs.nacelle.com/docs/storefront-graphql-api-stable](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- **Base URL:** `https://storefront.api.nacelle.com/graphql/v1/spaces`
+The data models the API reads and writes.
 
-#### Tags
+- [AddressCreate](https://apis.io/schemas/nacelle/nacelle-address-create/)
+- [Credentials holds information about client credentials.](https://apis.io/schemas/nacelle/nacelle-credentials/)
+- [CredentialsRequest represents the request to create a new credentials.](https://apis.io/schemas/nacelle/nacelle-credentials-request/)
+- [FulfillmentCreate represents the details of a fulfillment.](https://apis.io/schemas/nacelle/nacelle-fulfillment-create/)
+- [FulfillmentUpdate represents the details of a fulfillment.](https://apis.io/schemas/nacelle/nacelle-fulfillment-update/)
+- [PayloadJWT represents the request to create a new public token.](https://apis.io/schemas/nacelle/nacelle-issue-request/)
+- [JWTResponse represents the structure of a JWT token response.](https://apis.io/schemas/nacelle/nacelle-issue-response/)
+- [MultiOrderCheckout represents the details of a multi-order/multi-cart.](https://apis.io/schemas/nacelle/nacelle-multi-order-checkout/)
+- [OrderCheckout represents the details of an order/order-checkout.](https://apis.io/schemas/nacelle/nacelle-order-checkout/)
+- [OrderItemUpdate represents the details of an order item.](https://apis.io/schemas/nacelle/nacelle-order-item-update/)
+- [Token represents the structure of an access token.](https://apis.io/schemas/nacelle/nacelle-token/)
+- [TokenRequest represents the request to create a new token.](https://apis.io/schemas/nacelle/nacelle-token-request/)
 
-- Product Collections
-- Merchandising
-- GraphQL
+#### JSON-LD (1)
 
-#### Properties
+Linked-data contexts for the provider's vocabulary.
 
-- [Documentation](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- [GraphQL](graphql/nacelle-graphql.md)
-- [GraphQL Schema](graphql/nacelle-schema.graphql)
-- [Postman Collection](collections/nacelle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/nacelle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Nacelle Context](https://apis.io/jsonld/nacelle/nacelle-context/)
 
-### Nacelle Storefront Content API
+#### Collections (1)
 
-The `allContent` query returns CMS content entries (pages, articles, marketing blocks, media) ingested from sources such as Contentful, with a configurable entryDepth for resolving nested content references.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.nacelle.com/docs/storefront-graphql-api-stable](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- **Base URL:** `https://storefront.api.nacelle.com/graphql/v1/spaces`
+- [Nacelle GraphQL API](https://apis.io/collections/nacelle/open-nacelle/)
 
-#### Tags
+#### Governance rules (1)
 
-- Content
-- CMS
-- GraphQL
+Spectral rulesets for the provider's contracts.
 
-#### Properties
+- [Nacelle API Rules](https://apis.io/rules/nacelle/nacelle-rules/)
 
-- [Documentation](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- [GraphQL](graphql/nacelle-graphql.md)
-- [GraphQL Schema](graphql/nacelle-schema.graphql)
-- [Postman Collection](collections/nacelle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/nacelle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Security (4)
 
-### Nacelle Storefront Navigation and Spaces API
+Authentication, trust centre, and vulnerability disclosure.
 
-The `navigation` and `spaceProperties` queries return a space's navigation groups (menus) and space-level configuration (locales, currency, metadata) used to render a headless storefront's chrome and localization.
+- [Nacelle Authentication](https://apis.io/security/nacelle/nacelle-authentication/)
+- [Nacelle Domain Security](https://apis.io/security/nacelle/nacelle-domain-security/)
+- [Nacelle Trust Center](https://apis.io/security/nacelle/nacelle-trust-center/)
+- [Nacelle Vulnerability Disclosure](https://apis.io/security/nacelle/nacelle-vulnerability-disclosure/)
 
-- **Human URL:** [https://docs.nacelle.com/docs/spaces](https://docs.nacelle.com/docs/spaces)
-- **Base URL:** `https://storefront.api.nacelle.com/graphql/v1/spaces`
+#### OAuth scopes (1)
 
-#### Tags
+The permissions the API asks for.
 
-- Navigation
-- Spaces
-- Settings
-- GraphQL
+- [Nacelle Scopes](https://apis.io/scopes/nacelle/nacelle-scopes/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://docs.nacelle.com/docs/spaces)
-- [API Reference](https://docs.nacelle.com/docs/storefront-graphql-api-stable)
-- [GraphQL](graphql/nacelle-graphql.md)
-- [GraphQL Schema](graphql/nacelle-schema.graphql)
-- [Postman Collection](collections/nacelle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/nacelle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### Nacelle Admin Indexing and Ingestion API
+- [Nacelle Plans Pricing](https://apis.io/plans/nacelle/nacelle-plans-pricing/)
 
-The Admin GraphQL API triggers and monitors the indexing / ingestion pipeline that pulls data from connected sources (Shopify, CMS) into a space - starting or resetting index jobs for a data source, entry, or entry type, and querying indexing status. Documented as a beta / limited-availability feature and authenticated with an admin token.
+#### Rate limits (1)
 
-- **Human URL:** [https://docs.nacelle.com/docs/admin-api](https://docs.nacelle.com/docs/admin-api)
-- **Base URL:** `https://admin.api.nacelle.com/graphql`
+Published request limits.
 
-#### Tags
+- [Nacelle Rate Limits](https://apis.io/rate-limits/nacelle/nacelle-rate-limits/)
 
-- Indexing
-- Ingestion
-- Admin
-- GraphQL
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://docs.nacelle.com/docs/admin-api)
-- [GraphQL](graphql/nacelle-graphql.md)
-- [GraphQL Schema](graphql/nacelle-schema.graphql)
-- [Postman Collection](collections/nacelle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/nacelle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Nacelle Finops](https://apis.io/finops/nacelle/nacelle-finops/)
 
-## Authentication
+## Where to find this API
 
-- **Storefront API:** `x-nacelle-space-id` + `x-nacelle-space-token` (public storefront token).
-- **Admin API:** `x-nacelle-space-id` + `x-nacelle-admin-token`.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [GitHub Organization](https://github.com/getnacelle)
-- [LinkedIn](https://www.linkedin.com/company/nacelle)
 - [Website](https://nacelle.com/)
 - [Documentation](https://docs.nacelle.com/)
-- [Plans](plans/nacelle-plans-pricing.yml)
-- [Rate Limits](rate-limits/nacelle-rate-limits.yml)
-- [Fin Ops](finops/nacelle-finops.yml)
+- [Pricing](https://nacelle.com/pricing/)
+- [Support](https://help.nacelle.com/)
+- [Compliance](https://nacelle.com/terms-and-conditions)
+- [GitHub](https://github.com/getnacelle)
+- [Status](https://status.nacelle.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 48.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 66.0 |
+| Contract governance | 17.4 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 29.8 |
+| Access clarity | 31.6 |
+
+**Agent readiness 24.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 37.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/nacelle/](https://apis.io/providers/nacelle/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Nacelle: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/nacelle/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
